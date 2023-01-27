@@ -3,16 +3,21 @@ import React, {useState} from "react";
 function Login(){
 
     const [email, setEmail] = useState('')
+
+    function login(e){
+        e.preventDefault();
+        console.log("will be able to sign in one day")
+    }
     return(
         <div className="loginComponent">
             <img src={require('../assets/LinkITLogoFull.png')}/>
             <div className="loginContainer">
-                <form>
-                    <input placeholder="email"/>
+                <form onSubmit={login}>
+                    <input placeholder="Email"/>
                     <br/>
-                    <input placeholder="password"/>
+                    <input placeholder="Password"/>
                     <br/>
-                    <button>sign in</button>
+                    <button type="submit">Sign In</button>
                 </form>
             </div>
         </div>
