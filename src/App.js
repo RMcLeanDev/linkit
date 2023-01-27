@@ -3,17 +3,35 @@ import './App.scss';
 import { store } from './';
 import {testFunction} from './actions/index';
 import MobileFooter from './components/MobileFooter';
+import {Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
+import Login from './components/Login';
 
-function App() {
-  return (
-    <div className="App">
+function App(props) {
+  let display;
+
+  if(props.authUser){
+    display = <div>
       <MobileFooter />
-      <h1>Click the button: ljlaksdjfawinefonwweoinfoaifwweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefneoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefneoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefn</h1>
-      <p>wionefiowenfoweinfweoinfoaifnaenfaljwjojefowienfoweinfowiefnwoeifnwefnwefnweoinjwoiefjwoeifjowiej</p>
       <button onClick={() => store.dispatch(testFunction())}>TEST</button>
       <p className="gap"/>
+    </div>
+  } else if(props.authUser === false){
+    display = <div>
+      <Login />
+    </div>
+  } else {
+    display = <div>loading...</div>
+  }
+  return (
+    <div className="App">
+      {display}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  authUser: state.authState
+})
+
+export default connect(mapStateToProps)(App);
