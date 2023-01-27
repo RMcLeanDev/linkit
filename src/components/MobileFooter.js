@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Footer(){
+function MobileFooter(){
     return(
-        <div className="footer">
+        <div className="mobileFooter">
             <h1>footer</h1>
         </div>
     )
 }
 
-export default Footer;
+export default MobileFooter;
