@@ -63,8 +63,10 @@ p{
   align-items: center;
   flex-direction: column;
   img{
+    position: fixed;
+    top: 0;
     width: 80%;
-    margin-top: -20px;
+    margin-top: 40px;
   }
   .loginContainer{
     margin-top: 20px;
