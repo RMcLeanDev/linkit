@@ -14,7 +14,7 @@ function MobileFooter(){
             {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow}/>: null}
             <h1>logo</h1>
             <div className="footerOption">
-                <img className="supportIcon" src={require('../assets/supportIcon.png')}/>
+                <i class="fa-regular fa-circle-question"></i>
                 <p>Support</p>
             </div>
             <div className="footerOption" onClick={() => setLogoutConfirmationScreen(true)}>
