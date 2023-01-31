@@ -28,20 +28,21 @@ p{
   height: 50px;
   display: grid;
   background-color: white;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
   border-top: 1px solid darkgray;
+  align-items: center;
   .footerOption{
     height: 100%;
-    align-items: center;
     border-left: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     p{
       font-size: 10px;
     }
     .supportIcon{
-      padding-top: 4px;
       height: 30px;
-      margin-bottom: -4px;
     }
     &:hover{
       background-color: rgb(235, 235, 235);
@@ -108,4 +109,35 @@ p{
 #natogglePassword{
   margin-left: -35px;
   margin-right: 14px;
+}
+
+.logoutConfirmation{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  .logoutConfirmationContainer{
+    border: 1px solid #0f95f9;
+    padding: 10px;
+    background-color: white;
+    button{
+      border: none;
+      border-radius: none;
+      border: 1px solid #c54dff;
+      background-color: white;
+      margin-top: 10px;
+      color: black;
+      width: 100px;
+      height: 30px;
+    }
+    .logout{
+      background-color: red;
+      color: white;
+    }
+  }
 }

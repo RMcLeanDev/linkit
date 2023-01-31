@@ -1,12 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
+import LogoutConfirmation from './LogoutConfirmation';
 
 function MobileFooter(){
+
+    const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);
+
+    function closeWindow(){
+        setLogoutConfirmationScreen(false);
+    }
+
     return(
         <div className="mobileFooter">
+            {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow}/>: null}
             <h1>logo</h1>
             <div className="footerOption">
                 <img className="supportIcon" src={require('../assets/supportIcon.png')}/>
                 <p>Support</p>
+            </div>
+            <div className="footerOption" onClick={() => setLogoutConfirmationScreen(true)}>
+                <i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>
+                <p>Logout</p>
             </div>
         </div>
     )
