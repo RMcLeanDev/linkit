@@ -11,7 +11,7 @@ function MobileFooter(){
 
     return(
         <div className="mobileFooter">
-            {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow}/>: null}
+            {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow} />: null}
             <h1>logo</h1>
             <div className="footerOption">
                 <i class="fa-regular fa-circle-question"></i>
