@@ -3,9 +3,11 @@ import './App.scss';
 import { store } from './';
 import {testFunction} from './actions/index';
 import MobileFooter from './components/MobileFooter';
-import {Switch, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Login from './components/Login';
+import Home from './components/Home';
+import SupportRequest from './components/SupportRequest';
 
 function App(props) {
   let display;
@@ -13,8 +15,10 @@ function App(props) {
   if(props.authUser){
     display = <div>
       <MobileFooter />
-      <button onClick={() => store.dispatch(testFunction())}>TEST</button>
-      <p className="gap"/>
+      <Routes>
+        <Route exact path='/' element={<Home />}/>
+        <Route exact path='/supportRequest' element={<SupportRequest />}/>
+      </Routes>
     </div>
   } else if(props.authUser === false){
     display = <div>

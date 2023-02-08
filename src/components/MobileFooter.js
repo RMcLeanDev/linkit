@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import LogoutConfirmation from './LogoutConfirmation';
+import { useNavigate } from 'react-router-dom';
 
 function MobileFooter(){
 
     const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);
+    const navigate = useNavigate();
 
     function closeWindow(){
         setLogoutConfirmationScreen(false);
@@ -12,8 +14,10 @@ function MobileFooter(){
     return(
         <div className="mobileFooter">
             {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow} />: null}
-            <h1>logo</h1>
-            <div className="footerOption">
+            <div className="footerOption" onClick={() => navigate('/')}>
+                <img className="footerLogo" src={require('../assets/logoNoText.png')}/>
+            </div>
+            <div className="footerOption" onClick={() => navigate('/supportRequest')}>
                 <i class="fa-regular fa-circle-question"></i>
                 <p>Support</p>
             </div>
