@@ -31,6 +31,7 @@ p{
   grid-template-columns: 1fr 1fr 1fr;
   border-top: 1px solid darkgray;
   align-items: center;
+  z-index: 1;
   .footerOption{
     height: 100%;
     border-left: 1px solid lightgray;
@@ -115,42 +116,23 @@ p{
   margin-right: 14px;
 }
 
-.logoutConfirmation{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0,0,0,0.5);
-  .logoutConfirmationContainer{
-    border: 1px solid #0f95f9;
-    padding: 10px;
-    background-color: white;
-    button{
-      border: none;
-      border-radius: none;
-      border: 1px solid #c54dff;
-      background-color: white;
-      margin-top: 10px;
-      color: black;
-      width: 100px;
-      height: 30px;
-    }
-    .logout{
-      background-color: red;
-      color: white;
-    }
-  }
-}
-
 .ticketsContainer{
   width: 100vw;
   display: flex;
   justify-content: center;
-  position: relative;
+  .addNewTicketButton{
+    position: absolute;
+    top: 19px;
+    right: 5px;
+    height: 40px;
+    width: 38px;
+    font-size: 38px;
+    border-radius: 40px;
+    padding-left: 2px;
+    color: #0f95f9;
+    background-color: rgb(241, 241, 241);
+    border: 1px solid rgba(0,0,0,0.2);
+  }
   .currentTickets{
     width: 90%;
     min-height: 50px;
@@ -169,21 +151,6 @@ p{
   }
 }
 
-.addNewTicket{
-  height: 40px;
-  width: 38px;
-  font-size: 38px;
-  border-radius: 40px;
-  padding-left: 2px;
-  background-color: white;
-  color: #0f95f9;
-  background-color: rgb(241, 241, 241);
-  border: 1px solid rgba(0,0,0,0.2);
-  position: absolute;
-  top: -19px;
-  z-index: 1;
-  right: 5px;
-}
 
 .createTicketContainer{
   width: 100vw;
@@ -213,5 +180,36 @@ p{
     width: 15px;
     border: 1px solid rgba(0,0,0,0.3);
     color: #0f95f9;
+  }
+}
+
+.logoutConfirmation{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  .logoutConfirmationContainer{
+    border: 1px solid #0f95f9;
+    padding: 10px;
+    background-color: white;
+    button{
+      border: none;
+      border-radius: none;
+      border: 1px solid #c54dff;
+      background-color: white;
+      margin-top: 10px;
+      color: black;
+      width: 100px;
+      height: 30px;
+    }
+    .logout{
+      background-color: red;
+      color: white;
+      font-weight: bold;
+    }
   }
 }

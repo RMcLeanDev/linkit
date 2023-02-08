@@ -7,13 +7,9 @@ function MobileFooter(){
     const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);
     const navigate = useNavigate();
 
-    function closeWindow(){
-        setLogoutConfirmationScreen(false);
-    }
-
     return(
         <div className="mobileFooter">
-            {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={closeWindow} />: null}
+            {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={() => setLogoutConfirmationScreen(false)} />: null}
             <div className="footerOption" onClick={() => navigate('/')}>
                 <img className="footerLogo" src={require('../assets/logoNoText.png')}/>
             </div>

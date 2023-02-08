@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CreateSupportTicket(){
+function CreateSupportTicket(props){
 
     function submitNewTicket(e){
         e.preventDefault();
@@ -9,7 +9,7 @@ function CreateSupportTicket(){
     return(
         <div className="createTicketContainer">
             <form onSubmit={submitNewTicket} className="createTicketInfo">
-                <i class="fa-solid fa-x close"></i>
+                <i class="fa-solid fa-x close" onClick={props.closeWindow} />
                 <h1>Create support ticket</h1>
                 <button>Submit</button>
             </form>

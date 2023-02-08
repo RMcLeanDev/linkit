@@ -3,14 +3,14 @@ import CreateSupportTicket from './CreateSupportTicket';
 
 function SupportRequest(){
 
-    const [ticketForm, setTicketForm] = useState(true);
+    const [ticketForm, setTicketForm] = useState(false);
 
     return(
         <div className="supportRequestContainer">
-            {ticketForm ? <CreateSupportTicket />:null}
+            {ticketForm ? <CreateSupportTicket closeWindow={() => setTicketForm(false)}/>:null}
             <h1>Current Requests:</h1>
             <div className="ticketsContainer">
-            <i class="fa-solid fa-plus addNewTicket"/>
+                <i className="fa-solid fa-plus addNewTicketButton" onClick={() => setTicketForm(true)}/>
                 <div className="currentTickets">
                     <div className="supportItem">
                         <p>name</p>
