@@ -31,7 +31,7 @@ p{
   grid-template-columns: 1fr 1fr 1fr;
   border-top: 1px solid darkgray;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   .footerOption{
     height: 100%;
     border-left: 1px solid lightgray;
@@ -116,37 +116,46 @@ p{
   margin-right: 14px;
 }
 
-.ticketsContainer{
-  width: 100vw;
+.supportRequestContainer{
   display: flex;
   justify-content: center;
-  .addNewTicketButton{
-    position: absolute;
-    top: 19px;
-    right: 5px;
-    height: 40px;
-    width: 38px;
-    font-size: 38px;
-    border-radius: 40px;
-    padding-left: 2px;
-    color: #0f95f9;
-    background-color: rgb(241, 241, 241);
-    border: 1px solid rgba(0,0,0,0.2);
-  }
-  .currentTickets{
+  flex-direction: column;
+  align-items: center;
+  .ticketsContainer{
     width: 90%;
-    min-height: 50px;
-  }
-  .supportItem{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 5px;
-    &:nth-child(even){
-      background-color: rgb(230, 230, 230);
+    position: relative;
+    .currentTickets{
+      width: 100%;
+      min-height: 50px;
+      position: relative;
     }
-    &:nth-child(1){
-      background-color: #c54dff;
-      font-weight: bold;
+    .supportItem{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 5px;
+      &:nth-child(odd){
+        background-color: rgb(230, 230, 230);
+      }
+      &:nth-child(1){
+        background-color: #c54dff;
+        font-weight: bold;
+        border-bottom: 1px solid black;
+        text-decoration: underline;
+      }
+    }
+    .addNewTicketButton{
+      position: absolute;
+      top: -19px;
+      right: -14px;
+      height: 40px;
+      width: 38px;
+      font-size: 38px;
+      border-radius: 40px;
+      padding-left: 2px;
+      color: #0f95f9;
+      background-color: rgb(241, 241, 241);
+      border: 1px solid rgba(0,0,0,0.2);
+      z-index: 1;
     }
   }
 }

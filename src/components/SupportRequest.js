@@ -13,9 +13,9 @@ function SupportRequest(){
                 <i className="fa-solid fa-plus addNewTicketButton" onClick={() => setTicketForm(true)}/>
                 <div className="currentTickets">
                     <div className="supportItem">
-                        <p>name</p>
-                        <p>severity</p>
-                        <p>status</p>
+                        <p>Name:</p>
+                        <p>Severity:</p>
+                        <p>Status:</p>
                     </div>
                     <div className="supportItem">
                         <p>Ryan</p>
