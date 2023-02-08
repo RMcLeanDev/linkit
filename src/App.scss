@@ -145,3 +145,42 @@ p{
     }
   }
 }
+
+.ticketsContainer{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  .currentTickets{
+    width: 90%;
+    min-height: 50px;
+  }
+  .supportItem{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 5px;
+    &:nth-child(even){
+      background-color: rgb(230, 230, 230);
+    }
+    &:nth-child(1){
+      background-color: #c54dff;
+      font-weight: bold;
+    }
+  }
+}
+
+.addNewTicket{
+  height: 40px;
+  width: 38px;
+  font-size: 38px;
+  border-radius: 40px;
+  padding-left: 2px;
+  background-color: white;
+  color: #0f95f9;
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgba(0,0,0,0.2);
+  position: absolute;
+  top: -19px;
+  z-index: 1;
+  right: 5px;
+}
