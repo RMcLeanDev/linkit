@@ -184,3 +184,34 @@ p{
   z-index: 1;
   right: 5px;
 }
+
+.createTicketContainer{
+  width: 100vw;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index:2;
+  display: flex;
+  justify-content: center;
+  .createTicketInfo{
+    position: absolute;
+    top: 20px;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    padding: 5px;
+  }
+  .close{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: rgb(234, 234, 234);
+    padding: 10px;
+    border-radius: 100%;
+    width: 15px;
+    border: 1px solid rgba(0,0,0,0.3);
+    color: #0f95f9;
+  }
+}

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
+import CreateSupportTicket from './CreateSupportTicket';
 
 function SupportRequest(){
+
+    const [ticketForm, setTicketForm] = useState(true);
+
     return(
         <div className="supportRequestContainer">
+            {ticketForm ? <CreateSupportTicket />:null}
             <h1>Current Requests:</h1>
             <div className="ticketsContainer">
-            <i class="fa-solid fa-plus addNewTicket"></i>
+            <i class="fa-solid fa-plus addNewTicket"/>
                 <div className="currentTickets">
                     <div className="supportItem">
                         <p>name</p>
