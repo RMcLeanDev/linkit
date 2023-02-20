@@ -9,7 +9,7 @@ function Venues(){
     return(
         <div className="venuesContainer">
             {venueForm ? (disableBodyScroll(document), <AddVenueForm closeWindow={() => setVenueForm(false)}/>):(enableBodyScroll(document), null)}
-            <input placeholder="SEARCH" />
+            <input className="searchBar" placeholder="SEARCH" />
             <i className="fa-solid fa-plus addNewTicketButton" style={{color: "#c54dff"}} onClick={() => setVenueForm(true)}/>
             <div>
                 <p>info here</p>

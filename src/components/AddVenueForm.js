@@ -23,7 +23,7 @@ function AddVenueForm(props){
                 </div>
                 <div style={{"marginBottom":"10px"}}></div>
                 <p>Alternate Contact Info: (optional)</p>
-                <input placeHolder="Alt Contact"/>
+                <input className="singleLine" placeHolder="Alt Contact"/>
                 <p>Rep name</p>
                 <p>Alt Contact</p>
                 <p>Alt Number</p>
