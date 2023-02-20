@@ -7,8 +7,8 @@ function CreateSupportTicket(props){
     }
 
     return(
-        <div className="createTicketContainer">
-            <form onSubmit={submitNewTicket} className="createTicketInfo">
+        <div className="formContainer">
+            <form onSubmit={submitNewTicket} className="formBox">
                 <i class="fa-solid fa-x close" onClick={props.closeWindow} />
                 <h1>Create support ticket</h1>
                 <button>Submit</button>

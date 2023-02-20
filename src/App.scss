@@ -28,7 +28,7 @@ p{
   height: 60px;
   display: grid;
   background-color: white;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   border-top: 1px solid darkgray;
   align-items: center;
   z-index: 2;
@@ -143,53 +143,23 @@ p{
         text-decoration: underline;
       }
     }
-    .addNewTicketButton{
-      position: absolute;
-      top: -19px;
-      right: -14px;
-      height: 40px;
-      width: 38px;
-      font-size: 38px;
-      border-radius: 40px;
-      padding-left: 2px;
-      color: #0f95f9;
-      background-color: rgb(241, 241, 241);
-      border: 1px solid rgba(0,0,0,0.2);
-      z-index: 1;
-    }
   }
 }
 
-
-.createTicketContainer{
-  width: 100vw;
+.addNewTicketButton{
   position: fixed;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: rgba(0,0,0,0.4);
-  z-index:2;
-  display: flex;
-  justify-content: center;
-  .createTicketInfo{
-    position: absolute;
-    top: 20px;
-    width: 90%;
-    height: auto;
-    background-color: white;
-    padding: 5px;
-  }
-  .close{
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    background-color: rgb(234, 234, 234);
-    padding: 10px;
-    border-radius: 100%;
-    width: 15px;
-    border: 1px solid rgba(0,0,0,0.3);
-    color: #0f95f9;
-  }
+  bottom: 70px;
+  right:10px;
+  height: 40px;
+  width: 38px;
+  font-size: 38px;
+  border-radius: 40px;
+  padding-left: 2px;
+  color: #0f95f9;
+  background-color: rgb(241, 241, 241);
+  border: 1px solid rgba(0,0,0,0.2);
+  z-index: 1;
+  opacity: .9;
 }
 
 .logoutConfirmation{
@@ -220,5 +190,58 @@ p{
       color: white;
       font-weight: bold;
     }
+  }
+}
+
+.venuesContainer{
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  input{
+    width: 95vw;
+    text-align: center;
+    margin-top: 5px;
+    border-radius: 0;
+    border: 1px solid black;
+    height: 25px;
+    font-size: 15px;
+  }
+}
+
+.formContainer{
+  width: 100vw;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index:2;
+  display: flex;
+  justify-content: center;
+  .formBox{
+    position: absolute;
+    top: 20px;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input{
+      width: 90%;
+    }
+  }
+  .close{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: rgb(234, 234, 234);
+    padding: 10px;
+    border-radius: 100%;
+    width: 15px;
+    border: 1px solid rgba(0,0,0,0.3);
+    color: #0f95f9;
   }
 }

@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import Login from './components/Login';
 import Home from './components/Home';
 import SupportRequest from './components/SupportRequest';
+import Venues from './components/Venues';
 
 function App(props) {
   let display;
@@ -18,6 +19,7 @@ function App(props) {
       <Routes>
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
+        <Route exact path='/venues' element={<Venues />} />
       </Routes>
     </div>
   } else if(props.authUser === false){
