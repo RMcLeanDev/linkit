@@ -21,20 +21,52 @@ function AddVenueForm(props){
                     <input placeholder="Contact Number"/>
                     <input placeholder="Contact Email"/>
                 </div>
+                <input className="singleLine" placeHolder="Address"/>
                 <div style={{"marginBottom":"10px"}}></div>
                 <p>Alternate Contact Info: (optional)</p>
                 <input className="singleLine" placeHolder="Alt Contact"/>
-                <p>Rep name</p>
-                <p>Alt Contact</p>
-                <p>Alt Number</p>
-                <p>Alt email</p>
-                <p>Address</p>
-                <p>pet friendly</p>
-                <p>family friendly</p>
-                <p>serves food?</p>
-                <p>wifi name</p>
-                <p>wifi password</p>
-                <button>Submit</button>
+                <div className="formItem">
+                    <input placeholder="Alt Number"/>
+                    <input placeholder="Alt Email"/>
+                </div>
+                <div style={{"marginBottom":"10px"}}></div>
+                <p>Additional Info:</p>
+                <div style={{"marginBottom":"5px"}}></div>
+                <div className="formItem">
+                    <p style={{"justifySelf":"flex-start"}}>Pet Friendly?</p>
+                    <select>
+                        <option>Select one:</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Unknown</option>
+                    </select>
+                </div>
+                <div className="formItem">
+                    <p style={{"justifySelf":"flex-start"}}>Family Friendly?</p>
+                    <select>
+                        <option>Select one:</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Unknown</option>
+                    </select>
+                </div>
+                <div className="formItem">
+                    <p style={{"justifySelf":"flex-start"}}>Serves Food?</p>
+                    <select>
+                        <option>Select one:</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        <option>Unknown</option>
+                    </select>
+                </div>
+                <p style={{"marginTop": "10px"}}>Internal Items:</p>
+                <div style={{"marginBottom":"5px"}}></div>
+                <div className="formItem">
+                    <input placeholder="Wifi Name"/>
+                    <input placeholder="Wifi Password"/>
+                </div>
+                <input className="singleLine" placeHolder="Rep Name"/>
+                <button className="submitVenue" type="submit">Submit</button>
             </form>
         </div>
         </div>

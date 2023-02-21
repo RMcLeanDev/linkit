@@ -245,6 +245,9 @@ p{
       grid-gap: 10px;
       input{
         border: 1px solid black;
+        border-left: none;
+        border-top: none;
+        border-right: none;
         height: 25px;
         text-align: center;
       }
@@ -254,7 +257,19 @@ p{
       height: 25px;
       border: 1px solid black;
       text-align: center;
+      margin-bottom: 5px;
+      border-top: none;
+      border-left: none;
+      border-right: none;
     }
+  }
+  .submitVenue{
+    width: 50%;
+    height: 25px;
+    background-color: lime;
+    border: none;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
   .close{
     position: absolute;
