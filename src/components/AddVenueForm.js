@@ -23,30 +23,15 @@ function AddVenueForm(props){
 
     function submitNewVenue(e){
         e.preventDefault();
-        if(!altContact){
-            setAltContact("none given")
-        }
-        else if(!altNumber){
-            setAltNumber("none given")
-        }
-        else if(!altEmail){
-            setAltEmail("none given")
-        }
-        else if(!wifiName){
-            setWifiName("none given")
-        }
-        else if(!wifiPassword){
-            setWifiPassword("none given")
-        } else {
-            let newId = uuidv4();
-            let pushInfo = {venueName: venueName, venueContactName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: altContact, altNumber: altNumber, altEmail: altEmail, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: wifiName, wifiPassword: wifiPassword, repName: repName, dateCreated: Date.now(), id: newId};
-            console.log(pushInfo)
-            firebase.database().ref(`venues/${newId}`).set(pushInfo).then(() => {
-                props.closeWindow()
-            }).catch(error => {
-                console.log(error)
-            });
-        }    
+        let newId = uuidv4();
+        let pushInfo = {venueName: venueName, venueName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: `${altContact ? altContact:"none given"}`, altNumber: `${altNumber ? altNumber:"none given"}`, altEmail: `${altEmail ? altEmail:"none given"}`, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: `${wifiName ? wifiName : "none given"}`, wifiPassword: `${wifiPassword ? wifiPassword:"none given"}`, repName: repName, dateCreated: Date.now(), id: newId, status:"new"};
+        console.log(pushInfo)
+        firebase.database().ref(`venues/${newId}`).set(pushInfo).then(() => {
+            props.closeWindow()
+        }).catch(error => {
+            console.log(error)
+        });
+        
     }
 
     return(
@@ -64,7 +49,7 @@ function AddVenueForm(props){
                     <input required placeholder="Contact Number" onChange={e => setContactNumber(e.target.value)}/>
                     <input required type="email" placeholder="Contact Email" onChange={e => setContactEmail(e.target.value)}/>
                 </div>
-                <input className="singleLine" placeHolder="Address" onChange={e => setAddress(e.target.value)}/>
+                <input required className="singleLine" placeHolder="Address" onChange={e => setAddress(e.target.value)}/>
                 <div style={{"marginBottom":"10px"}}></div>
                 <p>Alternate Contact Info: (optional)</p>
                 <input className="singleLine" placeHolder="Alt Contact" onChange={e => setAltContact(e.target.value)}/>

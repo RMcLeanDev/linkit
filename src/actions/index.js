@@ -11,6 +11,9 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged(function(user) {
   if(user){
     store.dispatch(authUserTrue());
+    firebase.database().ref(`venues`).on('value', function(snapshot){
+      store.dispatch(getVenues(snapshot.val()));
+    })
   } else {
     store.dispatch(authUserFalse());
   }
@@ -26,4 +29,9 @@ export const authUserTrue = () => ({
 
 export const authUserFalse = () => ({
   type: types.AUTH_USER_FALSE
+})
+
+export const getVenues = (info) => ({
+  type: types.GET_VENUES,
+  info
 })

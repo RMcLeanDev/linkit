@@ -12,14 +12,14 @@ import Venues from './components/Venues';
 
 function App(props) {
   let display;
-
+  
   if(props.authUser){
     display = <div>
       <MobileFooter />
       <Routes>
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
-        <Route exact path='/venues' element={<Venues />} />
+        <Route exact path='/venues' element={<Venues venues={props.venues}/>} />
       </Routes>
     </div>
   } else if(props.authUser === false){
@@ -37,7 +37,8 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({
-  authUser: state.authState
+  authUser: state.authState,
+  venues: state.venueState
 })
 
 export default connect(mapStateToProps)(App);

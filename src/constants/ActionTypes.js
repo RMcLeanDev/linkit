@@ -1,3 +1,4 @@
 export const TEST_FUNCTION = 'TEST_FUNCTION';
 export const AUTH_USER_TRUE = 'AUTH_USER_TRUE';
 export const AUTH_USER_FALSE = 'AUTH_USER_FALSE';
+export const GET_VENUES = "GET_VENUES";
