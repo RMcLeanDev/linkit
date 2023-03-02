@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
+import firebase from 'firebase/compat/app';
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import {v4 as uuidv4} from 'uuid';
 
 function AddVenueForm(props){
 
-    const [businessName, setBusinessName] = useState('');
-    const [businessContactName, setBusinessContactName] = useState('')
+    const [venueName, setVenueName] = useState('');
+    const [venueContactName, setVenueContactName] = useState('')
     const [contactNumber, setContactNumber] = useState('')
     const [contactEmail, setContactEmail] = useState('')
     const [address, setAddress] = useState('')
@@ -19,6 +23,30 @@ function AddVenueForm(props){
 
     function submitNewVenue(e){
         e.preventDefault();
+        if(!altContact){
+            setAltContact("none given")
+        }
+        else if(!altNumber){
+            setAltNumber("none given")
+        }
+        else if(!altEmail){
+            setAltEmail("none given")
+        }
+        else if(!wifiName){
+            setWifiName("none given")
+        }
+        else if(!wifiPassword){
+            setWifiPassword("none given")
+        } else {
+            let newId = uuidv4();
+            let pushInfo = {venueName: venueName, venueContactName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: altContact, altNumber: altNumber, altEmail: altEmail, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: wifiName, wifiPassword: wifiPassword, repName: repName, dateCreated: Date.now(), id: newId};
+            console.log(pushInfo)
+            firebase.database().ref(`venues/${newId}`).set(pushInfo).then(() => {
+                props.closeWindow()
+            }).catch(error => {
+                console.log(error)
+            });
+        }    
     }
 
     return(
@@ -29,12 +57,12 @@ function AddVenueForm(props){
                 <h1>Add Venue</h1>
                 <p>Basic Information:</p>
                 <div className="formItem">
-                    <input placeholder="Business Name" onChange={e => setBusinessName(e.target.value)}/>
-                    <input placeholder="Business Contact Name" onChange={e => setBusinessContactName(e.target.value)}/>
+                    <input required placeholder="Venue Name" onChange={e => setVenueName(e.target.value)}/>
+                    <input required placeholder="Venue Contact Name" onChange={e => setVenueContactName(e.target.value)}/>
                 </div>
                 <div className="formItem">
-                    <input placeholder="Contact Number" onChange={e => setContactNumber(e.target.value)}/>
-                    <input placeholder="Contact Email" onChange={e => setContactEmail(e.target.value)}/>
+                    <input required placeholder="Contact Number" onChange={e => setContactNumber(e.target.value)}/>
+                    <input required type="email" placeholder="Contact Email" onChange={e => setContactEmail(e.target.value)}/>
                 </div>
                 <input className="singleLine" placeHolder="Address" onChange={e => setAddress(e.target.value)}/>
                 <div style={{"marginBottom":"10px"}}></div>
@@ -77,10 +105,10 @@ function AddVenueForm(props){
                 <p style={{"marginTop": "10px"}}>Internal Items:</p>
                 <div style={{"marginBottom":"5px"}}></div>
                 <div className="formItem">
-                    <input placeholder="Wifi Name" onChange={e => setWifiName(e.target.value)}/>
-                    <input placeholder="Wifi Password" onChange={e => setWifiPassword(e.target.value)}/>
+                    <input placeholder="Wifi Name (Optional)" onChange={e => setWifiName(e.target.value)}/>
+                    <input placeholder="Wifi Password (Optional)" onChange={e => setWifiPassword(e.target.value)}/>
                 </div>
-                <input className="singleLine" placeHolder="Rep Name" onChange={e => setRepName(e.target.value)}/>
+                <input required className="singleLine" placeHolder="Rep Name" onChange={e => setRepName(e.target.value)}/>
                 <button className="submitVenue" type="submit">Submit</button>
             </form>
         </div>

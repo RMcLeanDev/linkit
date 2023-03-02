@@ -160,6 +160,7 @@ p{
   border: 1px solid rgba(0,0,0,0.2);
   z-index: 1;
   opacity: .9;
+  cursor: pointer;
 }
 
 .logoutConfirmation{
@@ -184,11 +185,13 @@ p{
       color: black;
       width: 100px;
       height: 30px;
+      cursor: pointer;
     }
     .logout{
       background-color: red;
       color: white;
       font-weight: bold;
+      cursor: pointer;
     }
   }
 }
@@ -204,6 +207,9 @@ p{
     margin-top: 5px;
     border-radius: 0;
     border: 1px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     height: 25px;
     font-size: 15px;
   }
@@ -270,6 +276,7 @@ p{
     border: none;
     margin-top: 15px;
     margin-bottom: 10px;
+    cursor: pointer;
   }
   .close{
     position: absolute;
@@ -281,5 +288,6 @@ p{
     width: 15px;
     border: 1px solid rgba(0,0,0,0.3);
     color: #0f95f9;
+    cursor: pointer;
   }
 }
