@@ -25,7 +25,7 @@ function Venues(props){
                     {sortSettings.name === "status" ? sortSettings.ascending ? <IoIosArrowDropdownCircle size={25}/>:<IoIosArrowDropupCircle size={25} />:<IoIosArrowDropup size={25}/>}
                 </div>
             </div>
-            <SortVenues venues={props.venues} search={search}/>
+            <SortVenues venues={props.venues} search={search} sortSettings={sortSettings}/>
         </div>
     )
 }

@@ -38,7 +38,7 @@ function AddVenueForm(props){
         <div>
             <div className="formContainer">
             <form onSubmit={submitNewVenue} className="formBox">
-                <i class="fa-solid fa-x close" onClick={props.closeWindow} />
+                <i className="fa-solid fa-x close" onClick={props.closeWindow} />
                 <h1>Add Venue</h1>
                 <p>Basic Information:</p>
                 <div className="formItem">
@@ -49,10 +49,10 @@ function AddVenueForm(props){
                     <input required placeholder="Contact Number" onChange={e => setContactNumber(e.target.value)}/>
                     <input required type="email" placeholder="Contact Email" onChange={e => setContactEmail(e.target.value)}/>
                 </div>
-                <input required className="singleLine" placeHolder="Address" onChange={e => setAddress(e.target.value)}/>
+                <input required className="singleLine" placeholder="Address" onChange={e => setAddress(e.target.value)}/>
                 <div style={{"marginBottom":"10px"}}></div>
                 <p>Alternate Contact Info: (optional)</p>
-                <input className="singleLine" placeHolder="Alt Contact" onChange={e => setAltContact(e.target.value)}/>
+                <input className="singleLine" placeholder="Alt Contact" onChange={e => setAltContact(e.target.value)}/>
                 <div className="formItem">
                     <input placeholder="Alt Number" onChange={e => setAltNumber(e.target.value)}/>
                     <input placeholder="Alt Email" onChange={e => setAltEmail(e.target.value)}/>
@@ -93,7 +93,7 @@ function AddVenueForm(props){
                     <input placeholder="Wifi Name (Optional)" onChange={e => setWifiName(e.target.value)}/>
                     <input placeholder="Wifi Password (Optional)" onChange={e => setWifiPassword(e.target.value)}/>
                 </div>
-                <input required className="singleLine" placeHolder="Rep Name" onChange={e => setRepName(e.target.value)}/>
+                <input required className="singleLine" placeholder="Rep Name" onChange={e => setRepName(e.target.value)}/>
                 <button className="submitVenue" type="submit">Submit</button>
             </form>
         </div>
