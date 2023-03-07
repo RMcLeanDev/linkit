@@ -66,8 +66,9 @@ function SortVenues(props){
                     let venue = sorted[venues]
                     return(
                         venue[1].venueName.includes(props.search) || venue[1].status.includes(props.search) ? 
-                        <div key={venues} className="mobileSortVenues">
+                        <div key={venues} className="mobileSortVenues pcSortVenues">
                             <p>{venue[1].venueName}</p>
+                            <p className="venueMobile">{venue[1].contactNumber}</p>
                             <p>{venue[1].status}</p>
                         </div> : null
                     )

@@ -19,6 +19,9 @@ function Venues(props){
                     <h3>Name</h3>
                     {sortSettings.name === "name" ? sortSettings.ascending ? <IoIosArrowDropdownCircle size={25}/>:<IoIosArrowDropupCircle size={25} />:<IoIosArrowDropup size={25}/>}
                 </div>
+                <div className="venueSort mobileOption">
+                    <h3>Mobile</h3>
+                </div>
                 <div className="venueSort" onClick={()=>setSortSettings({name: "status", ascending: !sortSettings.ascending})}>
                     <h3>Status</h3>
                     {sortSettings.name === "status" ? sortSettings.ascending ? <IoIosArrowDropdownCircle size={25}/>:<IoIosArrowDropupCircle size={25} />:<IoIosArrowDropup size={25}/>}

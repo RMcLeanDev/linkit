@@ -1,3 +1,16 @@
+@mixin mQ($arg...){
+  @if length($arg) == 1 {
+    @media screen and (max-width: nth($arg, 1)){
+      @content;
+    }
+  }
+  @if length($arg) == 2 {
+    @media screen and (max-width: nth($arg, 1)) and (min-width: nth($arg, 2)) {
+      @content;
+    }
+  }
+}
+
 @keyframes gradientInput{
   0%{box-shadow: 4px 4px 10px #c54dff}
   50%{box-shadow: -4px -4px 10px #0f95f9;}
@@ -302,6 +315,15 @@ p{
     align-items: center;
     cursor: pointer;
   }
+  .mobileOption{
+    display: none;
+  }
+  @include mQ(3000px, 1024px){
+    grid-template-columns: 1fr 1fr 1fr;
+    .mobileOption{
+      display: block;
+    }
+  }
 }
 
 .mobileSortVenuesContainer{
@@ -317,6 +339,17 @@ p{
     grid-template-columns: 1fr 1fr;
     &:nth-child(odd){
       background-color: rgb(235, 234, 234);
+    }
+    .venueMobile{
+      display: none;
+    }
+  }
+  @include mQ(3000px, 1024px){
+    .mobileSortVenues{
+      grid-template-columns: 1fr 1fr 1fr;
+      .venueMobile{
+        display: block;
+      }
     }
   }
 }
