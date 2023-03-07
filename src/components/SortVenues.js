@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SortVenues(props){
 
     let sorted = false;
+    const navigate =  useNavigate();
 
     if(props.venues){
         if(props.sortSettings.name === "name"){
@@ -67,7 +69,7 @@ function SortVenues(props){
                     return(
                         venue[1].venueName.includes(props.search) || venue[1].status.includes(props.search) ? 
                         <div key={venues} className="mobileSortVenues pcSortVenues">
-                            <p>{venue[1].venueName}</p>
+                            <p onClick={() => navigate(`${venue[1].id}`)}>{venue[1].venueName}</p>
                             <p className="venueMobile">{venue[1].contactNumber}</p>
                             <p>{venue[1].status}</p>
                         </div> : null

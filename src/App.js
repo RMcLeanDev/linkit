@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import SupportRequest from './components/SupportRequest';
 import Venues from './components/Venues';
+import DisplayVenue from './components/DisplayVenue';
 
 function App(props) {
   let display;
@@ -20,6 +21,7 @@ function App(props) {
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
         <Route exact path='/venues' element={<Venues venues={props.venues}/>} />
+        <Route exact path='/venues/:id' element={<DisplayVenue venue={props.venues}/>}/>
       </Routes>
     </div>
   } else if(props.authUser === false){
