@@ -68,7 +68,7 @@ function SortVenues(props){
         Object.keys(sorted).map((items) => {
             let venue = sorted[items]
             if(venue[1].venueName.toLowerCase().includes(props.search) || venue[1].status.includes(props.search) || venue[1].online.toString() === props.search){
-                newarry.push(venue)
+                return newarry.push(venue)
             }
         })
     }
