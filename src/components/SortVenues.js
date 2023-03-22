@@ -62,19 +62,31 @@ function SortVenues(props){
         }
     }
 
+    let newarry = [];
+
+    if(sorted){
+        Object.keys(sorted).map((items) => {
+            let venue = sorted[items]
+            if(venue[1].venueName.toLowerCase().includes(props.search) || venue[1].status.includes(props.search) || venue[1].online.toString() === props.search){
+                newarry.push(venue)
+            }
+        })
+    }
+
     return(
         <div className="mobileSortVenuesContainer">
-            {props.venues ? Object.keys(sorted).map(venues => {
-                    let venue = sorted[venues]
+            {props.venues ? Object.keys(newarry).map(venues => {
+                    let venue = newarry[venues]
                     return(
-                        venue[1].venueName.includes(props.search) || venue[1].status.includes(props.search) ? 
                         <div key={venues} className="mobileSortVenues pcSortVenues">
-                            <p onClick={() => navigate(`${venue[1].id}`)}>{venue[1].venueName}</p>
+                            <p style={{width: "10px", height: "10px", backgroundColor: venue[1].online ? "limegreen":"red", borderRadius:"10px", alignSelf: "center", marginLeft:"3px"}}></p>
+                            <p onClick={() => navigate(`${venue[1].id}`)} style={{cursor: "pointer"}}>{venue[1].venueName}</p>
                             <p className="venueMobile">{venue[1].contactNumber}</p>
                             <p>{venue[1].status}</p>
-                        </div> : null
+                        </div>
                     )
                 }) : "loading..."}
+                <p>{newarry.length > 0 ? `Displaying: ${newarry.length} venues`: "No Results Found"}</p>
         </div>
     )
 }

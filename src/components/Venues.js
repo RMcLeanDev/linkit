@@ -15,6 +15,7 @@ function Venues(props){
             <input className="searchBar" placeholder="SEARCH" onChange={e => setSearch(e.target.value)}/>
             <i className="fa-solid fa-plus addNewTicketButton" style={{color: "#c54dff"}} onClick={() => setVenueForm(true)}/>
             <div className="venueItems">
+                <div className="venueSort"/>
                 <div className="venueSort" onClick={()=>setSortSettings({name: "name", ascending: !sortSettings.ascending})}>
                     <h3>Name</h3>
                     {sortSettings.name === "name" ? sortSettings.ascending ? <IoIosArrowDropdownCircle size={25}/>:<IoIosArrowDropupCircle size={25} />:<IoIosArrowDropup size={25}/>}
