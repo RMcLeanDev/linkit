@@ -323,6 +323,7 @@ p{
     align-items: center;
     cursor: pointer;
     margin: 15px 0;
+    margin-bottom: 5px;
     &:hover{
       cursor: pointer;
     }
@@ -341,7 +342,6 @@ p{
 .mobileSortVenuesContainer{
   width: 90vw;
   margin-top: 1px solid black;
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
   .mobileSortVenues{
@@ -349,7 +349,7 @@ p{
     width: 100%;
     display: grid;
     grid-template-columns: 13px 1fr 1fr;
-    &:nth-child(odd){
+    &:nth-child(even){
       background-color: rgb(235, 234, 234);
     }
     .venueMobile{

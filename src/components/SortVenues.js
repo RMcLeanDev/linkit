@@ -75,6 +75,7 @@ function SortVenues(props){
 
     return(
         <div className="mobileSortVenuesContainer">
+            <p style={{marginBottom: "5px"}}>{newarry.length > 0 ? `Displaying: ${newarry.length} venue${newarry.length === 1 ? "":"s"}`: "No Results Found"}</p>
             {props.venues ? Object.keys(newarry).map(venues => {
                     let venue = newarry[venues]
                     return(
@@ -86,7 +87,6 @@ function SortVenues(props){
                         </div>
                     )
                 }) : "loading..."}
-                <p>{newarry.length > 0 ? `Displaying: ${newarry.length} venue${newarry.length === 1 ? "":"s"}`: "No Results Found"}</p>
         </div>
     )
 }
