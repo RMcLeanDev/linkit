@@ -1,5 +1,7 @@
 import react, {useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
+import {store} from  './../index';
+import { updateOnlineStatus } from '../actions';
 
 function DisplayVenue(props){
 
@@ -7,13 +9,20 @@ function DisplayVenue(props){
     const {id} = useParams();
     const [nav, setNav] = useState("info")
 
-    let venue = props.venue[id];
-    console.log(venue)
+    let venue;
+
+    if(props.venue){
+        venue = props.venue[id];
+    }
 
     return(
         <div className="displayVenue">
-            <div>
-                <p style={{marginBottom: "10px", fontWeight: "bold"}}>{venue.venueName}</p>
+            { venue ? 
+                <div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                        <div style={{width: "10px", height: "10px", backgroundColor: venue.online ? "limegreen":"red", borderRadius:"10px", marginRight:"5px"}}/>
+                        <p style={{fontWeight: "bold"}}>{venue.venueName}</p>
+                    </div>
                 <div className="venueNavContainer">
                     <div className="venueNav">
                         <p style={{backgroundColor: nav === "info" ? "rgba(197,77,255,0.5)":null}} onClick={() => setNav("info")}>Info</p>
@@ -22,13 +31,42 @@ function DisplayVenue(props){
                     </div>
                 </div>
                 {nav === "info" ? 
-                <div>
-                    <p>info</p>
+                <div className="displayVenueContainer">
+                    <h2>General Info:</h2>
+                    <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
+                    <div className="displayVenue2">
+                        <p>Contact Name:</p>
+                        <p>{venue.venueContactName}</p>
+                    </div>
+                    <div className="displayVenue2">
+                        <p>Contact Number:</p>
+                        <a style={{color: "black"}}href={"tel:"+venue.contactNumber}>{venue.contactNumber}</a>
+                    </div>
+                    <div className="displayVenue2">
+                        <p>Contact Email:</p>
+                        <a style={{color: "black"}}href={"emailto:"+venue.contactEmail}>{venue.contactEmail}</a>
+                    </div>
+                    <div className="displayVenue2">
+                        <p>Contact Address:</p>
+                        <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
+                    </div>
+                    <div className="displayVenue2">
+                        <p>Contact Address:</p>
+                        <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
+                    </div>
+                    <div className="displayVenue2">
+                        <p>Online Status:</p>
+                        <select value={venue.online} onChange={(e) => store.dispatch(updateOnlineStatus({newStatus: JSON.parse(e.target.value), venue: venue}))}>
+                            <option value="false">Offline</option>
+                            <option value="true">Online</option>
+                        </select>
+                    </div>
                 </div>:
                 <div>
                     <p>docs</p>
                 </div>}
-            </div>
+            </div> : "loading..."
+            }
             <button onClick={() => navigate("/venues")}>go back</button>
         </div>
     )

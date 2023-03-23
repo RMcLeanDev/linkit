@@ -86,7 +86,7 @@ function SortVenues(props){
                         </div>
                     )
                 }) : "loading..."}
-                <p>{newarry.length > 0 ? `Displaying: ${newarry.length} venues`: "No Results Found"}</p>
+                <p>{newarry.length > 0 ? `Displaying: ${newarry.length} venue${newarry.length === 1 ? "":"s"}`: "No Results Found"}</p>
         </div>
     )
 }

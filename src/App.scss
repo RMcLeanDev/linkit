@@ -377,3 +377,21 @@ p{
     }
   }
 }
+
+.displayVenueContainer{
+  display: grid;
+  width: 100vw;
+  grid-template-columns: 1fr;
+  h2{
+    margin: 10px 0;
+    margin-bottom: 0px;
+  }
+  .displayVenue2{
+    display: grid;
+    width: 90vw;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    text-align: start;
+    margin-bottom: 10px;
+  }
+}

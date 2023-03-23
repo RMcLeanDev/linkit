@@ -35,3 +35,7 @@ export const getVenues = (info) => ({
   type: types.GET_VENUES,
   info
 })
+
+export const updateOnlineStatus = (info) =>{
+  firebase.database().ref(`venues/${info.venue.id}`).update({online: info.newStatus})
+}
