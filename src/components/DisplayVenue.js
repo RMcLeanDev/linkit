@@ -8,6 +8,7 @@ function DisplayVenue(props){
     const navigate = useNavigate();
     const {id} = useParams();
     const [nav, setNav] = useState("info")
+    const [displayGeneral, setDisplayGeneral] = useState(true);
 
     let venue;
 
@@ -32,35 +33,39 @@ function DisplayVenue(props){
                 </div>
                 {nav === "info" ? 
                 <div className="displayVenueContainer">
-                    <h2>General Info:</h2>
+                    <div style={{position: "relative", width: "90%", margin:"auto"}}>
+                        <h2>General Info:</h2>
+                        <i style={{position: "absolute", right: "-10px", bottom:"5px"}} className={displayGeneral ? "far fa-eye": "far fa-eye-slash"} id={displayGeneral ? "natogglePassword" : "togglePassword"} onClick={() => setDisplayGeneral(!displayGeneral)}></i>
+                    </div>
                     <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
-                    <div className="displayVenue2">
-                        <p>Contact Name:</p>
-                        <p>{venue.venueContactName}</p>
-                    </div>
-                    <div className="displayVenue2">
-                        <p>Contact Number:</p>
-                        <a style={{color: "black"}}href={"tel:"+venue.contactNumber}>{venue.contactNumber}</a>
-                    </div>
-                    <div className="displayVenue2">
-                        <p>Contact Email:</p>
-                        <a style={{color: "black"}}href={"emailto:"+venue.contactEmail}>{venue.contactEmail}</a>
-                    </div>
-                    <div className="displayVenue2">
-                        <p>Contact Address:</p>
-                        <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
-                    </div>
-                    <div className="displayVenue2">
-                        <p>Contact Address:</p>
-                        <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
-                    </div>
-                    <div className="displayVenue2">
-                        <p>Online Status:</p>
-                        <select value={venue.online} onChange={(e) => store.dispatch(updateOnlineStatus({newStatus: JSON.parse(e.target.value), venue: venue}))}>
-                            <option value="false">Offline</option>
-                            <option value="true">Online</option>
-                        </select>
-                    </div>
+                    {
+                        displayGeneral ? 
+                        <div>
+                            <div className="displayVenue2">
+                                <p>Contact Name:</p>
+                                <p>{venue.venueContactName}</p>
+                            </div>
+                            <div className="displayVenue2">
+                                <p>Contact Number:</p>
+                                <a style={{color: "black"}}href={"tel:"+venue.contactNumber}>{venue.contactNumber}</a>
+                            </div>
+                            <div className="displayVenue2">
+                                <p>Contact Email:</p>
+                                <a style={{color: "black"}}href={"emailto:"+venue.contactEmail}>{venue.contactEmail}</a>
+                            </div>
+                            <div className="displayVenue2">
+                                <p>Contact Address:</p>
+                                <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
+                            </div>
+                            <div className="displayVenue2">
+                                <p>Online Status:</p>
+                                <select value={venue.online} onChange={(e) => store.dispatch(updateOnlineStatus({newStatus: JSON.parse(e.target.value), venue: venue}))}>
+                                    <option value="false">Offline</option>
+                                    <option value="true">Online</option>
+                                </select>
+                            </div>
+                        </div>: null
+                    }
                 </div>:
                 <div>
                     <p>docs</p>
