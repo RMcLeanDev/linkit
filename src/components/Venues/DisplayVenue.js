@@ -1,7 +1,7 @@
 import react, {useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {store} from  './../index';
-import { updateOnlineStatus } from '../actions';
+import {store} from  '../../index';
+import { updateOnlineStatus } from '../../actions';
 
 function DisplayVenue(props){
 

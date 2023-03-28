@@ -8,8 +8,8 @@ import {connect} from 'react-redux';
 import Login from './components/Login';
 import Home from './components/Home';
 import SupportRequest from './components/SupportRequest';
-import Venues from './components/Venues';
-import DisplayVenue from './components/DisplayVenue';
+import Venues from './components/Venues/Venues';
+import DisplayVenue from './components/Venues/DisplayVenue';
 
 function App(props) {
   let display;
