@@ -2,6 +2,7 @@ import react, {useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {store} from  '../../index';
 import { updateOnlineStatus } from '../../actions';
+import VenuesToDoList from './VenuesToDoList';
 
 function DisplayVenue(props){
 
@@ -66,6 +67,7 @@ function DisplayVenue(props){
                             </div>
                         </div>: null
                     }
+                    {venue  ?  <VenuesToDoList />:null}
                 </div>:
                 <div>
                     <p>docs</p>
