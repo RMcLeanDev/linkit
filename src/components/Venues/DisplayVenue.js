@@ -1,8 +1,7 @@
 import react, {useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import {store} from  '../../index';
-import { updateOnlineStatus } from '../../actions';
 import VenuesToDoList from './VenuesToDoList';
+import VenueGeneralInfo from './VenueGeneralInfo';
 
 function DisplayVenue(props){
 
@@ -41,31 +40,7 @@ function DisplayVenue(props){
                     <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
                     {
                         displayGeneral ? 
-                        <div>
-                            <div className="displayVenue2">
-                                <p>Contact Name:</p>
-                                <p>{venue.venueContactName}</p>
-                            </div>
-                            <div className="displayVenue2">
-                                <p>Contact Number:</p>
-                                <a style={{color: "black"}}href={"tel:"+venue.contactNumber}>{venue.contactNumber}</a>
-                            </div>
-                            <div className="displayVenue2">
-                                <p>Contact Email:</p>
-                                <a style={{color: "black"}}href={"emailto:"+venue.contactEmail}>{venue.contactEmail}</a>
-                            </div>
-                            <div className="displayVenue2">
-                                <p>Contact Address:</p>
-                                <a style={{color: "black"}}href={"http://maps.google.com/?q="+venue.address} target="_blank">{venue.address}</a>
-                            </div>
-                            <div className="displayVenue2">
-                                <p>Online Status:</p>
-                                <select value={venue.online} onChange={(e) => store.dispatch(updateOnlineStatus({newStatus: JSON.parse(e.target.value), venue: venue}))}>
-                                    <option value="false">Offline</option>
-                                    <option value="true">Online</option>
-                                </select>
-                            </div>
-                        </div>: null
+                        <VenueGeneralInfo venue={venue}/>: null
                     }
                     {venue  ?  <VenuesToDoList />:null}
                 </div>:
