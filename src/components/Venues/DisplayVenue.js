@@ -2,6 +2,7 @@ import react, {useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import VenuesToDoList from './VenuesToDoList';
 import VenueGeneralInfo from './VenueGeneralInfo';
+import VenueAlternateinfo from './VenueAlternateInfo';
 
 function DisplayVenue(props){
 
@@ -9,6 +10,8 @@ function DisplayVenue(props){
     const {id} = useParams();
     const [nav, setNav] = useState("info")
     const [displayGeneral, setDisplayGeneral] = useState(true);
+    const [displayAlternate, setDisplayAlternate] = useState(false);
+    const [venueToDoList, setVenueToDoList] = useState(true);
 
     let venue;
 
@@ -38,11 +41,19 @@ function DisplayVenue(props){
                         <i style={{position: "absolute", right: "-10px", bottom:"5px"}} className={displayGeneral ? "far fa-eye": "far fa-eye-slash"} id={displayGeneral ? "natogglePassword" : "togglePassword"} onClick={() => setDisplayGeneral(!displayGeneral)}></i>
                     </div>
                     <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
-                    {
-                        displayGeneral ? 
-                        <VenueGeneralInfo venue={venue}/>: null
-                    }
-                    {venue  ?  <VenuesToDoList />:null}
+                    { displayGeneral ? <VenueGeneralInfo venue={venue}/>: null}
+                    <div style={{position: "relative", width: "90%", margin:"auto"}}>
+                        <h2>Alternate Info:</h2>
+                        <i style={{position: "absolute", right: "-10px", bottom:"5px"}} className={displayAlternate ? "far fa-eye": "far fa-eye-slash"} id={displayAlternate ? "natogglePassword" : "togglePassword"} onClick={() => setDisplayAlternate(!displayAlternate)}></i>
+                    </div>
+                    <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
+                    { displayAlternate ? <VenueAlternateinfo venue={venue} />:null}
+                    <div style={{position: "relative", width: "90%", margin:"auto"}}>
+                        <h2>Venue To Do List:</h2>
+                        <i style={{position: "absolute", right: "-10px", bottom:"5px"}} className={venueToDoList ? "far fa-eye": "far fa-eye-slash"} id={venueToDoList ? "natogglePassword" : "togglePassword"} onClick={() => setVenueToDoList(!venueToDoList)}></i>
+                    </div>
+                    <span style={{height: "1px", backgroundColor: "#0f95f9", width: "90vw", margin: "auto", marginBottom: "10px"}}/>
+                    { venueToDoList ? <VenuesToDoList venue={venue} />:null}
                 </div>:
                 <div>
                     <p>docs</p>

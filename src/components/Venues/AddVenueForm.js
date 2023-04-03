@@ -24,7 +24,7 @@ function AddVenueForm(props){
     function submitNewVenue(e){
         e.preventDefault();
         let newId = uuidv4();
-        let pushInfo = {venueName: venueName, venueContactName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: `${altContact ? altContact:"none given"}`, altNumber: `${altNumber ? altNumber:"none given"}`, altEmail: `${altEmail ? altEmail:"none given"}`, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: `${wifiName ? wifiName : "none given"}`, wifiPassword: `${wifiPassword ? wifiPassword:"none given"}`, repName: repName, online: false, dateCreated: Date.now(), id: newId, status:"new"};
+        let pushInfo = {venueName: venueName, venueContactName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: `${altContact ? altContact:"none given"}`, altNumber: `${altNumber ? altNumber:"none given"}`, altEmail: `${altEmail ? altEmail:"none given"}`, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: `${wifiName ? wifiName : "none given"}`, wifiPassword: `${wifiPassword ? wifiPassword:"none given"}`, repName: repName, online: false, dateCreated: Date.now(), id: newId, status:"new", toDo:{paperwork:false, startArtwork:false, finishArtwork: false, wifiInfo:false, orderTV: false, sendFiresticks: false, scheduleInstall: false}};
         console.log(pushInfo)
         firebase.database().ref(`venues/${newId}`).set(pushInfo).then(() => {
             props.closeWindow()
@@ -89,10 +89,6 @@ function AddVenueForm(props){
                 </div>
                 <p style={{"marginTop": "10px"}}>Internal Items:</p>
                 <div style={{"marginBottom":"5px"}}></div>
-                <div className="formItem">
-                    <input placeholder="Wifi Name (Optional)" onChange={e => setWifiName(e.target.value)}/>
-                    <input placeholder="Wifi Password (Optional)" onChange={e => setWifiPassword(e.target.value)}/>
-                </div>
                 <input required className="singleLine" placeholder="Rep Name" onChange={e => setRepName(e.target.value)}/>
                 <button className="submitVenue" type="submit">Submit</button>
             </form>

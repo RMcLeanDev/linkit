@@ -39,3 +39,7 @@ export const getVenues = (info) => ({
 export const updateOnlineStatus = (info) =>{
   firebase.database().ref(`venues/${info.venue.id}`).update({online: info.newStatus})
 }
+
+export const updateVenueStatus = (info) => {
+  firebase.database().ref(`venues/${info.venue.id}`).update({status: info.text})
+}
