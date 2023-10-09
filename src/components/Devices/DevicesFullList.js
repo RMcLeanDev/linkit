@@ -68,6 +68,17 @@ function DevicesFullList(props){
 
     console.log(deviceSort)
 
+    let deviceSortArry = [];
+
+    if(deviceSort){
+        Object.keys(deviceSort).map((items) => {
+            let device = deviceSort[items][1]
+            if(device.deviceName && device.deviceName.toLowerCase().includes(search)){
+                return deviceSortArry.push(device)
+            }
+        })
+    }
+
     return(
         <div className="deviceFullContainer">
             {deviceSort !== false ? 
@@ -76,14 +87,15 @@ function DevicesFullList(props){
                     <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search"/>
                     <FiSettings id="deviceFullFilter" size={25}/>
                 </div>
+                <p>{deviceSortArry.length > 0 ? deviceSortArry.length === 1 ? `Displaying: ${deviceSortArry.length} result`: `Displaying: ${deviceSortArry.length} results`: "No Results Found"}</p>
                 <div className="deviceFullSearchSettings">
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})}>
                         <p>Name</p>
-                        {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={18}/> : <IoIosArrowDropupCircle size={18}/> : <IoIosArrowDropdown size={18}/>}
+                        {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div>
                     <div onClick={() => setSelectSort({name: false, ascend: !selectSort.ascend})}>
                         <p>Last Heart Beat</p>
-                        {selectSort.name === false ? selectSort.ascend ? <IoIosArrowDropdownCircle size={18}/> : <IoIosArrowDropupCircle size={18}/> : <IoIosArrowDropdown size={18}/>}
+                        {selectSort.name === false ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div>
                 </div>
                 {Object.keys(deviceSort).map((devices) => {
