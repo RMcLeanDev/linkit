@@ -89,11 +89,11 @@ function DevicesFullList(props){
                 </div>
                 <p>{deviceSortArry.length > 0 ? deviceSortArry.length === 1 ? `Displaying: ${deviceSortArry.length} result`: `Displaying: ${deviceSortArry.length} results`: "No Results Found"}</p>
                 <div className="deviceFullSearchSettings">
-                    <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})}>
+                    <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{marginLeft: "25px"}}>
                         <p>Name</p>
                         {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div>
-                    <div onClick={() => setSelectSort({name: false, ascend: !selectSort.ascend})}>
+                    <div onClick={() => setSelectSort({name: false, ascend: !selectSort.ascend})} style={{justifySelf:"end", marginRight: "25px"}}>
                         <p>Last Heart Beat</p>
                         {selectSort.name === false ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div>
