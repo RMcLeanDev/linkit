@@ -8,7 +8,6 @@ function DevicesPlus7(props){
     Object.keys(props.devices).map(devices => {
         let device = props.devices[devices]
         let date = Math.round((Date.now() - device.lastHeartBeat) / (1000 * 60 * 60 * 24))
-        console.log(date)
         if(device.UUID){
             if(date > 31){
                 obj["plus30"] += 1
