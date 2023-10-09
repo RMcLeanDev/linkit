@@ -1,4 +1,4 @@
-import react, {useState} from 'react';
+import react, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import VenuesToDoList from './VenuesToDoList';
 import VenueGeneralInfo from './VenueGeneralInfo';
@@ -11,13 +11,15 @@ function DisplayVenue(props){
     const [nav, setNav] = useState("info")
     const [displayGeneral, setDisplayGeneral] = useState(true);
     const [displayAlternate, setDisplayAlternate] = useState(false);
-    const [venueToDoList, setVenueToDoList] = useState(true);
+    const [venueToDoList, setVenueToDoList] = useState(false);
+    const [venue, setVenue] = useState(false)
+    const [editVenue, setEditVenue] = useState(false);
 
-    let venue;
-
-    if(props.venue){
-        venue = props.venue[id];
-    }
+    useEffect(() => {
+        if(props.venue){
+            setVenue(props.venue[id])
+        }
+    })
 
     return(
         <div className="displayVenue">

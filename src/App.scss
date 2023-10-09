@@ -41,7 +41,7 @@ p{
   height: 60px;
   display: grid;
   background-color: white;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   border-top: 1px solid darkgray;
   align-items: center;
   z-index: 2;
@@ -397,5 +397,92 @@ p{
     margin: auto;
     text-align: start;
     margin-bottom: 10px;
+  }
+}
+
+.devicesMain{
+  width: 90vw;
+  margin: auto;
+}
+.devicePlus{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 150px;
+  padding-top: 20px;
+  grid-gap: 20px;
+  .devicePlusItem{
+    font-size: 2rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #bab9b9;
+  }
+}
+
+.deviceFullContainer{
+  background-color: white;
+  width: 90vw;
+  margin-top: 15px;
+  margin-bottom: 70px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #bab9b9;
+  position: relative;
+  .deviceFullHeader{
+    display: grid;
+    grid-template-columns: 90%;
+    justify-content: center;
+    input{
+      border: none;
+      text-align: center;
+      height: 25px;
+      border-bottom: 1px solid black;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    #deviceFullFilter{
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+  }
+}
+
+.deviceFullSearchSettings{
+  width: 90%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  div{
+    display: flex;
+    margin: auto;
+    cursor: pointer;
+  }
+}
+
+.displayFullDeviceList{
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 50fr 50fr;
+  font-size: 20px;
+  &:nth-child(odd){
+    background-color: #ebeaea;
+  }
+  .deviceName{
+    justify-self: start;
+    margin-left: 25px;
+    padding: 10px 0;
+  }
+  .deviceHeart{
+    justify-self: end;
+    margin-right: 25px;
+    padding: 10px 0;
   }
 }

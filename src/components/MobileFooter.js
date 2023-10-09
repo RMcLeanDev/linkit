@@ -3,6 +3,7 @@ import LogoutConfirmation from './LogoutConfirmation';
 import { useNavigate } from 'react-router-dom';
 import {FiBookOpen} from 'react-icons/fi';
 import {GiExitDoor} from 'react-icons/gi';
+import {GrDevice} from 'react-icons/gr';
 import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
 
@@ -16,6 +17,10 @@ function MobileFooter(){
             {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={() => setLogoutConfirmationScreen(false)} />: null}
             <div className="footerOption" onClick={() => navigate('/')}>
                 <img className="footerLogo" src={require('../assets/logoNoText.png')}/>
+            </div>
+            <div className="footerOption" onClick={() => navigate('/devices')}>
+                <GrDevice size={25}/>
+                <p>Devices</p>
             </div>
             <div className="footerOption" onClick={() => navigate('/venues')}>
                 <FiBookOpen size={25}/>

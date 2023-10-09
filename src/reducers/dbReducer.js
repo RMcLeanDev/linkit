@@ -1,10 +1,10 @@
 import constants from './../constants';
-const {types, venueState} = constants
+const {types, dbState} = constants
 
-const venueReducer = (state = venueState, action) => {
+const dbReducer = (state = dbState, action) => {
   let newState;
   switch (action.type) {
-    case types.GET_VENUES:
+    case types.GET_ALL_FROM_DB:
       newState = action.info;
       return newState;
     default:
@@ -12,4 +12,4 @@ const venueReducer = (state = venueState, action) => {
   }
 }
 
-export default venueReducer
+export default dbReducer

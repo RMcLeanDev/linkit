@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
 import testReducer from './testReducer';
 import authReducer from './authReducer';
-import venueReducer from './venueReducer';
+import dbReducer from './dbReducer';
 
 const rootReducer = combineReducers({
     testState: testReducer,
     authState: authReducer,
-    venueState: venueReducer
+    dbState: dbReducer
 });
 
 export default rootReducer;

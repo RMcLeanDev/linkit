@@ -10,18 +10,20 @@ import Home from './components/Home';
 import SupportRequest from './components/SupportRequest';
 import Venues from './components/Venues/Venues';
 import DisplayVenue from './components/Venues/DisplayVenue';
+import DevicesMain from './components/Devices/DevicesMain';
 
 function App(props) {
   let display;
   
-  if(props.authUser){
+  if(props.authUser && props.db){
     display = <div>
       <MobileFooter />
       <Routes>
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
-        <Route exact path='/venues' element={<Venues venues={props.venues}/>} />
-        <Route exact path='/venues/:id' element={<DisplayVenue venue={props.venues}/>}/>
+        <Route exact path='/venues' element={<Venues venues={props.db.venues}/>} />
+        <Route exact path='/devices' element={<DevicesMain devices={props.db.devices}/>} />
+        <Route exact path='/venues/:id' element={<DisplayVenue venue={props.db.venues}/>}/>
       </Routes>
     </div>
   } else if(props.authUser === false){
@@ -40,7 +42,7 @@ function App(props) {
 
 const mapStateToProps = state => ({
   authUser: state.authState,
-  venues: state.venueState
+  db: state.dbState
 })
 
 export default connect(mapStateToProps)(App);
