@@ -4,6 +4,7 @@ import "firebase/compat/auth";
 import "firebase/compat/database";
 import {store} from './../index';
 import axios from 'axios';
+import moment from 'moment';
 
 const {types, firebaseConfig} = constants;
 
@@ -46,7 +47,8 @@ function getResponse(){
     .then((response) => {
       let obj = {lastDevicesUpdate: Date.now()};
       for(let i = 0; i<response.data.data.devices.page.edges.length; i++){
-        obj[response.data.data.devices.page.edges[i].node.UUID] = {"UUID": response.data.data.devices.page.edges[i].node.UUID, "deviceName": response.data.data.devices.page.edges[i].node.deviceName, "lastHeartBeat": Date.parse(response.data.data.devices.page.edges[i].node.lastHeartBeat)};
+        let dateLocal = new Date(response.data.data.devices.page.edges[i].node.lastHeartBeat)
+        obj[response.data.data.devices.page.edges[i].node.UUID] = {"UUID": response.data.data.devices.page.edges[i].node.UUID, "deviceName": response.data.data.devices.page.edges[i].node.deviceName, "lastHeartBeat": Date.parse(dateLocal)};
       }
       firebase.database().ref('devices').update(obj)
     })
