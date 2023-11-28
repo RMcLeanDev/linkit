@@ -2,8 +2,8 @@ import react from 'react';
 
 function VenueHeader(){
     return(
-        <div>
-
+        <div className="venueHeader">
+            <p>header</p>
         </div>
     )
 }

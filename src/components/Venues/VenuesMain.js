@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import {IoIosArrowDropdown, IoIosArrowDropup, IoIosArrowDropdownCircle, IoIosArrowDropupCircle} from 'react-icons/io';
+import VenueHeader from './VenueHeader';
 
 function VenuesMain(props){
 
@@ -10,7 +11,8 @@ function VenuesMain(props){
     //{venueForm ? (disableBodyScroll(document), <AddVenueForm closeWindow={() => setVenueForm(false)}/>):(enableBodyScroll(document), null)}
 
     return(
-        <div className="venuesContainer">
+        <div>
+            <VenueHeader />
             test
         </div>
     )
