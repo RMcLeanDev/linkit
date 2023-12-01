@@ -298,3 +298,26 @@ p{
     padding: 10px 0;
   }
 }
+
+.formContainer{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .formBox{
+    margin-top: -60px;
+    background-color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    input{
+      text-align: center;
+      border: none;
+      border-bottom: 1px solid black;
+      margin: 5px;
+    }
+  }
+}
