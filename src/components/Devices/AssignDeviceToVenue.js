@@ -3,12 +3,13 @@ import Select from 'react-select';
 
 function AssignDeviceToVenue(props){
     
-    console.log(props)
     const[venueValue, setVenueValue] = useState(null);
+
+    console.log(venueValue)
 
     return(
         <div>
-            <Select options={props.options} onChange={(e) => console.log(e)}/>
+            <Select options={props.options} onChange={(e) => setVenueValue(e.value)}/>
             <button onClick={props.close}>Cancel</button>
         </div>
     )
