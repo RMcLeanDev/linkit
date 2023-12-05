@@ -12,10 +12,10 @@ function VenuesMain(props){
     const [sortSettings, setSortSettings] = useState({name:"name", ascending: true});
 
     return(
-        <div>
+        <div className="devicesMain">
             {venueForm ? (disableBodyScroll(document), <AddVenueForm closeWindow={() => setVenueForm(false)}/>):(enableBodyScroll(document), null)}
             <VenueHeader />
-            <VenueFullList addVenue={() => setVenueForm(true)}/>
+            <VenueFullList addVenue={() => setVenueForm(true)} venues={props.venues}/>
         </div>
     )
 }

@@ -2,11 +2,13 @@ import react, {useState} from 'react';
 import moment from 'moment';
 import {FiSettings} from 'react-icons/fi'
 import {IoIosArrowDropdown, IoIosArrowDropup, IoIosArrowDropdownCircle, IoIosArrowDropupCircle} from 'react-icons/io';
+import AssignDeviceToVenue from './AssignDeviceToVenue';
 
 function DevicesFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
+    const [assignDevice, setAssignDevice] = useState(true);
 
     let deviceSort;
 
@@ -79,6 +81,7 @@ function DevicesFullList(props){
 
     return(
         <div className="deviceFullContainer">
+            {assignDevice ? <AssignDeviceToVenue options={props.options} deviceUUID={assignDevice} close={() => setAssignDevice(false)}/> : null}
             {deviceSort !== false ? 
             <div>
                 <div className="deviceFullHeader">
@@ -100,6 +103,7 @@ function DevicesFullList(props){
                     return <div className="displayFullDeviceList">
                         <p className="deviceName">{device.deviceName}</p>
                         <p className="deviceHeart">{moment(device.lastHeartBeat).fromNow()}</p>
+                        {device.assigned ? null:<button onClick={() => setAssignDevice(device.UUID)}>assign</button>}
                     </div>
                 })}
             </div>

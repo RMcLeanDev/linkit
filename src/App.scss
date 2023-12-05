@@ -308,16 +308,52 @@ p{
   justify-content: center;
   align-items: center;
   .formBox{
+    min-width: 50vw;
     margin-top: -60px;
     background-color: white;
     padding: 25px;
     display: flex;
     flex-direction: column;
+    .formItem{
+      input{
+        width: calc(50% - 14px)
+      }
+    }
     input{
       text-align: center;
       border: none;
       border-bottom: 1px solid black;
       margin: 5px;
     }
+  }
+}
+
+.venueFullSearchSettings{
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  div{
+    display: flex;
+    cursor: pointer;
+  }
+}
+
+.venueFullVenueList{
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 15px 1fr 1fr 1fr;
+  font-size: 20px;
+  &:nth-child(odd){
+    background-color: #ebeaea;
+  }
+  .deviceName{
+    justify-self: start;
+    margin-left: 10px;
+    padding: 10px 0;
   }
 }
