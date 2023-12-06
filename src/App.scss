@@ -301,12 +301,15 @@ p{
 
 .formContainer{
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   .formBox{
     min-width: 50vw;
     margin-top: -60px;
@@ -355,5 +358,37 @@ p{
     justify-self: start;
     margin-left: 10px;
     padding: 10px 0;
+  }
+}
+
+.assignDeviceToVenue{
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .assignDevice{
+    background-color: white;
+    width: 50vw;
+    margin: auto;
+    padding: 25px;
+    button{
+      width: 50%;
+      border: 1px solid black;
+      margin-top: 15px;
+      font-size: 20px;
+      border-radius: 5px;
+    }
+    .submit{
+      background-color: limegreen;
+    }
+    .cancel{
+      background-color: rgb(220, 0, 0);
+    }
   }
 }

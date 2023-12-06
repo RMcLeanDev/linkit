@@ -8,7 +8,7 @@ function DevicesFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
-    const [assignDevice, setAssignDevice] = useState(true);
+    const [assignDevice, setAssignDevice] = useState(false);
 
     let deviceSort;
 
@@ -81,7 +81,7 @@ function DevicesFullList(props){
 
     return(
         <div className="deviceFullContainer">
-            {assignDevice ? <AssignDeviceToVenue options={props.options} deviceUUID={assignDevice} close={() => setAssignDevice(false)}/> : null}
+            {assignDevice ? <AssignDeviceToVenue options={props.options} deviceUUID={assignDevice} devices={props.devices} close={() => setAssignDevice(false)}/> : null}
             {deviceSort !== false ? 
             <div>
                 <div className="deviceFullHeader">
