@@ -20,7 +20,7 @@ function App(props) {
       <Routes>
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
-        <Route exact path='/venues' element={<VenuesMain venues={props.db.venues}/>} />
+        <Route exact path='/venues' element={<VenuesMain venues={props.db.venues} devices={props.db.devices}/>} />
         <Route exact path='/devices' element={<DevicesMain devices={props.db.devices} venues={props.db.venues}/>} />
       </Routes>
     </div>

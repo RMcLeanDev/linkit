@@ -334,7 +334,7 @@ p{
 .venueFullSearchSettings{
   width: 90%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: auto;
   margin-bottom: 10px;
   font-size: 25px;
@@ -349,8 +349,9 @@ p{
   width: 90%;
   margin: auto;
   display: grid;
-  grid-template-columns: 15px 1fr 1fr 1fr;
+  grid-template-columns: 15px 1fr 1fr 1fr 1fr;
   font-size: 20px;
+  align-items: center;
   &:nth-child(odd){
     background-color: #ebeaea;
   }

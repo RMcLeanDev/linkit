@@ -15,7 +15,7 @@ function VenuesMain(props){
         <div className="devicesMain">
             {venueForm ? (disableBodyScroll(document), <AddVenueForm closeWindow={() => setVenueForm(false)}/>):(enableBodyScroll(document), null)}
             <VenueHeader />
-            <VenueFullList addVenue={() => setVenueForm(true)} venues={props.venues}/>
+            <VenueFullList addVenue={() => setVenueForm(true)} venues={props.venues} devices={props.devices}/>
         </div>
     )
 }

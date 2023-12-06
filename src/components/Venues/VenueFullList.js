@@ -69,18 +69,34 @@ function VenueFullList(props){
                     </div>
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"center"}}>
                         <p>Online Devices</p>
-                        {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div>
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"end", marginRight:"25px"}}>
                         <p>Contract End</p>
                         {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div> 
+                    <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"end", marginRight:"25px"}}>
+                        <p>Status</p>
+                        {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
+                    </div> 
                 </div>
                 {Object.keys(venueSortArray).map((venues) => {
                     let venue = venueSortArray[venues]
+                    let totalDevices = 0;
+                    let totalOnline = 0;
+                    if(venue.devices){
+                        Object.keys(venue.devices).map((devices) => {
+                            if(props.devices[devices]){
+                                totalDevices += 1;
+                                if(Math.round((Date.now() - props.devices[devices].lastHeartBeat) / (1000 * 60 * 60 * 24))<= 3){
+                                    totalOnline += 1
+                                }
+                            }
+                        })
+                    }
                     return <div className="venueFullVenueList">
                         <span style={{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}}/>
                         <p className="deviceName">{venue.venueName}</p>
+                        {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:"No Devices Assigned"}
                     </div>
                 })}
             </div>
