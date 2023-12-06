@@ -9,8 +9,6 @@ function AssignDeviceToVenue(props){
 
     function assignDevice(){
         if(venueValue !== null){
-            console.log(props.deviceUUID)
-            console.log(venueValue)
             firebase.database().ref(`venues/${venueValue}/devices`).update({[props.deviceUUID]:props.devices[props.deviceUUID].deviceName}).then(() => {
                 firebase.database().ref(`devices/${props.deviceUUID}`).update({assigned: true})
             }).then(() => {
