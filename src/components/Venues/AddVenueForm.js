@@ -25,7 +25,6 @@ function AddVenueForm(props){
         e.preventDefault();
         let newId = uuidv4();
         let pushInfo = {venueName: venueName, venueContactName: venueContactName, contactNumber: contactNumber, contactEmail: contactEmail, address: address, altContact: `${altContact ? altContact:"none given"}`, altNumber: `${altNumber ? altNumber:"none given"}`, altEmail: `${altEmail ? altEmail:"none given"}`, petFriendly: petFriendly, familyFriendly: familyFriendly, servesFood: servesFood, wifiName: `${wifiName ? wifiName : "none given"}`, wifiPassword: `${wifiPassword ? wifiPassword:"none given"}`, repName: repName, online: false, dateCreated: Date.now(), id: newId, status:"new", toDo:{paperwork:false, startArtwork:false, finishArtwork: false, wifiInfo:false, orderTV: false, sendFiresticks: false, scheduleInstall: false}};
-        console.log(pushInfo)
         firebase.database().ref(`venues/${newId}`).set(pushInfo).then(() => {
             props.closeWindow()
         }).catch(error => {
