@@ -11,6 +11,16 @@
   }
 }
 
+@keyframes showItem {
+  0% {max-height: 0vh}
+  100% {max-height: 100vh}
+} 
+
+@keyframes hideItem {
+  0% {max-height: 100vh}
+  100% {max-height: 0vh}
+} 
+
 @keyframes gradientInput{
   0%{box-shadow: 4px 4px 10px #c54dff}
   50%{box-shadow: -4px -4px 10px #0f95f9;}
@@ -402,7 +412,6 @@ p{
 }
 
 .displayVenueContainer{
-  background-color: white;
   width: 90vw;
   margin: auto;
   margin-top: 15px;
@@ -410,6 +419,31 @@ p{
   padding-bottom: 10px;
   padding-top: 10px;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px #bab9b9;
   position: relative;
+  background-color: white;
+  box-shadow: 0px 0px 10px #bab9b9;
+  height: 100%;
+  .displayVenueItemContainer{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 35px;
+    justify-content: space-around;
+    margin: auto;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+  h3{
+    margin: 0;
+    border-bottom: 1px solid rgb(176, 176, 176);
+    margin-bottom: 15px;
+  }
+}
+
+.showGeneral{
+  animation: showItem 1s linear forwards;
+}
+
+.hideGeneral{
+  animation: hideItem 1s linear forwards;
 }
