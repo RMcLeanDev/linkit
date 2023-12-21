@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import moment from 'moment';
 import {IoIosArrowDropdown, IoIosArrowDropup, IoIosArrowDropdownCircle, IoIosArrowDropupCircle} from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 function VenueFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
-
+    const navigate = useNavigate();
     let venueSort;
 
     if(props.venues){
@@ -95,7 +96,7 @@ function VenueFullList(props){
                     }
                     return <div className="venueFullVenueList">
                         <span style={{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}}/>
-                        <p className="deviceName">{venue.venueName}</p>
+                        <p style={{cursor: "pointer"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
                         {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:"No Devices Assigned"}
                     </div>
                 })}
