@@ -415,7 +415,6 @@ p{
   width: 90vw;
   margin: auto;
   margin-top: 15px;
-  margin-bottom: 70px;
   padding-bottom: 10px;
   padding-top: 10px;
   border-radius: 5px;
@@ -446,4 +445,26 @@ p{
 
 .hideGeneral{
   animation: hideItem 1s linear forwards;
+}
+
+.notesContainer{
+  width: 90vw;
+  margin: auto;
+  padding-bottom: 10px;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-radius: 5px;
+  position: relative;
+  background-color: white;
+  box-shadow: 0px 0px 10px #bab9b9;
+  height: 100%;
+  button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 1px solid lightgray;
+    background-color: rgb(237, 237, 237);
+    box-shadow: 0px 0px 3px #bab9b9;
+    cursor: pointer;
+  }
 }
