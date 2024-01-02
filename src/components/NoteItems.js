@@ -7,17 +7,19 @@ import "firebase/compat/database";
 
 function NoteItems(props){
 
-    const [noteForm, setNoteForm] = useState(true);
+    const [noteForm, setNoteForm] = useState(false);
     const [textArea, setTextArea] = useState('')
     let sorted;
 
     function submitNote(){
-        let obj = {[Date.now()]: {userSubmited: firebase.auth().currentUser.uid, dateSubmited: Date.now(), note: textArea}};
-        console.log(obj)
-        if(props.info.venueName){
-            firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
-        } else {
-            console.log("no")
+        if(textArea !== ""){
+            let obj = {[Date.now()]: {userSubmited: firebase.auth().currentUser.uid, dateSubmited: Date.now(), note: textArea}};
+            console.log(obj)
+            if(props.info.venueName){
+                firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
+            } else {
+                console.log("no")
+            }
         }
     }
 
@@ -49,7 +51,7 @@ function NoteItems(props){
             {props.info.notes ? Object.keys(sorted).map((notes) => {
                 let note = sorted[notes][1];
                 console.log(note)
-                return <div style={{marginTop: "25px", borderBottom: "1px solid lightgray"}}>
+                return <div style={{borderBottom: "1px solid lightgray"}} className="notes">
                     <p style={{fontSize: "20px"}}>{note.note}</p>
                     <div style={{display: "flex", width: "90%", justifyContent:"space-between", margin: "auto", marginTop:"5px"}}>
                         <p style={{fontSize: "15px"}}>Date Added: {moment(new Date(note.dateSubmited).toString()).format("MMM Do YYYY, h:mm a")}</p>
