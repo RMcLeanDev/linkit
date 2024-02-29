@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 function getResponse(){
   let data = JSON.stringify({
-      "query": "# Write your query or mutation here\nquery {\n  devices(query: {}, first: 150) {\n    page {\n      edges {\n        node {\n          UUID\n          deviceName\n          lastHeartBeat\n        }\n      }\n    }\n  }\n}\n"
+      "query": "# Write your query or mutation here\nquery {\n  devices(query: {}, first: 200) {\n    page {\n      edges {\n        node {\n          UUID\n          deviceName\n          lastHeartBeat\n        }\n      }\n    }\n  }\n}\n"
     });
     
     let config = {
