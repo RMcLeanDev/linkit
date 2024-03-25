@@ -76,8 +76,7 @@ function VenueFullList(props){
                         {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div> 
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"end", marginRight:"25px"}}>
-                        <p>Status</p>
-                        {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
+                        <p>Total Sponsors</p>
                     </div> 
                 </div>
                 {Object.keys(venueSortArray).map((venues) => {
@@ -88,7 +87,7 @@ function VenueFullList(props){
                     if(venue.liveDate && venue.endDate){
                         let time = Math.ceil(Math.abs(new Date(venue.endDate) - new Date(Date.now())) / (1000 * 60 * 60 * 24))
                         if(time > 31){
-                            timeLeft = Math.round(time / 12) + " Months"
+                            timeLeft = Math.round(time / 365 * 12) + " Months"
                         } else {
                             timeLeft = time + " Days"
                         }
