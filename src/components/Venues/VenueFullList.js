@@ -71,7 +71,7 @@ function VenueFullList(props){
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"center"}}>
                         <p>Online Devices</p>
                     </div>
-                    <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"end", marginRight:"25px"}}>
+                    <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{justifySelf:"center"}}>
                         <p>Contract End</p>
                         {selectSort.name ? selectSort.ascend ? <IoIosArrowDropdownCircle size={28}/> : <IoIosArrowDropupCircle size={28}/> : <IoIosArrowDropdown size={28}/>}
                     </div> 
@@ -84,6 +84,15 @@ function VenueFullList(props){
                     let venue = venueSortArray[venues]
                     let totalDevices = 0;
                     let totalOnline = 0;
+                    let timeLeft;
+                    if(venue.liveDate && venue.endDate){
+                        let time = Math.ceil(Math.abs(new Date(venue.endDate) - new Date(Date.now())) / (1000 * 60 * 60 * 24))
+                        if(time > 31){
+                            timeLeft = Math.round(time / 12) + " Months"
+                        } else {
+                            timeLeft = time + " Days"
+                        }
+                    }
                     if(venue.devices){
                         Object.keys(venue.devices).map((devices) => {
                             if(props.devices[devices]){
@@ -97,7 +106,8 @@ function VenueFullList(props){
                     return <div className="venueFullVenueList">
                         <span style={{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}}/>
                         <p style={{cursor: "pointer"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
-                        {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:"No Devices Assigned"}
+                        {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:<p>"No Devices Assigned"</p>}
+                        {venue.liveDate ? <p>{timeLeft}</p>:<p>No Live Date Set</p>}
                     </div>
                 })}
             </div>
