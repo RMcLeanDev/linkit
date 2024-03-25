@@ -1,14 +1,23 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom';
 import NoteItems from '../NoteItems';
+import moment from 'moment';
+import firebase from 'firebase/compat/app';
+import "firebase/compat/database";
+
 
 function DisplayVenue(props){
 
     let venue = props.venues[useParams().id]
     const [generalDisplay, setGeneralDisplay] = useState(true);
+    const [date,  setDate] = useState('');
     let totalDevices = 0;
     let totalOnline = 0;
-    console.log(venue)
+    console.log(venue.id)
+    function submitDate(){
+        let obj = {"liveDate": new Date(date).getTime() + 86400000};
+        firebase.database().ref(`venues/${venue.id}`).update(obj)
+    }
 
     return(
         <div>
@@ -46,6 +55,10 @@ function DisplayVenue(props){
                     <div className="displayVenueItems">
                         <h3>Phone Number</h3>
                         <p style={{fontSize: "20px"}}onClick={() => navigator.clipboard.writeText(venue.contactNumber)}>{venue.contactNumber}</p>
+                    </div>
+                    <div className="displayVenueItems">
+                        <h3>Live Date</h3>
+                        <p style={{fontSize: "20px"}}>{venue.liveDate ? <p>{moment(venue.liveDate).format('MMMM Do YYYY')}</p>: <div><p>Not Date Set! Please set below.</p><input type="date" value={date} onChange={e => setDate(e.target.value)}/><button onClick={submitDate}>Submit</button></div>}</p>
                     </div>
                 </div>
             </div>
