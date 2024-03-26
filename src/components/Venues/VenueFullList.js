@@ -84,13 +84,22 @@ function VenueFullList(props){
                     let totalDevices = 0;
                     let totalOnline = 0;
                     let timeLeft;
+                    let lastNote;
                     if(venue.liveDate && venue.endDate){
-                        let time = Math.ceil(Math.abs(new Date(venue.endDate) - new Date(Date.now())) / (1000 * 60 * 60 * 24))
-                        if(time > 31){
-                            timeLeft = Math.round(time / 365 * 12) + " Months"
+                        if(venue.endDate < Date.now()){
+                            timeLeft = "Contract Ended"
                         } else {
-                            timeLeft = time + " Days"
+                            let time = Math.ceil(Math.abs(new Date(venue.endDate) - new Date(Date.now())) / (1000 * 60 * 60 * 24))
+                            if(time > 31){
+                                timeLeft = Math.round(time / 365 * 12) + " Months"
+                            } else {
+                                timeLeft = time + " Days"
+                            }
                         }
+                    }
+                    if(venue.notes){
+                        let key = Object.keys(venue.notes)[Object.keys(venue.notes).length-1]
+                        lastNote = venue.notes[key].note
                     }
                     if(venue.devices){
                         Object.keys(venue.devices).map((devices) => {
@@ -102,11 +111,13 @@ function VenueFullList(props){
                             }
                         })
                     }
-                    return <div className="venueFullVenueList">
-                        <span style={{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}}/>
+                    return <div className="venueFullVenueList" style={timeLeft === "Contract Ended" ? {backgroundColor: "red"}: null}>
+                        <span style={timeLeft !== "Contract Ended" ? {width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
                         <p style={{cursor: "pointer"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
                         {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:<p>"No Devices Assigned"</p>}
                         {venue.liveDate ? <p>{timeLeft}</p>:<p>No Live Date Set</p>}
+                        <p style={{justifySelf:"flex-end", marginRight:"25px"}}>coming soon</p>
+                        <p style={{"width": "81vw"}}>{venue.notes ? <p style={{"padding":"5px 0px", "fontSize": "15px"}}> Recent Note: {lastNote}</p> : null}</p>
                     </div>
                 })}
             </div>
