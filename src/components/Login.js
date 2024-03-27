@@ -10,7 +10,6 @@ function Login(){
 
     function login(e){
         e.preventDefault();
-        console.log(email)
         firebase.auth().signInWithEmailAndPassword(email, password).catch(err => {
             console.log(err)
         })

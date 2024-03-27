@@ -13,7 +13,6 @@ function DisplayVenue(props){
     const [date,  setDate] = useState('');
     let totalDevices = 0;
     let totalOnline = 0;
-    console.log(venue.id)
     function submitDate(){
         let endDate = new Date(moment(date).add(2, 'y')).getTime();
         let obj = {"liveDate": new Date(moment(date)).getTime(), "online": true, "status":"live", "endDate": endDate};

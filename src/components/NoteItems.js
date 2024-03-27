@@ -14,7 +14,6 @@ function NoteItems(props){
     function submitNote(){
         if(textArea !== ""){
             let obj = {[Date.now()]: {userSubmited: firebase.auth().currentUser.uid, dateSubmited: Date.now(), note: textArea}};
-            console.log(obj)
             if(props.info.venueName){
                 firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
             } else {
@@ -37,8 +36,6 @@ function NoteItems(props){
         })
     }
 
-    console.log(sorted)
-
     return(
         <div className="notesContainer">
             <h1>Notes</h1>
@@ -50,7 +47,6 @@ function NoteItems(props){
             </div>:null}
             {props.info.notes ? Object.keys(sorted).map((notes) => {
                 let note = sorted[notes][1];
-                console.log(note)
                 return <div style={{borderBottom: "1px solid lightgray"}} className="notes">
                     <p style={{fontSize: "20px"}}>{note.note}</p>
                     <div style={{display: "flex", width: "90%", justifyContent:"space-between", margin: "auto", marginTop:"5px"}}>
