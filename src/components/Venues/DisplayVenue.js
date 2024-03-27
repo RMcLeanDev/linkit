@@ -16,7 +16,7 @@ function DisplayVenue(props){
     console.log(venue.id)
     function submitDate(){
         let endDate = new Date(moment(date).add(2, 'y')).getTime();
-        let obj = {"liveDate": new Date(moment(date)).getTime(), "online": true, "endDate": endDate};
+        let obj = {"liveDate": new Date(moment(date)).getTime(), "online": true, "status":"live", "endDate": endDate};
         firebase.database().ref(`venues/${venue.id}`).update(obj)
     }
 

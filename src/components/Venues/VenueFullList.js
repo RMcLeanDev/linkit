@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import moment from 'moment';
 import {IoIosArrowDropdown, IoIosArrowDropup, IoIosArrowDropdownCircle, IoIosArrowDropupCircle} from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import firebase from 'firebase/compat/app';
+import "firebase/compat/database";
 
 function VenueFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
+    const [contractEndFilter, setContractEndFilter] = useState(false);
+    const [liveFilter, setLiveFilter] = useState(true)
+    const [onboardingFilter, setOnboardingFilter] = useState(false);
     const navigate = useNavigate();
     let venueSort;
 
@@ -42,27 +47,68 @@ function VenueFullList(props){
         }
     }
 
-    let venueSortArray = [];
+    let venueSortArray = {};
 
     if(venueSort){
         Object.keys(venueSort).map((items) => {
             let venue = venueSort[items][1]
-            if(venue.venueName.toLowerCase().includes(search)){
-                return venueSortArray.push(venue)
+            if(venue.endDate < Date.now()){
+                if (venue.status !== "contractEnded"){
+                    firebase.database().ref(`venues/${venue.id}`).update({"status":"contractEnded"})
+                }
+            }
+            if (venue.venueName.toLowerCase().includes(search)){
+                if(liveFilter){
+                    if(venue.status === "live"){
+                        venueSortArray[venue.id] = venue
+                    }
+                } else {
+                    if(venue.status === "live"){
+                        delete venueSortArray[venue.id]
+                    }
+                }
+                if(contractEndFilter){
+                    if(venue.status === "contractEnded"){
+                        venueSortArray[venue.id] = venue
+                    }
+                } else {
+                    if(venue.status === "contractEnded"){
+                        delete venueSortArray[venue.id]
+                    }
+                }
+                if(onboardingFilter){
+                    if(venue.status === "new"){
+                        venueSortArray[venue.id] = venue
+                    }
+                } else {
+                    if(venue.status === "new"){
+                        delete venueSortArray[venue.id]
+                    }
+                }
             }
         })
     }
+
+    let length = Object.keys(venueSortArray).length
 
     return(
         <div>
             <button onClick={props.addVenue}>Add Venue</button>
             <div className="deviceFullContainer">
+            <div>
+                <input type="checkbox" value={liveFilter} checked={liveFilter} onChange={() => setLiveFilter(!liveFilter)}/>
+                <label>Live</label>
+                <input type="checkbox" checked={contractEndFilter} value={contractEndFilter} onChange={() => setContractEndFilter(!contractEndFilter)}/>
+                <label>Contracts Ended</label>
+                <input type="checkbox" value={onboardingFilter} checked={onboardingFilter} onChange={() => setOnboardingFilter(!onboardingFilter)}/>
+                <label>Onboarding</label>
+            </div>
             {venueSort !== false? 
             <div>
                 <div className="deviceFullHeader">
                     <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search"/>
                 </div>
-                <p>{venueSortArray.length > 0 ? venueSortArray.length === 1 ? `Displaying: ${venueSortArray.length} result`: `Displaying: ${venueSortArray.length} results`: "No Results Found"}</p>
+                <p>{length > 0 ? Object.entries(venueSortArray).length === 1 ? `Displaying: ${length} result`: `Displaying: ${length} results`: "No Results Found"}</p>
                 <div className="venueFullSearchSettings">
                     <div onClick={() => setSelectSort({name: true, ascend: !selectSort.ascend})} style={{marginLeft: "25px"}}>
                         <p>Name</p>
