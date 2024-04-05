@@ -160,8 +160,8 @@ function VenueFullList(props){
                     return <div className="venueFullVenueList" style={timeLeft === "Contract Ended" ? {backgroundColor: "red"}: null}>
                         <span style={timeLeft !== "Contract Ended" ? {width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
                         <p style={{cursor: "pointer", textAlign: "left"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
-                        {venue.devices ? <p>{totalOnline}/{totalDevices}</p>:<p>"No Devices Assigned"</p>}
-                        {venue.liveDate ? <p>{timeLeft}</p>:<p>No Live Date Set</p>}
+                        {venue.devices ? <p>{totalOnline}/{totalDevices}</p>: <p/>}
+                        {venue.liveDate ? <p>{timeLeft}</p>:<p/>}
                         <p style={{justifySelf:"flex-end", marginRight:"25px"}}>coming soon</p>
                         <p style={{"width": "81vw"}}>{venue.notes ? <p style={{"padding":"5px 0px", "fontSize": "15px"}}> Recent Note: {lastNote}</p> : null}</p>
                     </div>
