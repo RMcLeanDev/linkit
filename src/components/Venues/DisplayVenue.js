@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import NoteItems from '../NoteItems';
 import moment from 'moment';
 import firebase from 'firebase/compat/app';
-import "firebase/compat/database";
 import { getAuth } from "firebase/auth";
+import "firebase/compat/database";
 
 
 function DisplayVenue(props){
@@ -12,16 +12,26 @@ function DisplayVenue(props){
     let venue = props.venues[useParams().id]
     const [generalDisplay, setGeneralDisplay] = useState(true);
     const [date,  setDate] = useState('');
+    const [status, setStatus] = useState(venue.status);
     let totalDevices = 0;
     let totalOnline = 0;
+
     function submitDate(){
         let endDate = new Date(moment(date).add(2, 'y')).getTime();
         let obj = {"liveDate": new Date(moment(date)).getTime(), "online": true, "status":"live", "endDate": endDate};
         firebase.database().ref(`venues/${venue.id}`).update(obj)
     }
 
-    let userID = getAuth().currentUser
-    console.log(userID.uid)
+    let userID = getAuth().currentUser.uid
+
+    function updateStatus(){
+        if(venue.status === status){
+            alert("Status is the same");
+        } else {
+            let newObj = {status: status};
+            firebase.database().ref(`venues/${venue.id}`).update(newObj)
+        }
+    }
 
     return(
         <div>
@@ -66,7 +76,15 @@ function DisplayVenue(props){
                     </div>
                     <div className="displayVenueItems">
                         <h3>Current Status</h3>
-                        <p style={{fontSize: "20px"}}>{venue.liveDate ? <p>{moment(venue.liveDate).format('MMMM Do YYYY')}</p>: <div><p>Not Date Set! Please set below.</p><input type="date" value={date} onChange={e => setDate(e.target.value)}/><button onClick={submitDate}>Submit</button></div>}</p>
+                        {props.users[userID].role === "admin" ? <div style={{width: "100%"}}>
+                            <select value={status} onChange={e => setStatus(e.target.value)} style={{height: "25px", borderRadius: "5px", border: "1px solid lightgray", fontSize: "15px", fontWeight: "bold"}}>
+                                <option value="new">Onboarding</option>
+                                <option value="live">Live</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="contractEnded">No Renew</option>
+                            </select>
+                            <button onClick={updateStatus} style={{position: "absolute", right: "4.5vw", height: "25px", marginLeft: "15px", fontSize: "15px"}}>Update</button>
+                        </div>: "no"}
                     </div>
                 </div>
             </div>
