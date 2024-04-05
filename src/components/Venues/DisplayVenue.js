@@ -4,6 +4,7 @@ import NoteItems from '../NoteItems';
 import moment from 'moment';
 import firebase from 'firebase/compat/app';
 import "firebase/compat/database";
+import { getAuth } from "firebase/auth";
 
 
 function DisplayVenue(props){
@@ -18,6 +19,9 @@ function DisplayVenue(props){
         let obj = {"liveDate": new Date(moment(date)).getTime(), "online": true, "status":"live", "endDate": endDate};
         firebase.database().ref(`venues/${venue.id}`).update(obj)
     }
+
+    let userID = getAuth().currentUser
+    console.log(userID.uid)
 
     return(
         <div>
@@ -58,6 +62,10 @@ function DisplayVenue(props){
                     </div>
                     <div className="displayVenueItems">
                         <h3>Live Date</h3>
+                        <p style={{fontSize: "20px"}}>{venue.liveDate ? <p>{moment(venue.liveDate).format('MMMM Do YYYY')}</p>: <div><p>Not Date Set! Please set below.</p><input type="date" value={date} onChange={e => setDate(e.target.value)}/><button onClick={submitDate}>Submit</button></div>}</p>
+                    </div>
+                    <div className="displayVenueItems">
+                        <h3>Current Status</h3>
                         <p style={{fontSize: "20px"}}>{venue.liveDate ? <p>{moment(venue.liveDate).format('MMMM Do YYYY')}</p>: <div><p>Not Date Set! Please set below.</p><input type="date" value={date} onChange={e => setDate(e.target.value)}/><button onClick={submitDate}>Submit</button></div>}</p>
                     </div>
                 </div>

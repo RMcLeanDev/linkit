@@ -51,7 +51,7 @@ function NoteItems(props){
                     <p style={{fontSize: "20px"}}>{note.note}</p>
                     <div style={{display: "flex", width: "90%", justifyContent:"space-between", margin: "auto", marginTop:"5px"}}>
                         <p style={{fontSize: "15px"}}>Date Added: {moment(new Date(note.dateSubmited).toString()).format("MMM Do YYYY, h:mm a")}</p>
-                        <p>Submited By: {props.db.users[note.userSubmited]}</p>
+                        <p>Submited By: {props.db.users[note.userSubmited].name}</p>
                     </div>
                 </div>
             }):"No Notes have been created"}
