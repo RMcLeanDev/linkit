@@ -9,9 +9,9 @@ function VenueFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
-    const [contractEndFilter, setContractEndFilter] = useState(false);
+    const [contractEndFilter, setContractEndFilter] = useState(true);
     const [liveFilter, setLiveFilter] = useState(true)
-    const [onboardingFilter, setOnboardingFilter] = useState(false);
+    const [onboardingFilter, setOnboardingFilter] = useState(true);
     const navigate = useNavigate();
     let venueSort;
 
@@ -52,11 +52,6 @@ function VenueFullList(props){
     if(venueSort){
         Object.keys(venueSort).map((items) => {
             let venue = venueSort[items][1]
-            if(venue.endDate < Date.now()){
-                if (venue.status !== "contractEnded"){
-                    firebase.database().ref(`venues/${venue.id}`).update({"status":"contractEnded"})
-                }
-            }
             if (venue.venueName.toLowerCase().includes(search)){
                 if(liveFilter){
                     if(venue.status === "live"){
