@@ -80,11 +80,11 @@ function DisplayVenue(props){
                             <select value={status} onChange={e => setStatus(e.target.value)} style={{height: "25px", borderRadius: "5px", border: "1px solid lightgray", fontSize: "15px", fontWeight: "bold"}}>
                                 <option value="new">Onboarding</option>
                                 <option value="live">Live</option>
-                                <option value="cancelled">Cancelled</option>
+                                <option value="canceled">canceled</option>
                                 <option value="contractEnded">No Renew</option>
                             </select>
                             <button onClick={updateStatus} style={{position: "absolute", right: "4.5vw", height: "25px", marginLeft: "15px", fontSize: "15px"}}>Update</button>
-                        </div>: "no"}
+                        </div>: <p>{venue.status}</p>}
                     </div>
                 </div>
             </div>

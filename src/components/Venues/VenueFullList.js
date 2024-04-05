@@ -12,6 +12,7 @@ function VenueFullList(props){
     const [contractEndFilter, setContractEndFilter] = useState(true);
     const [liveFilter, setLiveFilter] = useState(true)
     const [onboardingFilter, setOnboardingFilter] = useState(true);
+    const [canceled, setCanceled] = useState(true);
     const navigate = useNavigate();
     let venueSort;
 
@@ -80,6 +81,15 @@ function VenueFullList(props){
                         delete venueSortArray[venue.id]
                     }
                 }
+                if(canceled){
+                    if(venue.status === "canceled"){
+                        venueSortArray[venue.id] = venue
+                    }
+                } else {
+                    if(venue.status === "canceled"){
+                        delete venueSortArray[venue.id]
+                    }
+                }
             }
         })
     }
@@ -97,6 +107,8 @@ function VenueFullList(props){
                 <label>Contracts Ended</label>
                 <input type="checkbox" value={onboardingFilter} checked={onboardingFilter} onChange={() => setOnboardingFilter(!onboardingFilter)}/>
                 <label>Onboarding</label>
+                <input type="checkbox" value={canceled} checked={canceled} onChange={() => setCanceled(!canceled)}/>
+                <label>Canceled</label>
             </div>
             {venueSort !== false? 
             <div>
@@ -126,10 +138,19 @@ function VenueFullList(props){
                     let totalOnline = 0;
                     let timeLeft;
                     let lastNote;
+                    let bgColor;
                     if(venue.liveDate && venue.endDate){
-                        if(venue.endDate < Date.now()){
-                            timeLeft = "Contract Ended"
-                        } else {
+                        if(venue.endDate < Date.now() && venue.status === "live"){
+                            timeLeft = "Live : Contract Done"
+                            bgColor = "orange"
+                        } else if(venue.endDate < Date.now() && venue.status === "contractEnded"){
+                            timeLeft = "Contract Terminated"
+                            bgColor = "red"
+                        } else if (venue.status === "canceled"){
+                            timeLeft = "Canceled"
+                            bgColor = "red"
+                        }
+                        else {
                             let time = Math.ceil(Math.abs(new Date(venue.endDate) - new Date(Date.now())) / (1000 * 60 * 60 * 24))
                             if(time > 31){
                                 timeLeft = Math.round(time / 365 * 12) + " Months"
@@ -152,8 +173,8 @@ function VenueFullList(props){
                             }
                         })
                     }
-                    return <div className="venueFullVenueList" style={timeLeft === "Contract Ended" ? {backgroundColor: "red"}: null}>
-                        <span style={timeLeft !== "Contract Ended" ? {width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
+                    return <div className="venueFullVenueList" style={{backgroundColor:bgColor}}>
+                        <span style={timeLeft ? timeLeft.includes("Canceled") || timeLeft.includes("Contract Terminated") ? null:{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
                         <p style={{cursor: "pointer", textAlign: "left"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
                         {venue.devices ? <p>{totalOnline}/{totalDevices}</p>: <p/>}
                         {venue.liveDate ? <p>{timeLeft}</p>:<p/>}
