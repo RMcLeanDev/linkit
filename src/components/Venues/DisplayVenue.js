@@ -82,6 +82,7 @@ function DisplayVenue(props){
                                 <option value="live">Live</option>
                                 <option value="canceled">Canceled</option>
                                 <option value="contractEnded">No Renew</option>
+                                <option value="onHold">On Hold</option>
                             </select>
                             <button onClick={updateStatus} style={{position: "absolute", right: "4.5vw", height: "25px", marginLeft: "15px", fontSize: "15px"}}>Update</button>
                         </div>: <p>{venue.status}</p>}

@@ -9,10 +9,11 @@ function VenueFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
-    const [contractEndFilter, setContractEndFilter] = useState(true);
-    const [liveFilter, setLiveFilter] = useState(true)
+    const [contractEndFilter, setContractEndFilter] = useState(false);
+    const [liveFilter, setLiveFilter] = useState(false)
     const [onboardingFilter, setOnboardingFilter] = useState(true);
-    const [canceled, setCanceled] = useState(true);
+    const [canceled, setCanceled] = useState(false);
+    const [onHold, setOnHold] = useState(false);
     const navigate = useNavigate();
     let venueSort;
 
@@ -90,6 +91,15 @@ function VenueFullList(props){
                         delete venueSortArray[venue.id]
                     }
                 }
+                if(onHold){
+                    if(venue.status === "onHold"){
+                        venueSortArray[venue.id] = venue
+                    }
+                } else {
+                    if(venue.status === "onHold"){
+                        delete venueSortArray[venue.id]
+                    }
+                }
             }
         })
     }
@@ -109,6 +119,8 @@ function VenueFullList(props){
                 <label>Onboarding</label>
                 <input type="checkbox" value={canceled} checked={canceled} onChange={() => setCanceled(!canceled)}/>
                 <label>Canceled</label>
+                <input type="checkbox" value={onHold} checked={onHold} onChange={() => setOnHold(!onHold)}/>
+                <label>On Hold</label>
             </div>
             {venueSort !== false? 
             <div>
@@ -158,6 +170,13 @@ function VenueFullList(props){
                                 timeLeft = time + " Days"
                             }
                         }
+                    } else {
+                        if(venue.status === "canceled"){
+                            timeLeft="Canceled"
+                            bgColor = "red"
+                        } else if (venue.status === "onHold"){
+                            timeLeft="On Hold"
+                        }
                     }
                     if(venue.notes){
                         let key = Object.keys(venue.notes)[Object.keys(venue.notes).length-1]
@@ -177,7 +196,7 @@ function VenueFullList(props){
                         <span style={timeLeft ? timeLeft.includes("Canceled") || timeLeft.includes("Contract Terminated") ? null:{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
                         <p style={{cursor: "pointer", textAlign: "left"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
                         {venue.devices ? <p>{totalOnline}/{totalDevices}</p>: <p/>}
-                        {venue.liveDate ? <p>{timeLeft}</p>:<p/>}
+                        {timeLeft ? <p>{timeLeft}</p>:<p/>}
                         <p style={{justifySelf:"flex-end", marginRight:"25px"}}>coming soon</p>
                         <p style={{"width": "81vw"}}>{venue.notes ? <p style={{"padding":"5px 0px", "fontSize": "15px"}}> Recent Note: {lastNote}</p> : null}</p>
                     </div>
