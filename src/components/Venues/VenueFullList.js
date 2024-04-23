@@ -9,11 +9,11 @@ function VenueFullList(props){
 
     const [search, setSearch] = useState("")
     const [selectSort, setSelectSort] = useState({name: true, ascend: true})
-    const [contractEndFilter, setContractEndFilter] = useState(false);
-    const [liveFilter, setLiveFilter] = useState(false)
+    const [contractEndFilter, setContractEndFilter] = useState(true);
+    const [liveFilter, setLiveFilter] = useState(true)
     const [onboardingFilter, setOnboardingFilter] = useState(true);
-    const [canceled, setCanceled] = useState(false);
-    const [onHold, setOnHold] = useState(false);
+    const [canceled, setCanceled] = useState(true);
+    const [onHold, setOnHold] = useState(true);
     const navigate = useNavigate();
     let venueSort;
 
@@ -193,7 +193,7 @@ function VenueFullList(props){
                         })
                     }
                     return <div className="venueFullVenueList" style={{backgroundColor:bgColor}}>
-                        <span style={timeLeft ? timeLeft.includes("Canceled") || timeLeft.includes("Contract Terminated") ? null:{width: "10px", height: "10px", backgroundColor:`${venue.online ? "green" : "red"}`, margin:"auto", borderRadius:"10px", marginLeft: "5px"}:{width: "0px", height:"0px"}}/>
+                        <span style={venue.status === "live" ? {width: "10px", height: "10px", backgroundColor:"limegreen", margin:"auto", borderRadius:"10px", marginLeft: "5px"}:null}/>
                         <p style={{cursor: "pointer", textAlign: "left"}} className="deviceName" onClick={() => navigate(`/venues/${venue.id}`)}>{venue.venueName}</p>
                         {venue.devices ? <p>{totalOnline}/{totalDevices}</p>: <p/>}
                         {timeLeft ? <p>{timeLeft}</p>:<p/>}
