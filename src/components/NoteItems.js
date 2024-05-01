@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import firebase from 'firebase/compat/app';
 import {connect} from 'react-redux';
+import {store} from '../App';
 import moment from 'moment';
 import "firebase/compat/auth";
 import "firebase/compat/database";
@@ -16,6 +17,8 @@ function NoteItems(props){
             let obj = {[Date.now()]: {userSubmited: firebase.auth().currentUser.uid, dateSubmited: Date.now(), note: textArea}};
             if(props.info.venueName){
                 firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
+                firebase.database().ref(`changeLog/${Date.now()}`).set({user: firebase.auth().currentUser.uid, note: textArea, dateSubmited: Date.now(), type: "has added a note", account: props.info.id});
+
             } else {
                 console.log("no")
             }

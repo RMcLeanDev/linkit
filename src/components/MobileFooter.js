@@ -4,16 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import {FiBookOpen} from 'react-icons/fi';
 import {GiExitDoor} from 'react-icons/gi';
 import {GrDevice} from 'react-icons/gr';
+import { GiNotebook } from "react-icons/gi";
+import Alerts from './Alerts';
+
 import {AiOutlineQuestionCircle} from 'react-icons/ai';
 
 
-function MobileFooter(){
+function MobileFooter(props){
 
+    const [alertComponent, setAlertComponent] = useState(true);
     const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);
     const navigate = useNavigate();
 
     return(
         <div className="mobileFooter">
+            <div style={{position:"fixed", top: "10px", right:"5px"}}>
+                <GiNotebook size={35} style={{position: "relative", cursor:"pointer"}} onClick={() => setAlertComponent(true)}/>
+                <p style={{borderRadius:"100%", minWidth:"18px", minHeight:"18px", padding: "5px",position: "fixed", right:"5px", borderBottom: "1px solid red"}}>{5}</p>
+                {alertComponent ? <Alerts changeLog={props.changeLog} closeAlerts={() => setAlertComponent(false)}/>:null}
+            </div>
             {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={() => setLogoutConfirmationScreen(false)} />: null}
             <div className="footerOption" onClick={() => navigate('/')}>
                 <img className="footerLogo" src={require('../assets/logoNoText.png')}/>

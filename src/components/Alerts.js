@@ -1,0 +1,41 @@
+import React from "react";
+import moment from 'moment';
+
+function Alerts(props){
+    
+    let alertSort;
+    
+    if(props.changeLog.changeLog){
+        alertSort = Object.entries(props.changeLog.changeLog).sort((a,b) => {
+            let id1 = a[parseInt(0)]
+            let id2 = b[parseInt(0)]
+            if(id1>id2){
+                return -1
+            } else if (id1<id2){
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+    
+    return(
+        <div className="alertComponent">
+            <p className="alertCloseButton" onClick={props.closeAlerts}>X</p>
+            <div className="alertContainer">
+                <h1>Recent Changes</h1>
+                <div className="recentChangeMessages">
+                    {Object.keys(alertSort).map((items) => {
+                        let item = alertSort[items][1];
+                        console.log(item)
+                        return <div style={{marginTop: "10px"}}>
+                            <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to <span style ={{fontWeight: "bold"}}>{props.changeLog.venues[item.account].venueName}</span> <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
+                        </div>
+                    })}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Alerts;

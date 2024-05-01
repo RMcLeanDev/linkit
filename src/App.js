@@ -16,12 +16,12 @@ function App(props) {
   let display;
   if(props.authUser && props.db){
     display = <div>
-      <MobileFooter />
+      <MobileFooter changeLog={props.db}/>
       <Routes>
         <Route exact path='/' element={<Home />}/>
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
         <Route exact path='/venues' element={<VenuesMain venues={props.db.venues} devices={props.db.devices}/>} />
-        <Route exact path='/devices' element={<DevicesMain devices={props.db.devices} venues={props.db.venues}/>} />
+        <Route exact path='/devices' element={<DevicesMain devices={props.db.devices} venues={props.db.venues} user={props.userRole}/>} />
         <Route exact path='/venues/:id' element={<DisplayVenue venues={props.db.venues} devices={props.db.devices} users={props.db.users}/>}/>
       </Routes>
     </div>
@@ -41,7 +41,8 @@ function App(props) {
 
 const mapStateToProps = state => ({
   authUser: state.authState,
-  db: state.dbState
+  db: state.dbState,
+  userRole: state.userRoleState
 })
 
 export default connect(mapStateToProps)(App);

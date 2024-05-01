@@ -1,5 +1,5 @@
 import * as types from './ActionTypes';
-import {initialState, authState, dbState } from './InitialState';
+import {initialState, authState, dbState, userRoleState } from './InitialState';
 import firebaseConfig from './firebaseConfig';
 
 export default {
@@ -7,5 +7,6 @@ export default {
   firebaseConfig: firebaseConfig,
   authState: authState,
   dbState: dbState,
+  userRoleState: userRoleState,
   types: types
 }

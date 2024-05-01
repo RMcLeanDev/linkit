@@ -16,6 +16,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     firebase.database().ref().on('value', function(snapshot){
       store.dispatch(getAllFromDB(snapshot.val()));
     })
+    firebase.database().ref(`users/${user.uid}`).on('value', function(snapshot){
+      let info = snapshot.val()
+      let obj = {userid: user.uid, info}
+      store.dispatch(setUserRole(obj));
+    })
     getResponse();
   } else {
     store.dispatch(authUserFalse());
@@ -81,3 +86,8 @@ export const updateOnlineStatus = (info) =>{
 export const updateVenueStatus = (info) => {
   firebase.database().ref(`venues/${info.venue.id}`).update({status: info.text})
 }
+
+export const setUserRole = (info) => ({
+  type: types.SET_USER_ROLE,
+  info
+})

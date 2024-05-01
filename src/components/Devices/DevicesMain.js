@@ -29,7 +29,7 @@ function DevicesMain(props){
     return(
         <div className="devicesMain">
             <DevicesPlus7 devices={props.devices} filterDate={(dates) => setFilterDate({start: dates.start, end: dates.end})}/>
-            <DevicesFullList devices={props.devices} filterDate={filterDate} options={options}/>
+            <DevicesFullList devices={props.devices} filterDate={filterDate} options={options} user={props.user}/>
         </div>
     )
 }

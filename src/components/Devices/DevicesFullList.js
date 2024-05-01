@@ -12,6 +12,8 @@ function DevicesFullList(props){
 
     let deviceSort;
 
+    console.log(props)
+
     if(props.devices){
         if(selectSort.name){
             if(selectSort.ascend){
@@ -103,7 +105,7 @@ function DevicesFullList(props){
                     return <div className="displayFullDeviceList">
                         <p className="deviceName">{device.deviceName}</p>
                         <p className="deviceHeart">{moment(device.lastHeartBeat).fromNow()}</p>
-                        {device.assigned ? null:<button onClick={() => setAssignDevice(device.UUID)}>assign</button>}
+                        {props.user.info.role === "admin" ? <button onClick={() => setAssignDevice(device.UUID)}>assign</button>: null}
                     </div>
                 })}
             </div>

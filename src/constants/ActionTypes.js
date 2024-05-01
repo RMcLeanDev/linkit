@@ -3,3 +3,5 @@ export const AUTH_USER_TRUE = 'AUTH_USER_TRUE';
 export const AUTH_USER_FALSE = 'AUTH_USER_FALSE';
 export const GET_ALL_FROM_DB = "GET_ALL_FROM_DB";
 export const UPDATE_ONLINE_STATUS = "UPDATE_ONLINE_STATUS";
+export const SET_USER_ROLE = "SET_USER_ROLE";
+export const DUMP_USER_ROLE = "DUMP_USER_ROLE";
