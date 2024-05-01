@@ -1,10 +1,12 @@
 import React from "react";
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 function Alerts(props){
     
     let alertSort;
-    
+    const navigate = useNavigate();
+
     if(props.changeLog.changeLog){
         alertSort = Object.entries(props.changeLog.changeLog).sort((a,b) => {
             let id1 = a[parseInt(0)]
@@ -30,7 +32,7 @@ function Alerts(props){
                         let item = alertSort[items][1];
                         console.log(item)
                         return <div className="changeItems">
-                            <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to <span style ={{fontWeight: "bold"}}>{props.changeLog.venues[item.account].venueName}</span> <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
+                            <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to <span style ={{fontWeight: "bold", cursor: "pointer"}} onClick={() => navigate(`/venues/${item.account}`)}>{props.changeLog.venues[item.account].venueName}</span> <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
                         </div>
                     })}
                 </div>
