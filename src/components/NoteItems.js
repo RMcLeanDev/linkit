@@ -17,7 +17,7 @@ function NoteItems(props){
             let obj = {[Date.now()]: {userSubmited: firebase.auth().currentUser.uid, dateSubmited: Date.now(), note: textArea}};
             if(props.info.venueName){
                 firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
-                firebase.database().ref(`changeLog/${Date.now()}`).set({user: firebase.auth().currentUser.uid, note: textArea, dateSubmited: Date.now(), type: "has added a note", account: props.info.id});
+                firebase.database().ref(`changeLog/${Date.now()}`).set({user: firebase.auth().currentUser.uid, note: textArea, dateSubmited: Date.now(), type: "has added a new note", account: props.info.id, venueSponsor:"venue"});
 
             } else {
                 console.log("no")

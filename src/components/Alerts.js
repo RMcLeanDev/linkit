@@ -30,9 +30,14 @@ function Alerts(props){
                 <div className="recentChangeMessages">
                     {Object.keys(alertSort).map((items) => {
                         let item = alertSort[items][1];
-                        console.log(item)
+                        let account;
+                        if(item.venueSponsor === "venue"){
+                            account = <span style ={{fontWeight: "bold", cursor: "pointer"}} onClick={() => navigate(`/venues/${item.account}`)}>{props.changeLog.venues[item.account].venueName}</span>
+                        } else {
+                            account = "coming soon"
+                        }
                         return <div className="changeItems">
-                            <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to <span style ={{fontWeight: "bold", cursor: "pointer"}} onClick={() => navigate(`/venues/${item.account}`)}>{props.changeLog.venues[item.account].venueName}</span> <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
+                            <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to {account} <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
                         </div>
                     })}
                 </div>

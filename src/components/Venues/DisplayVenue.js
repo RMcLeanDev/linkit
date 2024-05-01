@@ -30,6 +30,7 @@ function DisplayVenue(props){
         } else {
             let newObj = {status: status};
             firebase.database().ref(`venues/${venue.id}`).update(newObj)
+            firebase.database().ref(`changeLog/${Date.now()}`).set({user: firebase.auth().currentUser.uid, note: status, dateSubmited: Date.now(), type: `has updated the status to ${status}`, account: venue.id, venueSponsor:"venue"})
         }
     }
 
