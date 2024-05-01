@@ -18,7 +18,7 @@ function NoteItems(props){
             if(props.info.venueName){
                 firebase.database().ref(`venues/${props.info.id}/notes`).update(obj)
                 firebase.database().ref(`changeLog/${Date.now()}`).set({user: firebase.auth().currentUser.uid, note: textArea, dateSubmited: Date.now(), type: "has added a new note", account: props.info.id, venueSponsor:"venue"});
-
+                setNoteForm(false);
             } else {
                 console.log("no")
             }
