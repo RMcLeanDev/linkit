@@ -20,7 +20,6 @@ function MobileFooter(props){
         <div className="mobileFooter">
             <div style={{position:"fixed", top: "10px", right:"5px"}}>
                 <GiNotebook size={35} style={{position: "relative", cursor:"pointer"}} onClick={() => setAlertComponent(true)}/>
-                <p style={{borderRadius:"100%", minWidth:"18px", minHeight:"18px", padding: "5px",position: "fixed", right:"5px", borderBottom: "1px solid red"}}>{5}</p>
                 {alertComponent ? <Alerts changeLog={props.changeLog} closeAlerts={() => setAlertComponent(false)}/>:null}
             </div>
             {logoutConfirmationScreen ? <LogoutConfirmation closeWindow={() => setLogoutConfirmationScreen(false)} />: null}

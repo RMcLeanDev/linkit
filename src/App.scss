@@ -491,7 +491,7 @@ p{
   position: fixed; 
   right: 10px; 
   top: 10px;
-  background-color: rgba(255,0,0,0.8);
+  background-color: rgba(255,0,0,0.5);
   font-size:30px;
   min-width: 35px;
   min-height:35px;
@@ -506,6 +506,13 @@ p{
   margin-top: 10px;
 }
 .recentChangeMessages{
-  margin-top: 30px;
   overflow: auto;
+}
+
+.changeItems{
+  text-align: left;
+  padding: 10px 5px;
+  &:nth-child(even){
+    background-color: rgba(0,0,0,0.2);
+  }
 }

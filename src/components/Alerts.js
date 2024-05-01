@@ -24,11 +24,12 @@ function Alerts(props){
             <p className="alertCloseButton" onClick={props.closeAlerts}>X</p>
             <div className="alertContainer">
                 <h1>Recent Changes</h1>
+                <hr/>
                 <div className="recentChangeMessages">
                     {Object.keys(alertSort).map((items) => {
                         let item = alertSort[items][1];
                         console.log(item)
-                        return <div style={{marginTop: "10px"}}>
+                        return <div className="changeItems">
                             <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to <span style ={{fontWeight: "bold"}}>{props.changeLog.venues[item.account].venueName}</span> <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
                         </div>
                     })}
