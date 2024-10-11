@@ -43,7 +43,7 @@ function getResponse(){
         //'Connection': 'keep-alive', 
         //'DNT': '1', 
         //'Origin': 'https://graphql-gateway.optisigns.com', 
-        'authorization': process.env.REACT_APP_SCREENS_API
+        'authorization': process.env.REACT_APP_APRIL_SCREENS
       },
       data : data
     };
@@ -55,7 +55,8 @@ function getResponse(){
         let dateLocal = new Date(response.data.data.devices.page.edges[i].node.lastHeartBeat)
         obj[response.data.data.devices.page.edges[i].node.UUID] = {"UUID": response.data.data.devices.page.edges[i].node.UUID, "deviceName": response.data.data.devices.page.edges[i].node.deviceName, "lastHeartBeat": Date.parse(dateLocal)};
       }
-      firebase.database().ref('devices').set(obj)
+      console.log(obj)
+      // firebase.database().ref('devices').set(obj)
     })
     .catch((error) => {
       console.log(error);
