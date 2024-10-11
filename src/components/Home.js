@@ -35,6 +35,7 @@ function Home(){
             <h1>weoifewofin</h1>
             <form onSubmit={pushToDataBase}>
                 <input type='file' onChange={e => excelToJSON(e.target.files)}/>
+                <br/>
                 <button type='submit'>Submit</button>
             </form>
         </div>
