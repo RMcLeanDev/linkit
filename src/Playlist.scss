@@ -1,102 +1,145 @@
 /* Playlist Container */
 .playlistContainer {
-    display: flex;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Sidebar Styling */
-  .sidebar {
-    width: 20%;
-    background-color: #0f95f9;
-    color: white;
-    padding: 20px;
-    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .sidebar h3 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar ul li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: center;
-    background-color: #ffffff20; /* Transparent white */
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .sidebar ul li:hover,
-  .sidebar ul li.activePlaylist {
-    background-color: #c54dff;
-    color: white;
-  }
-  
-  /* Playlist Details Styling */
-  .playlistDetails {
-    width: 80%;
-    padding: 20px;
-  }
-  
-  .playlistSummary {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .mediaList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  /* Media Item Styling */
-  .mediaItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .mediaItem:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .mediaThumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .mediaDetails p {
-    margin: 5px 0;
-  }
-  
-  .deleteButton {
-    background-color: #c54dff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .deleteButton:hover {
-    background-color: #9a3cc4;
-  }
-  
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 20%;
+  background-color: #0f95f9;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #ffffff20;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.activePlaylist {
+  background-color: #c54dff;
+  color: white;
+}
+
+/* Playlist Details Styling */
+.playlistDetails {
+  width: 80%;
+  padding: 20px;
+}
+
+.playlistSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.editNameContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.editNameInput {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.saveNameButton {
+  background-color: #0f95f9;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveNameButton:hover {
+  background-color: #0c7bd1;
+}
+
+.playlistName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editNameButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #0f95f9;
+}
+
+.editNameButton:hover {
+  color: #c54dff;
+}
+
+/* Media Items Styling */
+.mediaList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mediaItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease;
+}
+
+.mediaItem:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mediaThumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.mediaDetails p {
+  margin: 5px 0;
+}
+
+.deleteButton {
+  background-color: #c54dff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #9a3cc4;
+}
