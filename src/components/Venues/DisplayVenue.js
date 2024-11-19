@@ -22,8 +22,6 @@ function DisplayVenue(props){
         firebase.database().ref(`venues/${venue.id}`).update(obj)
     }
 
-    let userID = getAuth().currentUser.uid
-
     function updateStatus(){
         if(venue.status === status){
             alert("Status is the same");
@@ -77,16 +75,7 @@ function DisplayVenue(props){
                     </div>
                     <div className="displayVenueItems">
                         <h3>Current Status</h3>
-                        {props.users[userID].role === "admin" ? <div style={{width: "100%"}}>
-                            <select value={status} onChange={e => setStatus(e.target.value)} style={{height: "25px", borderRadius: "5px", border: "1px solid lightgray", fontSize: "15px", fontWeight: "bold"}}>
-                                <option value="new">Onboarding</option>
-                                <option value="live">Live</option>
-                                <option value="canceled">Canceled</option>
-                                <option value="contractEnded">No Renew</option>
-                                <option value="onHold">On Hold</option>
-                            </select>
-                            <button onClick={updateStatus} style={{position: "absolute", right: "4.5vw", height: "25px", marginLeft: "15px", fontSize: "15px"}}>Update</button>
-                        </div>: <p>{venue.status}</p>}
+                        <p>{venue.status}</p>
                     </div>
                 </div>
             </div>

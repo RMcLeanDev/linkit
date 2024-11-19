@@ -105,7 +105,6 @@ function DevicesFullList(props){
                     return <div className="displayFullDeviceList">
                         <p className="deviceName">{device.deviceName}</p>
                         <p className="deviceHeart">{moment(device.lastHeartBeat).fromNow()}</p>
-                        {props.user.info.role === "admin" ? <button onClick={() => setAssignDevice(device.UUID)}>assign</button>: null}
                     </div>
                 })}
             </div>

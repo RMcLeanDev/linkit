@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import moment from 'moment';
+import Google from './Google';
 
 function Home(){
       
@@ -47,6 +48,7 @@ function Home(){
     return(
         <div>
             <h1>This is the home component</h1>
+            <Google />
             <form onSubmit={pushToDataBase}>
                 <input type='file' onChange={e => excelToJSON(e.target.files)}/>
                 <br/>

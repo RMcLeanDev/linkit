@@ -27,7 +27,15 @@ function Alerts(props){
             <div className="alertContainer">
                 <h1>Recent Changes</h1>
                 <hr/>
-                <div className="recentChangeMessages">
+                
+            </div>
+        </div>
+    )
+}
+
+export default Alerts;
+
+/*<div className="recentChangeMessages">
                     {Object.keys(alertSort).map((items) => {
                         let item = alertSort[items][1];
                         let account;
@@ -40,10 +48,4 @@ function Alerts(props){
                             <p><span style ={{fontWeight: "bold"}}>{props.changeLog.users[item.user].name}</span> {item.type} to {account} <br/> on: {moment(item.dateSubmited).format("MMMM Do YYYY, h:mm a")}</p>
                         </div>
                     })}
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default Alerts;
+                </div>*/

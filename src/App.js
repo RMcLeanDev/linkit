@@ -11,6 +11,7 @@ import SupportRequest from './components/SupportRequest';
 import VenuesMain from './components/Venues/VenuesMain';
 import DevicesMain from './components/Devices/DevicesMain';
 import DisplayVenue from './components/Venues/DisplayVenue';
+import Playlist from './components/Playlist'
 
 function App(props) {
   let display;
@@ -22,6 +23,7 @@ function App(props) {
         <Route exact path='/supportRequest' element={<SupportRequest />}/>
         <Route exact path='/venues' element={<VenuesMain venues={props.db.venues} devices={props.db.devices}/>} />
         <Route exact path='/devices' element={<DevicesMain devices={props.db.devices} venues={props.db.venues} user={props.userRole}/>} />
+        <Route exact path='/playlist' element={<Playlist playlists={props.db.playlists}/>}/>
         <Route exact path='/venues/:id' element={<DisplayVenue venues={props.db.venues} devices={props.db.devices} users={props.db.users}/>}/>
       </Routes>
     </div>
