@@ -2,7 +2,6 @@ import constants from './../constants';
 import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
 import "firebase/compat/database";
-import { getDatabase, ref, onValue } from "firebase/database";
 import {store} from './../index';
 import axios from 'axios';
 
@@ -26,40 +25,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     store.dispatch(authUserFalse());
   }
 });
-
-export const fetchPlaylists = () => {
-  return (dispatch) => {
-    const db = getDatabase();
-    const playlistsRef = ref(db, "playlists");
-    onValue(playlistsRef, (snapshot) => {
-      const playlists = snapshot.val();
-      console.log("Fetched playlists: ", playlists);
-      dispatch({
-        type: "SET_PLAYLISTS",
-        playlists,
-      });
-    });
-  };
-};
-
-export const addPlaylistToDatabase = (playlistName) => {
-  return () => {
-    const databaseRef = firebase.database().ref("playlists");
-    const newPlaylistRef = databaseRef.push();
-    newPlaylistRef.set({
-      name: playlistName,
-      items: {},
-    });
-  };
-};
-
-export const addItemToPlaylist = (playlistId, item) => {
-  return () => {
-    const playlistRef = firebase.database().ref(`playlists/${playlistId}/items`);
-    const newItemRef = playlistRef.push();
-    newItemRef.set(item);
-  };
-};
 
 function getResponse() {
   let data = JSON.stringify({
