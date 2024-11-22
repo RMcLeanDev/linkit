@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi"; // Import pencil icon
 import "../Playlist.scss";
+import { addNewItem, removeItem, updatePlaylistName } from "../utils/firebaseActions"; // Ensure correct imports
 
-function Playlist({ playlists, updatePlaylistName, addNewItem, removeItem }) {
+function Playlist({ playlists }) {
   const [editingName, setEditingName] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [currentPlaylistId, setCurrentPlaylistId] = useState(null);
@@ -17,9 +18,37 @@ function Playlist({ playlists, updatePlaylistName, addNewItem, removeItem }) {
   // Save the new playlist name
   const saveNewName = () => {
     if (currentPlaylistId && newPlaylistName.trim() !== "") {
-      updatePlaylistName(currentPlaylistId, newPlaylistName.trim());
+      updatePlaylistName(currentPlaylistId, newPlaylistName.trim())
+        .then(() => {
+          console.log("Playlist name updated successfully.");
+        })
+        .catch((error) => {
+          console.error("Error updating playlist name:", error);
+        });
     }
     setEditingName(false);
+  };
+
+  // Add new item to the playlist
+  const handleAddNewItem = (e) => {
+    e.preventDefault();
+    const type = e.target.type.value;
+    const url = e.target.url.value;
+    const duration = parseInt(e.target.duration.value, 10); // Ensure duration is a number
+
+    if (type && url && duration && currentPlaylistId) {
+      console.log("Adding new item:", { type, url, duration });
+      addNewItem(currentPlaylistId, { type, url, duration })
+        .then(() => {
+          console.log("Item added successfully.");
+        })
+        .catch((error) => {
+          console.error("Failed to add new item:", error);
+        });
+      e.target.reset();
+    } else {
+      console.error("Invalid input for adding a new item.");
+    }
   };
 
   return (
@@ -58,10 +87,7 @@ function Playlist({ playlists, updatePlaylistName, addNewItem, removeItem }) {
                     onBlur={saveNewName} // Save on blur
                     autoFocus
                   />
-                  <button
-                    className="saveNameButton"
-                    onClick={saveNewName}
-                  >
+                  <button className="saveNameButton" onClick={saveNewName}>
                     Save
                   </button>
                 </div>
@@ -104,6 +130,15 @@ function Playlist({ playlists, updatePlaylistName, addNewItem, removeItem }) {
                         className="deleteButton"
                         onClick={() =>
                           removeItem(currentPlaylistId, itemId)
+                            .then(() => {
+                              console.log(`Item ${itemId} removed successfully.`);
+                            })
+                            .catch((error) => {
+                              console.error(
+                                `Failed to remove item ${itemId}:`,
+                                error
+                              );
+                            })
                         }
                       >
                         Remove
@@ -117,21 +152,10 @@ function Playlist({ playlists, updatePlaylistName, addNewItem, removeItem }) {
             {/* Add New Item */}
             <div className="addNewItemForm">
               <h3>Add New Item</h3>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const type = e.target.type.value;
-                  const url = e.target.url.value;
-                  const duration = e.target.duration.value;
-                  if (type && url && duration) {
-                    addNewItem(currentPlaylistId, { type, url, duration });
-                    e.target.reset();
-                  }
-                }}
-              >
+              <form onSubmit={handleAddNewItem}>
                 <div>
                   <label>Type:</label>
-                  <select name="type">
+                  <select name="type" required>
                     <option value="image">Image</option>
                     <option value="video">Video</option>
                   </select>

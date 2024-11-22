@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import { getDatabase, ref, remove } from "firebase/database";
 import "firebase/compat/database";
 
 // Update playlist name
@@ -87,4 +88,16 @@ export const getPlaylists = async () => {
   const ref = firebase.database().ref("playlists");
   const snapshot = await ref.get();
   return snapshot.val();
+};
+
+export const removeScreenFromFirebase = async (pairingCode) => {
+  const db = getDatabase();
+
+  // Delete from 'pairings' node
+  const pairingRef = ref(db, `pairings/${pairingCode}`);
+  await remove(pairingRef);
+
+  // Optionally, delete from 'devices' node if needed
+  const deviceRef = ref(db, `devices/${pairingCode}`);
+  await remove(deviceRef);
 };

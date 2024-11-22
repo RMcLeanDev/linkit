@@ -4,6 +4,7 @@ import {
   getScreensFromFirebase,
   addScreenToFirebase,
   updateScreenDetails,
+  removeScreenFromFirebase,
 } from "../utils/firebaseActions";
 
 function Screens({ playlists }) {
@@ -45,7 +46,7 @@ function Screens({ playlists }) {
       setPairingCode("");
       setScreenName("");
     } catch (error) {
-      console.error("Error adding screen: ", error);
+      console.error("Error adding screen:", error);
       alert("Failed to add screen. Please try again.");
     }
   };
@@ -68,8 +69,30 @@ function Screens({ playlists }) {
       setScreenName("");
       setPlaylistId("");
     } catch (error) {
-      console.error("Error updating screen: ", error);
+      console.error("Error updating screen:", error);
       alert("Failed to update screen. Please try again.");
+    }
+  };
+
+  // Remove a screen
+  const handleRemoveScreen = async (pairingCode) => {
+    if (window.confirm("Are you sure you want to remove this screen?")) {
+      try {
+        // Call the Firebase function to remove the screen
+        await removeScreenFromFirebase(pairingCode);
+
+        // Update local state to reflect the removal
+        setAssignedScreens((prev) => {
+          const updatedScreens = { ...prev };
+          delete updatedScreens[pairingCode];
+          return updatedScreens;
+        });
+
+        alert("Screen removed successfully!");
+      } catch (error) {
+        console.error("Error removing screen:", error);
+        alert("Failed to remove screen. Please try again.");
+      }
     }
   };
 
@@ -113,6 +136,12 @@ function Screens({ playlists }) {
                         }}
                       >
                         Edit
+                      </button>
+                      <button
+                        className="removeButton"
+                        onClick={() => handleRemoveScreen(code)}
+                      >
+                        Remove
                       </button>
                     </td>
                   </tr>
