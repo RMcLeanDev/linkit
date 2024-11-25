@@ -52,7 +52,7 @@ function getResponse() {
     headers: { 
       'Content-Type': 'application/json', 
       'Accept': 'application/json', 
-      'authorization': process.env.REACT_APP_APRIL_SCREENS
+      'authorization': process.env.REACT_APP_SCREENS_API
     },
     data: data
   };
@@ -68,8 +68,7 @@ function getResponse() {
           lastHeartBeat: Date.parse(dateLocal)
         };
       }
-      console.log(obj);
-      // firebase.database().ref('devices').set(obj)
+      firebase.database().ref('devices').update(obj)
     })
     .catch((error) => {
       console.log(error);

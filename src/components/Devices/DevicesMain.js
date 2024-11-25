@@ -22,9 +22,9 @@ function DevicesMain(props){
         })
     }
 
-    for(let i = 0; i<venueSort.length; i++){
-        options.push({value: venueSort[i][1].id, label: venueSort[i][1].venueName})
-    }
+    // for(let i = 0; i<venueSort.length; i++){
+    //     options.push({value: venueSort[i][1].id, label: venueSort[i][1].venueName})
+    // }
 
     return(
         <div className="devicesMain">
