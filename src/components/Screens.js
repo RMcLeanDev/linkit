@@ -123,7 +123,7 @@ function Screens({ playlists, screens, users }) {
                       <button
                         className="removeButton"
                         onClick={() => {
-                          handleRemoveScreen(screen.deviceID);
+                          handleRemoveScreen(screen);
                         }}
                       >
                         Remove
