@@ -9,6 +9,8 @@ const {types, firebaseConfig} = constants;
 
 firebase.initializeApp(firebaseConfig);
 
+export let userID;
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     store.dispatch(authUserTrue());
@@ -20,6 +22,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       let obj = { userid: user.uid, info };
       store.dispatch(setUserRole(obj));
     });
+    userID = firebase.auth().currentUser.uid
     getResponse();
   } else {
     store.dispatch(authUserFalse());

@@ -14,14 +14,14 @@ import SupportRequest from "./components/SupportRequest";
 
 function App(props) {
   let display;
-
+  console.log(props)
   if (props.authUser && props.db) {
     display = (
       <div>
         <MobileFooter changeLog={props.db} />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/screens" element={<Screens playlists={props.db.playlists} />} />
+          <Route exact path="/screens" element={<Screens playlists={props.db.playlists} screens={props.db.screens} users={props.db.users}/>} />
           <Route exact path="/playlists" element={<Playlist playlists={props.db.playlists} />} />
           <Route exact path="/devices" element={<DevicesMain devices={props.db.devices} />} />
           <Route exact path="/venues" element={<VenuesMain venues={props.db.venues} />} />
