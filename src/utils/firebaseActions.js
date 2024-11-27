@@ -79,6 +79,7 @@ export const addScreenToFirebase = async (tvSerial, userID, screenName) => {
       activationDate: Date.now(),
       currentPlaylistAssigned: null,
       assignedTo: userID,
+      paired: true
     };
 
     const userData = {
@@ -156,6 +157,19 @@ export const assignPairingCodeToDevice = async (pairingCode, playlistId) => {
   }
 };
 
+export const updatePlaylistOrder = async (playlistId, reorderedItems, userID) => {
+  const database = firebase.database().ref(`playlists/${playlistId}/items`);
+  return database
+    .set(reorderedItems)
+    .then(() => {
+      console.log(`Playlist ${playlistId} reordered successfully in Firebase.`);
+    })
+    .catch((error) => {
+      console.error("Error updating playlist order in Firebase:", error);
+    });
+};
+
+
 export const getPlaylists = async () => {
   const ref = firebase.database().ref("playlists");
   const snapshot = await ref.get();
@@ -187,6 +201,7 @@ export const removeScreenFromFirebase = async (deviceID, playlistID, userID) => 
       screenRef.update({
         assignedTo: null,
         currentPlaylistAssigned: null,
+        paired: false
       })
     );
 

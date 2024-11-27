@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { FiEdit } from "react-icons/fi"; // Import pencil icon
+import { FiEdit } from "react-icons/fi";
 import "../Playlist.scss";
-import { addNewItem, removeItem, updatePlaylistName, createNewPlaylist } from "../utils/firebaseActions";
-import {userID} from '../actions/index';
+import PlaylistReorder from "./PlaylistReorder";
+import {
+  addNewItem,
+  removeItem,
+  updatePlaylistName,
+  createNewPlaylist,
+  updatePlaylistOrder,
+} from "../utils/firebaseActions";
+import { userID } from "../actions/index";
 
 function Playlist({ playlists }) {
   const [editingName, setEditingName] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [currentPlaylistId, setCurrentPlaylistId] = useState(null);
   const [newPlaylistFormName, setNewPlaylistFormName] = useState("");
+  const [playlistItems, setPlaylistItems] = useState([]);
 
   // Start editing the playlist name
   const startEditingName = (playlistId, currentName) => {
@@ -69,6 +77,45 @@ function Playlist({ playlists }) {
     }
   };
 
+  const handleSelectPlaylist = (playlistId) => {
+    setCurrentPlaylistId(playlistId);
+
+    const playlist = playlists[playlistId];
+    const items = playlist?.items || {};
+    const formattedItems = Object.keys(items).map((itemId) => ({
+      id: itemId,
+      ...items[itemId],
+    }));
+
+    setPlaylistItems(formattedItems);
+  };
+
+  const handleReorder = (reorderedItems) => {
+    setPlaylistItems(reorderedItems);
+
+    // Save the reordered playlist in Firebase
+    updatePlaylistOrder(currentPlaylistId, reorderedItems, userID)
+      .then(() => {
+        console.log("Playlist reordered successfully.");
+      })
+      .catch((error) => {
+        console.error("Error updating playlist order:", error);
+      });
+  };
+
+  const handleRemoveItem = (itemId) => {
+    removeItem(currentPlaylistId, itemId)
+      .then(() => {
+        console.log(`Item ${itemId} removed successfully.`);
+        setPlaylistItems((prevItems) =>
+          prevItems.filter((item) => item.id !== itemId)
+        );
+      })
+      .catch((error) => {
+        console.error(`Failed to remove item ${itemId}:`, error);
+      });
+  };
+
   return (
     <div className="playlistContainer">
       {/* Sidebar */}
@@ -79,7 +126,7 @@ function Playlist({ playlists }) {
             <li
               key={playlistId}
               className={currentPlaylistId === playlistId ? "activePlaylist" : ""}
-              onClick={() => setCurrentPlaylistId(playlistId)}
+              onClick={() => handleSelectPlaylist(playlistId)}
             >
               {playlists[playlistId].name}
             </li>
@@ -112,7 +159,7 @@ function Playlist({ playlists }) {
                     value={newPlaylistName}
                     className="editNameInput"
                     onChange={(e) => setNewPlaylistName(e.target.value)}
-                    onBlur={saveNewName} // Save on blur
+                    onBlur={saveNewName}
                     autoFocus
                   />
                   <button className="saveNameButton" onClick={saveNewName}>
@@ -136,57 +183,12 @@ function Playlist({ playlists }) {
               )}
             </div>
 
-            {/* Media List */}
-            <div className="mediaList">
-              {playlists[currentPlaylistId]?.items ? (
-                Object.keys(playlists[currentPlaylistId].items).map((itemId) => {
-                  const item = playlists[currentPlaylistId].items[itemId];
-                  return (
-                    <div key={itemId} className="mediaItem">
-                      <div>
-                        {item.type === "image" ? (
-                          <img
-                            src={item.url}
-                            alt={`Thumbnail for ${itemId}`}
-                            className="mediaThumbnail"
-                          />
-                        ) : (
-                          <video
-                            src={item.url}
-                            controls
-                            className="mediaThumbnail"
-                          />
-                        )}
-                        <div className="mediaDetails">
-                          <p>Type: {item.type}</p>
-                          <p>Duration: {item.duration} ms</p>
-                          <p>Times Played: {item.timesPlayed || 0}</p>
-                        </div>
-                      </div>
-                      <button
-                        className="deleteButton"
-                        onClick={() =>
-                          removeItem(currentPlaylistId, itemId)
-                            .then(() => {
-                              console.log(`Item ${itemId} removed successfully.`);
-                            })
-                            .catch((error) => {
-                              console.error(
-                                `Failed to remove item ${itemId}:`,
-                                error
-                              );
-                            })
-                        }
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  );
-                })
-              ) : (
-                <p>No media items found.</p>
-              )}
-            </div>
+            {/* Drag-and-Drop Playlist Items */}
+            <PlaylistReorder
+              playlistItems={playlistItems}
+              onReorder={handleReorder}
+              onRemove={handleRemoveItem}
+            />
 
             {/* Add New Item */}
             <div className="addNewItemForm">
