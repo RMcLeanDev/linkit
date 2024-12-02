@@ -1,6 +1,6 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import "../Playlist.scss"; // Ensure this contains styles for drag-and-drop
+import "../Playlist.scss";
 
 function PlaylistReorder({ playlistItems, onReorder, onRemove }) {
   const handleDragEnd = (result) => {
@@ -8,12 +8,10 @@ function PlaylistReorder({ playlistItems, onReorder, onRemove }) {
 
     const { source, destination } = result;
 
-    // Reorder the items
     const reorderedItems = Array.from(playlistItems);
     const [movedItem] = reorderedItems.splice(source.index, 1);
     reorderedItems.splice(destination.index, 0, movedItem);
 
-    // Call the parent component's handler to update the state and Firebase
     onReorder(reorderedItems);
   };
 

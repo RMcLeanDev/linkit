@@ -46,9 +46,14 @@ export const updatePlaylistItem = (playlistId, itemId, updatedItem) => {
 
 export const addNewItem = (playlistId, newItem) => {
   const database = firebase.database().ref(`playlists/${playlistId}/items`);
-  const newItemRef = database.push();
-  return newItemRef
-    .set(newItem)
+
+  return database
+    .get()
+    .then((snapshot) => {
+      const items = snapshot.val() || [];
+      items.push(newItem);
+      return database.set(items);
+    })
     .then(() => {
       console.log("New item added successfully!");
     })
@@ -157,6 +162,7 @@ export const assignPairingCodeToDevice = async (pairingCode, playlistId) => {
   }
 };
 
+//update playlist order DONE
 export const updatePlaylistOrder = async (playlistId, reorderedItems, userID) => {
   const database = firebase.database().ref(`playlists/${playlistId}/items`);
   return database
@@ -169,13 +175,13 @@ export const updatePlaylistOrder = async (playlistId, reorderedItems, userID) =>
     });
 };
 
-
 export const getPlaylists = async () => {
   const ref = firebase.database().ref("playlists");
   const snapshot = await ref.get();
   return snapshot.val();
 };
 
+//remove screen DONE
 export const removeScreenFromFirebase = async (deviceID, playlistID, userID) => {
   try {
     const screenRef = firebase.database().ref(`screens/${deviceID}`);
