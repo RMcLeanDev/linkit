@@ -10,6 +10,7 @@ import {
   updatePlaylistOrder,
 } from "../utils/firebaseActions";
 import { userID } from "../actions/index";
+import AwsUploads from "./AwsUploads";
 
 function Playlist({ playlists }) {
   const [editingName, setEditingName] = useState(false);
@@ -17,6 +18,7 @@ function Playlist({ playlists }) {
   const [currentPlaylistId, setCurrentPlaylistId] = useState(null);
   const [newPlaylistFormName, setNewPlaylistFormName] = useState("");
   const [playlistItems, setPlaylistItems] = useState([]);
+  const [newFile, setNewFile] = useState()
 
   // Start editing the playlist name
   const startEditingName = (playlistId, currentName) => {
@@ -118,6 +120,7 @@ function Playlist({ playlists }) {
 
   return (
     <div className="playlistContainer">
+      <AwsUploads/>
       {/* Sidebar */}
       <div className="sidebar">
         <h3>Playlists</h3>
