@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { FiBookOpen } from "react-icons/fi";
 import { GiExitDoor } from "react-icons/gi";
 import { GrDevice } from "react-icons/gr";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
-import { MdTv } from "react-icons/md"; // Icon for Screens tab
-import { BsMusicNoteList } from "react-icons/bs"; // Icon for Playlist tab
+import { SiFiles } from "react-icons/si";
+import { BsFillFileSlidesFill } from "react-icons/bs";
+import { IoIosTv } from "react-icons/io";
+import { MdTv } from "react-icons/md";
 import Alerts from "./Alerts";
 
 function MobileFooter(props) {
@@ -30,6 +31,18 @@ function MobileFooter(props) {
       <div className="footerOption" onClick={() => navigate("/")}>
         <img className="footerLogo" src={require("../assets/logoNoText.png")} />
       </div>
+      <div className="footerOption" onClick={() => navigate("/screens")}>
+        <IoIosTv size={25} />
+        <p>Screens</p>
+      </div>
+      <div className="footerOption" onClick={() => navigate("/files")}>
+        <SiFiles size={25} />
+        <p>Files/Assets</p>
+      </div>
+      <div className="footerOption" onClick={() => navigate("/playlists")}>
+        <BsFillFileSlidesFill size={25} />
+        <p>Playlist</p>
+      </div>
       <div className="footerOption" onClick={() => navigate("/devices")}>
         <GrDevice size={25} />
         <p>Devices</p>
@@ -37,18 +50,6 @@ function MobileFooter(props) {
       <div className="footerOption" onClick={() => navigate("/venues")}>
         <FiBookOpen size={25} />
         <p>Venues</p>
-      </div>
-      <div className="footerOption" onClick={() => navigate("/playlists")}>
-        <BsMusicNoteList size={25} />
-        <p>Playlist</p>
-      </div>
-      <div className="footerOption" onClick={() => navigate("/screens")}>
-        <MdTv size={25} />
-        <p>Screens</p>
-      </div>
-      <div className="footerOption" onClick={() => navigate("/supportRequest")}>
-        <AiOutlineQuestionCircle size={25} />
-        <p>Support</p>
       </div>
       <div className="footerOption" onClick={() => setLogoutConfirmationScreen(true)}>
         <GiExitDoor size={25} />

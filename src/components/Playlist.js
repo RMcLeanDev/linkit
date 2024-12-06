@@ -10,7 +10,6 @@ import {
   updatePlaylistOrder,
 } from "../utils/firebaseActions";
 import { userID } from "../actions/index";
-import AwsUploads from "./AwsUploads";
 
 function Playlist({ playlists }) {
   const [editingName, setEditingName] = useState(false);
@@ -120,7 +119,6 @@ function Playlist({ playlists }) {
 
   return (
     <div className="playlistContainer">
-      <AwsUploads/>
       {/* Sidebar */}
       <div className="sidebar">
         <h3>Playlists</h3>

@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import DevicesMain from "./components/Devices/DevicesMain";
 import VenuesMain from "./components/Venues/VenuesMain";
 import DisplayVenue from "./components/Venues/DisplayVenue";
-import SupportRequest from "./components/SupportRequest";
+import Files from "./components/Files/Assets/Files";
 
 function App(props) {
   let display;
@@ -26,7 +26,7 @@ function App(props) {
           <Route exact path="/devices" element={<DevicesMain devices={props.db.devices} />} />
           <Route exact path="/venues" element={<VenuesMain venues={props.db.venues} />} />
           <Route exact path="/venues/:id" element={<DisplayVenue venues={props.db.venues} />} />
-          <Route exact path="/supportRequest" element={<SupportRequest />} />
+          <Route exact path="/files"  element={<Files />}/>
         </Routes>
       </div>
     );
