@@ -51,12 +51,10 @@ function AwsUploads() {
     }
   };
 
-  // Handle file input
   const handleNewFile = (e) => {
     setNewFile(e.target.files[0]);
   };
 
-  // Handle file upload
   const handleFileUpload = async () => {
     if (!newFile) return;
 
@@ -68,7 +66,6 @@ function AwsUploads() {
     }
   };
 
-  // Handle file delete
   const handleFileDelete = async () => {
     if (!fileNameToDelete) return;
 

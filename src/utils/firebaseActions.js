@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-import { getDatabase, ref, remove } from "firebase/database";
+import { v4 as uuidv4 } from "uuid";
 import "firebase/compat/database";
 
 export const createNewPlaylist = (playlist) => {
@@ -60,6 +60,56 @@ export const addNewItem = (playlistId, newItem) => {
     .catch((error) => {
       console.error("Error adding item: ", error);
     });
+};
+
+export const firebaseUID = async () => {
+  return new Promise((resolve, reject) => {
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+      resolve(user.uid);
+    } else {
+      reject("No user is currently authenticated.");
+    }
+  });
+};
+
+//take s3 link and upload to firebase DONE
+export const addS3LinksToFirebase = async (filesData, userId = "global", userEmail = "unknown") => {
+  try {
+    const filesArray = Array.isArray(filesData) ? filesData : [filesData];
+
+    const filesRef = firebase.database().ref(`users/${userId}/files`);
+
+    const promises = filesArray.map((fileData) => {
+      const { url, type, size, width, height, duration } = fileData;
+
+      const fileId = uuidv4();
+
+      const fileMetadata = {
+        fileId: fileId, 
+        url,
+        fileType: type,
+        fileSize: `${(size / 1024 / 1024).toFixed(2)} MB`,
+        width: width || null,
+        height: height || null,
+        duration: duration || null,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        modifiedAt: firebase.database.ServerValue.TIMESTAMP,
+        createdBy: userEmail,
+        modifiedBy: userEmail,
+        fileCategory: type.startsWith("image/") ? "Image" : type.startsWith("video/") ? "Video" : "File",
+      };
+
+      return filesRef.child(fileId).set(fileMetadata);
+    });
+
+    await Promise.all(promises);
+    console.log("File links with UUID added to Firebase.");
+  } catch (error) {
+    console.error("Error adding S3 links to Firebase:", error);
+    throw error;
+  }
 };
 
 export const removeItem = (playlistId, itemId) => {

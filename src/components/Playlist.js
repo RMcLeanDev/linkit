@@ -94,7 +94,6 @@ function Playlist({ playlists }) {
   const handleReorder = (reorderedItems) => {
     setPlaylistItems(reorderedItems);
 
-    // Save the reordered playlist in Firebase
     updatePlaylistOrder(currentPlaylistId, reorderedItems, userID)
       .then(() => {
         console.log("Playlist reordered successfully.");
@@ -134,7 +133,6 @@ function Playlist({ playlists }) {
           ))}
         </ul>
 
-        {/* Add New Playlist */}
         <div className="addPlaylist">
           <h3>Create New Playlist</h3>
           <input
@@ -147,11 +145,9 @@ function Playlist({ playlists }) {
         </div>
       </div>
 
-      {/* Playlist Details */}
       <div className="playlistDetails">
         {currentPlaylistId ? (
           <>
-            {/* Playlist Header */}
             <div className="playlistSummary">
               {editingName ? (
                 <div className="editNameContainer">
@@ -184,14 +180,12 @@ function Playlist({ playlists }) {
               )}
             </div>
 
-            {/* Drag-and-Drop Playlist Items */}
             <PlaylistReorder
               playlistItems={playlistItems}
               onReorder={handleReorder}
               onRemove={handleRemoveItem}
             />
 
-            {/* Add New Item */}
             <div className="addNewItemForm">
               <h3>Add New Item</h3>
               <form onSubmit={handleAddNewItem}>
