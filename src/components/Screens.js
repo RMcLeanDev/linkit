@@ -6,6 +6,7 @@ import {
   removeScreenFromFirebase,
 } from "../utils/firebaseActions";
 import {userID} from '../actions/index';
+import { sendPowerCommand } from "../utils/firebaseActions";
 
 function Screens({ playlists, screens, users }) {
   const [showAddScreenModal, setShowAddScreenModal] = useState(false);
@@ -128,6 +129,8 @@ function Screens({ playlists, screens, users }) {
                       >
                         Remove
                       </button>
+                      <button onClick={() => sendPowerCommand("G4N1CQ1542050U1E", "sleep")}>Sleep</button>
+                      <button onClick={() => sendPowerCommand("G4N1CQ1542050U1E", "wake")}>Wake</button>
                     </td>
                   </tr>
                 );

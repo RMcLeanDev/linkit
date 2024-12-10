@@ -62,6 +62,14 @@ export const addNewItem = (playlistId, newItem) => {
     });
 };
 
+export const sendPowerCommand = (screenId, command) => {
+  firebase.database().ref(`screens/${screenId}/commands`).set({
+    action: command, // 'sleep' or 'wake'
+    timestamp: Date.now(),
+  });
+  console.log(`Sent command: ${command} to screen ${screenId}`);
+};
+
 export const firebaseUID = async () => {
   return new Promise((resolve, reject) => {
     const user = firebase.auth().currentUser;
@@ -74,23 +82,22 @@ export const firebaseUID = async () => {
   });
 };
 
-//take s3 link and upload to firebase DONE
 export const addS3LinksToFirebase = async (filesData, userId = "global", userEmail = "unknown") => {
   try {
     const filesArray = Array.isArray(filesData) ? filesData : [filesData];
-
     const filesRef = firebase.database().ref(`users/${userId}/files`);
 
     const promises = filesArray.map((fileData) => {
-      const { url, type, size, width, height, duration } = fileData;
+      const { url, type, size, width, height, duration, originalName } = fileData;
 
       const fileId = uuidv4();
 
       const fileMetadata = {
-        fileId: fileId, 
+        imageId: fileId, 
         url,
         fileType: type,
-        fileSize: `${(size / 1024 / 1024).toFixed(2)} MB`,
+        fileSize: `${(size / 1024 / 1024).toFixed(2)} MB`, 
+        originalName: originalName,
         width: width || null,
         height: height || null,
         duration: duration || null,
@@ -98,19 +105,19 @@ export const addS3LinksToFirebase = async (filesData, userId = "global", userEma
         modifiedAt: firebase.database.ServerValue.TIMESTAMP,
         createdBy: userEmail,
         modifiedBy: userEmail,
-        fileCategory: type.startsWith("image/") ? "Image" : type.startsWith("video/") ? "Video" : "File",
       };
 
       return filesRef.child(fileId).set(fileMetadata);
     });
 
     await Promise.all(promises);
-    console.log("File links with UUID added to Firebase.");
+    console.log("File links with metadata, including original file name, added to Firebase.");
   } catch (error) {
     console.error("Error adding S3 links to Firebase:", error);
     throw error;
   }
 };
+
 
 export const removeItem = (playlistId, itemId) => {
   const database = firebase.database().ref(`playlists/${playlistId}/items/${itemId}`);

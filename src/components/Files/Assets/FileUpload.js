@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { uploadFileToS3 } from "../../../utils/awsActions";
 import { addS3LinksToFirebase, firebaseUID } from "../../../utils/firebaseActions";
 import { getFileMetadata } from "../../../utils/fileUtils";
+import { userID } from "../../../actions";
 
 function FileUpload(){
   const [isDragging, setIsDragging] = useState(false);
@@ -24,7 +25,6 @@ function FileUpload(){
 
   const handleFileUpload = async () => {
     const uploadedFilesData = [];
-    const userid = await firebaseUID();
   
     for (const file of files) {
       try {
@@ -34,19 +34,20 @@ function FileUpload(){
   
         uploadedFilesData.push({
           url: fileUrl,
+          originalName: file.name,
           ...metadata,
         });
       } catch (error) {
         console.error("Error uploading file:", error);
       }
     }
-
-    if (uploadedFilesData.length > 0 && userid) {
+  
+    if (uploadedFilesData.length > 0) {
       try {
-        await addS3LinksToFirebase(uploadedFilesData, userid, "ryan@linkitmediagroup.com");
-        console.log("Files with metadata added to Firebase.");
+        await addS3LinksToFirebase(uploadedFilesData, userID, "ryan@linkitmediagroup.com");
+        console.log("Files successfully uploaded and metadata saved.");
       } catch (error) {
-        console.error("Failed to save metadata to Firebase:", error);
+        console.error("Error saving to Firebase:", error);
       }
     }
   
@@ -54,6 +55,7 @@ function FileUpload(){
     setIsDragging(false);
     setUploadProgress(0);
   };
+  
 
   const renderPreviews = () => {
     return files.map((file, index) => {
