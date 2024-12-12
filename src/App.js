@@ -3,8 +3,8 @@ import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import MobileFooter from "./components/MobileFooter";
-import Playlist from "./components/Playlist";
-import Screens from "./components/Screens";
+import Playlist from "./components/Playlists/Playlist";
+import Screens from "./components/Screens/Screens";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import DevicesMain from "./components/Devices/DevicesMain";
@@ -15,17 +15,17 @@ import Files from "./components/Files/Assets/Files";
 function App(props) {
   let display;
   console.log(props)
-  if (props.authUser && props.db) {
+  if (props.authUser) {
     display = (
       <div>
         <MobileFooter changeLog={props.db} />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/screens" element={<Screens playlists={props.db.playlists} screens={props.db.screens} users={props.db.users}/>} />
-          <Route exact path="/playlists" element={<Playlist playlists={props.db.playlists} />} />
-          <Route exact path="/devices" element={<DevicesMain devices={props.db.devices} />} />
-          <Route exact path="/venues" element={<VenuesMain venues={props.db.venues} />} />
-          <Route exact path="/venues/:id" element={<DisplayVenue venues={props.db.venues} />} />
+          <Route exact path="/screens" element={<Screens />} />
+          <Route exact path="/playlists" element={<Playlist />} />
+          <Route exact path="/devices" element={<DevicesMain />} />
+          <Route exact path="/venues" element={<VenuesMain />} />
+          <Route exact path="/venues/:id" element={<DisplayVenue />} />
           <Route exact path="/files"  element={<Files />}/>
         </Routes>
       </div>
@@ -40,8 +40,7 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-  authUser: state.authState,
-  db: state.dbState,
+  authUser: state.authState
 });
 
 export default connect(mapStateToProps)(App);

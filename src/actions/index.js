@@ -13,21 +13,58 @@ export let userID;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    userID = user.uid
     store.dispatch(authUserTrue());
-    firebase.database().ref().on('value', function(snapshot) {
-      store.dispatch(getAllFromDB(snapshot.val()));
-    });
-    firebase.database().ref(`users/${user.uid}`).on('value', function(snapshot) {
-      let info = snapshot.val();
-      let obj = { userid: user.uid, info };
-      store.dispatch(setUserRole(obj));
-    });
+    fetchUserData(userID);
+    fetchUserScreens(userID);
+    fetchUserPlaylists(userID);
+    fetchDevicesData()
     userID = firebase.auth().currentUser.uid
     getResponse();
   } else {
     store.dispatch(authUserFalse());
   }
 });
+
+export const fetchDevicesData = () => {
+  firebase.database().ref('devices').on('value', (snapshot) => {
+    store.dispatch(getDevices(snapshot.val()))
+  })
+};
+
+
+const fetchUserData = (uid) => {
+  firebase.database().ref(`users/${uid}`).on('value', (snapshot) => {
+    const userData = snapshot.val();
+    if (userData) {
+      store.dispatch(setUserInfo({ userid: uid, ...userData }));
+    }
+  });
+};
+
+const fetchUserScreens = (uid) => {
+  firebase
+    .database()
+    .ref('screens')
+    .orderByChild('assignedTo')
+    .equalTo(uid)
+    .on('value', (snapshot) => {
+      const screens = snapshot.val();
+      store.dispatch(setUserScreens(screens || {}));
+    });
+};
+
+const fetchUserPlaylists = (uid) => {
+  firebase
+    .database()
+    .ref('playlists')
+    .orderByChild('userAssigned')
+    .equalTo(uid)
+    .on('value', (snapshot) => {
+      const playlists = snapshot.val();
+      store.dispatch(setUserPlaylists(playlists || {}));
+    });
+};
 
 function getResponse() {
   let data = JSON.stringify({
@@ -78,6 +115,16 @@ function getResponse() {
     });
 }
 
+export const setUserScreens = (screens) => ({
+  type: types.SET_USER_SCREENS,
+  payload: screens,
+});
+
+export const setUserPlaylists = (playlists) => ({
+  type: types.SET_USER_PLAYLISTS,
+  payload: playlists,
+});
+
 export const testFunction = () => ({
   type: types.TEST_FUNCTION
 });
@@ -86,6 +133,10 @@ export const authUserTrue = () => ({
   type: types.AUTH_USER_TRUE
 });
 
+export const getDevices = (devices) => ({
+  type: types.SET_DEVICES_DATA,
+  payload: devices
+})
 export const authUserFalse = () => ({
   type: types.AUTH_USER_FALSE
 });
@@ -103,8 +154,8 @@ export const updateVenueStatus = (info) => {
   firebase.database().ref(`venues/${info.venue.id}`).update({ status: info.text });
 };
 
-export const setUserRole = (info) => ({
-  type: types.SET_USER_ROLE,
-  info
+export const setUserInfo = (info) => ({
+  type: types.SET_USER_INFO,
+  payload: info
 });
 

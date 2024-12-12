@@ -1,14 +1,18 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import testReducer from './testReducer';
 import authReducer from './authReducer';
-import dbReducer from './dbReducer';
-import userRoleReducer from './userRoleReducer';
+import userInfoReducer from './userInfoReducer';
+import screensReducer from './screensReducer';
+import playlistReducer from './playlistReducer';
+import devicesReducer from './deviceReducer';
 
 const rootReducer = combineReducers({
     testState: testReducer,
     authState: authReducer,
-    dbState: dbReducer,
-    userRoleState: userRoleReducer
+    userInfoState: userInfoReducer,
+    screensState: screensReducer,
+    playlistState: playlistReducer,
+    devices: devicesReducer
 });
 
 export default rootReducer;

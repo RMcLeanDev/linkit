@@ -1,6 +1,6 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import "../Playlist.scss";
+import "../../Playlist.scss";
 
 function PlaylistReorder({ playlistItems, onReorder, onRemove }) {
   const handleDragEnd = (result) => {

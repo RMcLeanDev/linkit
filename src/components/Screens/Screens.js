@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
-import "../Screens.scss";
+import React, { useState } from "react";
+import "../../Screens.scss";
 import {
   addScreenToFirebase,
   updateScreenDetails,
   removeScreenFromFirebase,
-} from "../utils/firebaseActions";
-import {userID} from '../actions/index';
-import { sendPowerCommand } from "../utils/firebaseActions";
+  sendPowerCommand,
+} from "../../utils/firebaseActions";
+import { connect } from "react-redux";
 
-function Screens({ playlists, screens, users }) {
+function Screens({ userInfo, playlists, screens }) {
   const [showAddScreenModal, setShowAddScreenModal] = useState(false);
   const [showEditScreenModal, setShowEditScreenModal] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(null);
   const [pairingCode, setPairingCode] = useState("");
   const [screenName, setScreenName] = useState("");
   const [playlistId, setPlaylistId] = useState("");
+
+  const isLoading = !userInfo || !screens || !playlists;
 
   const handleAddScreen = async () => {
     try {
@@ -26,12 +28,12 @@ function Screens({ playlists, screens, users }) {
           screenSerial = screenCheck.uuid;
         }
       });
-  
+
       if (screenSerial) {
-        await addScreenToFirebase(screenSerial, userID, screenName)
-        setShowAddScreenModal(false)
+        await addScreenToFirebase(screenSerial, userInfo.userid, screenName);
+        setShowAddScreenModal(false);
         setShowEditScreenModal(true);
-        setCurrentScreen({deviceID: screenSerial});
+        setCurrentScreen({ deviceID: screenSerial });
       } else {
         console.error("No screen found with the provided pairing code.");
       }
@@ -39,7 +41,6 @@ function Screens({ playlists, screens, users }) {
       console.error("Error adding screen:", error);
     }
   };
-  
 
   const handleEditScreen = async () => {
     try {
@@ -47,37 +48,49 @@ function Screens({ playlists, screens, users }) {
         console.error("Missing required data to edit screen.");
         return;
       }
-  
-      await updateScreenDetails(currentScreen.deviceID, playlistId, screenName, userID);
+
+      await updateScreenDetails(
+        currentScreen.deviceID,
+        playlistId,
+        screenName,
+        userInfo.userid
+      );
       console.log("Screen updated successfully.");
-      setShowEditScreenModal(false)
+      setShowEditScreenModal(false);
     } catch (error) {
       console.error("Error updating screen:", error);
     }
   };
-  
 
   const handleRemoveScreen = async (screen) => {
     try {
-  
       const deviceID = screen.deviceID;
-      const assignedPlaylist = playlists[screens[deviceID].currentPlaylistAssigned].playlistID
+      const assignedPlaylist =
+        playlists[screens[deviceID].currentPlaylistAssigned]?.playlistID || "";
 
-      console.log(deviceID)
-  
-      if (!window.confirm(`Are you sure you want to remove the screen "${screen.deviceName}"?`)) {
+      if (
+        !window.confirm(
+          `Are you sure you want to remove the screen "${screen.deviceName}"?`
+        )
+      ) {
         return;
       }
-  
-      await removeScreenFromFirebase(deviceID, assignedPlaylist, userID);
-  
+
+      await removeScreenFromFirebase(deviceID, assignedPlaylist, userInfo.userid);
       alert("Screen removed successfully!");
     } catch (error) {
       console.error("Error removing screen:", error);
       alert("Failed to remove screen. Please try again.");
     }
   };
-  
+
+  if (isLoading) {
+    return (
+      <div className="loadingContainer">
+        <p>Please wait while we fetch your data.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="screensContainer">
@@ -90,59 +103,6 @@ function Screens({ playlists, screens, users }) {
           Add Screen
         </button>
       </div>
-
-      <div className="assignedScreens">
-        {users[userID] && users[userID].devices && Object.keys(users[userID].devices).length > 0 ? (
-          <table className="screensTable">
-            <thead>
-              <tr>
-                <th>Screen Name</th>
-                <th>Assigned Playlist</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(users[userID].devices).map((code) => {
-                const screen = users[userID].devices[code];
-                const screenData = screens[screen.deviceID];
-                const playlistName = playlists[screenData?.currentPlaylistAssigned]?.name || "None";
-
-                return (
-                  <tr key={code}>
-                    <td>{screen.deviceName || "Unnamed Screen"}</td>
-                    <td>{playlistName}</td>
-                    <td>
-                      <button
-                        className="editButton"
-                        onClick={() => {
-                          setCurrentScreen(screen);
-                          setShowEditScreenModal(true);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="removeButton"
-                        onClick={() => {
-                          handleRemoveScreen(screen);
-                        }}
-                      >
-                        Remove
-                      </button>
-                      <button onClick={() => sendPowerCommand("G4N1CQ1542050U1E", "sleep")}>Sleep</button>
-                      <button onClick={() => sendPowerCommand("G4N1CQ1542050U1E", "wake")}>Wake</button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        ) : (
-          <p>No screens have been added yet.</p>
-        )}
-      </div>
-
-      {/* Add Screen Modal */}
       {showAddScreenModal && (
         <div className="modal">
           <div className="modalContent">
@@ -159,6 +119,7 @@ function Screens({ playlists, screens, users }) {
               value={screenName}
               onChange={(e) => setScreenName(e.target.value)}
             />
+            {/* Add Screen Button */}
             <button onClick={handleAddScreen}>Add</button>
             <button onClick={() => setShowAddScreenModal(false)}>Cancel</button>
           </div>
@@ -187,13 +148,82 @@ function Screens({ playlists, screens, users }) {
                 </option>
               ))}
             </select>
+            {/* Save Screen Button */}
             <button onClick={handleEditScreen}>Save</button>
             <button onClick={() => setShowEditScreenModal(false)}>Cancel</button>
           </div>
         </div>
       )}
+
+      <div className="assignedScreens">
+        {userInfo?.devices && Object.keys(userInfo.devices).length > 0 ? (
+          <table className="screensTable">
+            <thead>
+              <tr>
+                <th>Screen Name</th>
+                <th>Assigned Playlist</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(userInfo.devices).map((code) => {
+                const screen = userInfo.devices[code];
+                const screenData = screens[screen.deviceID];
+                const playlistName =
+                  playlists[screenData?.currentPlaylistAssigned]?.name || "None";
+
+                return (
+                  <tr key={code}>
+                    <td>{screen.deviceName || "Unnamed Screen"}</td>
+                    <td>{playlistName}</td>
+                    <td>
+                      <button
+                        className="editButton"
+                        onClick={() => {
+                          setCurrentScreen(screen);
+                          setShowEditScreenModal(true);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="removeButton"
+                        onClick={() => handleRemoveScreen(screen)}
+                      >
+                        Remove
+                      </button>
+                      <button
+                        onClick={() =>
+                          sendPowerCommand(screen.deviceID, "sleep")
+                        }
+                      >
+                        Sleep
+                      </button>
+                      <button
+                        onClick={() =>
+                          sendPowerCommand(screen.deviceID, "wake")
+                        }
+                      >
+                        Wake
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <p>No screens have been added yet.</p>
+        )}
+      </div>
     </div>
   );
 }
 
-export default Screens;
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfoState,
+  playlists: state.playlistState,
+  screens: state.screensState,
+});
+
+export default connect(mapStateToProps)(Screens);

@@ -1,20 +1,15 @@
 import constants from './../constants';
-const {types, authState} = constants
+const { types, initialState } = constants;
 
-const authReducer = (state = authState, action) => {
-  let newState;
+const authReducer = (state = initialState.authState, action) => {
   switch (action.type) {
     case types.AUTH_USER_TRUE:
-      newState = state;
-        newState = true;
-      return newState;
+      return true;
     case types.AUTH_USER_FALSE:
-      newState = state;
-        newState = false;
-      return newState;
+      return false;
     default:
       return state;
   }
-}
+};
 
-export default authReducer
+export default authReducer;

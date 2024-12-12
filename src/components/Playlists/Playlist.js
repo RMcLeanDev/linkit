@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { FiEdit } from "react-icons/fi";
-import "../Playlist.scss";
+import "../../Playlist.scss";
 import PlaylistReorder from "./PlaylistReorder";
 import {
   addNewItem,
@@ -8,18 +9,17 @@ import {
   updatePlaylistName,
   createNewPlaylist,
   updatePlaylistOrder,
-} from "../utils/firebaseActions";
-import { userID } from "../actions/index";
+} from "../../utils/firebaseActions";
 
-function Playlist({ playlists }) {
+function Playlist({ playlists, userInfo }) {
   const [editingName, setEditingName] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [currentPlaylistId, setCurrentPlaylistId] = useState(null);
   const [newPlaylistFormName, setNewPlaylistFormName] = useState("");
   const [playlistItems, setPlaylistItems] = useState([]);
-  const [newFile, setNewFile] = useState()
 
-  // Start editing the playlist name
+  const userID = userInfo?.userid;
+
   const startEditingName = (playlistId, currentName) => {
     setEditingName(true);
     setNewPlaylistName(currentName);
@@ -29,12 +29,8 @@ function Playlist({ playlists }) {
   const saveNewName = () => {
     if (currentPlaylistId && newPlaylistName.trim() !== "") {
       updatePlaylistName(currentPlaylistId, newPlaylistName.trim(), userID)
-        .then(() => {
-          console.log("Playlist name updated successfully.");
-        })
-        .catch((error) => {
-          console.error("Error updating playlist name:", error);
-        });
+        .then(() => console.log("Playlist name updated successfully."))
+        .catch((error) => console.error("Error updating playlist name:", error));
     }
     setEditingName(false);
   };
@@ -47,73 +43,47 @@ function Playlist({ playlists }) {
         items: {},
       };
       createNewPlaylist(newPlaylist)
-        .then(() => {
-          console.log("New playlist created successfully.");
-          setNewPlaylistFormName("");
-        })
-        .catch((error) => {
-          console.error("Failed to create new playlist:", error);
-        });
+        .then(() => setNewPlaylistFormName(""))
+        .catch((error) => console.error("Failed to create new playlist:", error));
     }
   };
 
   const handleAddNewItem = (e) => {
     e.preventDefault();
-    const type = e.target.type.value;
-    const url = e.target.url.value;
-    const duration = parseInt(e.target.duration.value, 10);
+    const { type, url, duration } = e.target;
 
-    if (type && url && duration && currentPlaylistId) {
-      console.log("Adding new item:", { type, url, duration });
-      addNewItem(currentPlaylistId, { type, url, duration }, userID)
-        .then(() => {
-          console.log("Item added successfully.");
-        })
-        .catch((error) => {
-          console.error("Failed to add new item:", error);
-        });
-      e.target.reset();
-    } else {
-      console.error("Invalid input for adding a new item.");
+    if (type.value && url.value && duration.value && currentPlaylistId) {
+      addNewItem(
+        currentPlaylistId,
+        { type: type.value, url: url.value, duration: parseInt(duration.value, 10) },
+        userID
+      ).then(() => e.target.reset());
     }
   };
 
   const handleSelectPlaylist = (playlistId) => {
     setCurrentPlaylistId(playlistId);
-
     const playlist = playlists[playlistId];
     const items = playlist?.items || {};
-    const formattedItems = Object.keys(items).map((itemId) => ({
-      id: itemId,
-      ...items[itemId],
-    }));
-
-    setPlaylistItems(formattedItems);
+    setPlaylistItems(
+      Object.keys(items).map((itemId) => ({
+        id: itemId,
+        ...items[itemId],
+      }))
+    );
   };
 
   const handleReorder = (reorderedItems) => {
     setPlaylistItems(reorderedItems);
-
-    updatePlaylistOrder(currentPlaylistId, reorderedItems, userID)
-      .then(() => {
-        console.log("Playlist reordered successfully.");
-      })
-      .catch((error) => {
-        console.error("Error updating playlist order:", error);
-      });
+    updatePlaylistOrder(currentPlaylistId, reorderedItems, userID).catch((error) =>
+      console.error("Error updating playlist order:", error)
+    );
   };
 
   const handleRemoveItem = (itemId) => {
-    removeItem(currentPlaylistId, itemId)
-      .then(() => {
-        console.log(`Item ${itemId} removed successfully.`);
-        setPlaylistItems((prevItems) =>
-          prevItems.filter((item) => item.id !== itemId)
-        );
-      })
-      .catch((error) => {
-        console.error(`Failed to remove item ${itemId}:`, error);
-      });
+    removeItem(currentPlaylistId, itemId).then(() =>
+      setPlaylistItems((prevItems) => prevItems.filter((item) => item.id !== itemId))
+    );
   };
 
   return (
@@ -122,7 +92,7 @@ function Playlist({ playlists }) {
       <div className="sidebar">
         <h3>Playlists</h3>
         <ul>
-          {Object.keys(playlists).map((playlistId) => (
+          {Object.keys(playlists || {}).map((playlistId) => (
             <li
               key={playlistId}
               className={currentPlaylistId === playlistId ? "activePlaylist" : ""}
@@ -145,6 +115,7 @@ function Playlist({ playlists }) {
         </div>
       </div>
 
+      {/* Playlist Details */}
       <div className="playlistDetails">
         {currentPlaylistId ? (
           <>
@@ -165,15 +136,12 @@ function Playlist({ playlists }) {
                 </div>
               ) : (
                 <div className="playlistName">
-                  <h1>{playlists[currentPlaylistId].name}</h1>
+                  <h1>{playlists[currentPlaylistId]?.name}</h1>
                   <FiEdit
                     size="20px"
                     className="editNameButton"
                     onClick={() =>
-                      startEditingName(
-                        currentPlaylistId,
-                        playlists[currentPlaylistId].name
-                      )
+                      startEditingName(currentPlaylistId, playlists[currentPlaylistId]?.name)
                     }
                   />
                 </div>
@@ -218,4 +186,10 @@ function Playlist({ playlists }) {
   );
 }
 
-export default Playlist;
+// Map Redux state to props
+const mapStateToProps = (state) => ({
+  playlists: state.playlistState,
+  userInfo: state.userInfoState,
+});
+
+export default connect(mapStateToProps)(Playlist);

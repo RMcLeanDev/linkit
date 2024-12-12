@@ -1,5 +1,6 @@
 import React from 'react'
 import FileUpload from './FileUpload';
+import FileLayout from './FileLayout';
 
 function Files(){
 
@@ -8,6 +9,7 @@ function Files(){
         <div>
             <h1>Files Component</h1>
             <FileUpload />
+            <FileLayout />
         </div>
     )
 }

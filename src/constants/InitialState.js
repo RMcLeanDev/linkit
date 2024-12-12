@@ -1,4 +1,9 @@
-export const initialState = "none";
-export const authState = null;
-export const dbState = null;
-export const userRoleState = null;
+export const initialState = {
+    testState: "none",
+    authState: null,
+    userInfoState: null,
+    playlistState: null,
+    screensState: null,
+    devices: null
+  };
+  

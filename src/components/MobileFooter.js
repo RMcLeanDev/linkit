@@ -8,23 +8,13 @@ import { SiFiles } from "react-icons/si";
 import { BsFillFileSlidesFill } from "react-icons/bs";
 import { IoIosTv } from "react-icons/io";
 import { MdTv } from "react-icons/md";
-import Alerts from "./Alerts";
 
 function MobileFooter(props) {
-  const [alertComponent, setAlertComponent] = useState(true);
   const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);
   const navigate = useNavigate();
 
   return (
     <div className="mobileFooter">
-      <div style={{ position: "fixed", top: "10px", right: "5px" }}>
-        {alertComponent ? (
-          <Alerts
-            changeLog={props.changeLog}
-            closeAlerts={() => setAlertComponent(false)}
-          />
-        ) : null}
-      </div>
       {logoutConfirmationScreen ? (
         <LogoutConfirmation closeWindow={() => setLogoutConfirmationScreen(false)} />
       ) : null}
