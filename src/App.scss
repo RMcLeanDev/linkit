@@ -516,3 +516,44 @@ p{
     background-color: rgba(0,0,0,0.2);
   }
 }
+
+.displayFiles{
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.fileLayout{
+  width: 177.77px;
+  justify-self: center;
+  border: 1px solid rgba(0,0,0,0.2);
+  padding-bottom: 5px;
+  .fileImage{
+    background-color: #303030;
+    max-height: 100px;
+    img{
+      height: 100px;
+      max-width: 177.77px;
+    }
+  }
+  .fileName{
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px;
+    color: #303030;
+    text-align: start;
+    height: 35px;
+    max-height: 35px;
+    overflow: hidden;
+  }
+  .fileIcon{
+    text-align: start;
+    padding-left: 5px;
+  }
+  .fileAdded{
+    color: #404040;
+    text-align: start;
+    font-weight: bold;
+    font-size: 10px;
+    padding-left: 5px;
+  }
+}
