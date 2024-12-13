@@ -27,6 +27,10 @@ function Playlist({ playlists, userInfo }) {
     setCurrentPlaylistId(playlistId);
   };
 
+  const handleDropFile = (updatedItems) => {
+    setPlaylistItems(updatedItems);
+  };
+
   const saveNewName = () => {
     if (currentPlaylistId && newPlaylistName.trim() !== "") {
       updatePlaylistName(currentPlaylistId, newPlaylistName.trim(), userID)
@@ -153,8 +157,8 @@ function Playlist({ playlists, userInfo }) {
               playlistItems={playlistItems}
               onReorder={handleReorder}
               onRemove={handleRemoveItem}
+              onDropFile={handleDropFile}
             />
-
             <div className="addNewItemForm">
               <h3>Add New Item</h3>
               <form onSubmit={handleAddNewItem}>
