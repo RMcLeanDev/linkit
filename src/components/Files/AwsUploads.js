@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s3 from "../../../constants/awsConfig";
+import s3 from "../../constants/awsConfig";
 import {v4 as uuidv4} from 'uuid'
 
 function AwsUploads() {

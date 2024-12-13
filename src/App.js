@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import DevicesMain from "./components/Devices/DevicesMain";
 import VenuesMain from "./components/Venues/VenuesMain";
 import DisplayVenue from "./components/Venues/DisplayVenue";
-import Files from "./components/Files/Assets/Files";
+import Files from "./components/Files/Files";
 
 function App(props) {
   let display;

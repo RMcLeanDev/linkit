@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { uploadFileToS3 } from "../../../utils/awsActions";
-import { addS3LinksToFirebase, firebaseUID } from "../../../utils/firebaseActions";
-import { getFileMetadata } from "../../../utils/fileUtils";
-import { userID } from "../../../actions";
+import { uploadFileToS3 } from "../../utils/awsActions";
+import { addS3LinksToFirebase, firebaseUID } from "../../utils/firebaseActions";
+import { getFileMetadata } from "../../utils/fileUtils";
+import { userID } from "../../actions";
 
 function FileUpload(){
   const [isDragging, setIsDragging] = useState(false);
