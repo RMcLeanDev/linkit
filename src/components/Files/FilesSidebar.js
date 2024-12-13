@@ -20,7 +20,7 @@ function FilesSidebar(props){
                     </button>
                 </div>
             </div>
-            <hr style={{width: "95%", opacity: "0.5"}}/>
+            <hr style={{width: "90%", opacity: "0.5"}}/>
             <div>
                 search
             </div>

@@ -16,8 +16,7 @@ function Files({ userInfo, isLoading }) {
   console.log(search);
 
   return (
-    <div>
-      <h1>Files Component</h1>
+    <div style={{marginBottom:"75px", paddingTop: "30px"}}>
       <FileUpload userId={userInfo?.userid} /> 
       <div className="contain">
         <div className="filesSideContainer">

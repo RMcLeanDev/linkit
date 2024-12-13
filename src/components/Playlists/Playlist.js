@@ -10,6 +10,7 @@ import {
   createNewPlaylist,
   updatePlaylistOrder,
 } from "../../utils/firebaseActions";
+import FilesPlaylistSidebar from "./FilesPlaylistSidebar";
 
 function Playlist({ playlists, userInfo }) {
   const [editingName, setEditingName] = useState(false);
@@ -182,6 +183,7 @@ function Playlist({ playlists, userInfo }) {
           <h2>Select a playlist to view its details</h2>
         )}
       </div>
+      <FilesPlaylistSidebar/>
     </div>
   );
 }

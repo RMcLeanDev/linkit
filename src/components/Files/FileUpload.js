@@ -196,9 +196,6 @@ function FileUpload(){
           </div>
         </div>
       )}
-      <p style={{ textAlign: "center", marginTop: "20px" }}>
-        Drag and drop files onto the screen to upload
-      </p>
     </div>
   );
 };
