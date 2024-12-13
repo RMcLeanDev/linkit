@@ -9,7 +9,7 @@ function FilesSidebar(props){
                 <div className="searchBar">
                     <input 
                     type="text" 
-                    placeholder="Search" 
+                    placeholder="Search..." 
                     className="searchInput"
                     value={props.search}
                     onChange={(e) => props.setSearch(e.target.value)}
