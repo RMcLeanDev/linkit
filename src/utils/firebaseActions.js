@@ -4,11 +4,11 @@ import "firebase/compat/database";
 
 export const createNewPlaylist = (playlist) => {
   const database = firebase.database().ref("playlists");
-  const newPlaylistRef = database.push(); // Generate new playlist ID
+  const newPlaylistRef = database.push(); 
   return newPlaylistRef
     .set({
       ...playlist,
-      playlistID: newPlaylistRef.key, // Add the generated ID
+      playlistID: newPlaylistRef.key,
     })
     .then(() => {
       console.log(`Playlist created with ID: ${newPlaylistRef.key}`);
@@ -41,24 +41,6 @@ export const updatePlaylistItem = (playlistId, itemId, updatedItem) => {
     })
     .catch((error) => {
       console.error("Failed to update playlist item:", error);
-    });
-};
-
-export const addNewItem = (playlistId, newItem) => {
-  const database = firebase.database().ref(`playlists/${playlistId}/items`);
-
-  return database
-    .get()
-    .then((snapshot) => {
-      const items = snapshot.val() || [];
-      items.push(newItem);
-      return database.set(items);
-    })
-    .then(() => {
-      console.log("New item added successfully!");
-    })
-    .catch((error) => {
-      console.error("Error adding item: ", error);
     });
 };
 
@@ -120,9 +102,22 @@ export const addS3LinksToFirebase = async (filesData, userId = "global", userEma
 
 
 export const removeItem = (playlistId, itemId) => {
-  const database = firebase.database().ref(`playlists/${playlistId}/items/${itemId}`);
-  return database
-    .remove()
+  const databaseRef = firebase.database().ref(`playlists/${playlistId}/items`);
+
+  return databaseRef
+    .once("value") 
+    .then((snapshot) => {
+      const items = snapshot.val();
+      if (!items) return;
+      const keyToRemove = Object.keys(items).find((key) => items[key].id === itemId);
+
+      if (keyToRemove) {
+        return databaseRef.child(keyToRemove).remove();
+      } else {
+        console.warn(`Item with ID ${itemId} not found in playlist ${playlistId}`);
+        return Promise.resolve();
+      }
+    })
     .then(() => {
       console.log(`Item ${itemId} removed successfully from playlist ${playlistId}`);
     })
@@ -131,7 +126,6 @@ export const removeItem = (playlistId, itemId) => {
     });
 };
 
-//add Screen to firebase DONE
 export const addScreenToFirebase = async (tvSerial, userID, screenName) => {
   try {
     const ref1 = firebase.database().ref(`screens/${tvSerial}`);
@@ -161,7 +155,6 @@ export const addScreenToFirebase = async (tvSerial, userID, screenName) => {
   }
 };
 
-//update screen details DONE
 export const updateScreenDetails = async (deviceID, playlistID, screenName, userID) => {
   try {
     const screenRef = firebase.database().ref(`screens/${deviceID}`);
@@ -207,7 +200,6 @@ export const updateScreenDetails = async (deviceID, playlistID, screenName, user
   }
 };
 
-//assign pairing codes DONE
 export const assignPairingCodeToDevice = async (pairingCode, playlistId) => {
   const ref = firebase.database().ref(`pairings/${pairingCode}`);
   try {
@@ -219,7 +211,6 @@ export const assignPairingCodeToDevice = async (pairingCode, playlistId) => {
   }
 };
 
-//update playlist order DONE
 export const updatePlaylistOrder = async (playlistId, reorderedItems, userID) => {
   const database = firebase.database().ref(`playlists/${playlistId}/items`);
   return database
@@ -238,7 +229,6 @@ export const getPlaylists = async () => {
   return snapshot.val();
 };
 
-//remove screen DONE
 export const removeScreenFromFirebase = async (deviceID, playlistID, userID) => {
   try {
     const screenRef = firebase.database().ref(`screens/${deviceID}`);

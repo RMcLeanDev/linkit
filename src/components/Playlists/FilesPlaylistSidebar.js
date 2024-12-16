@@ -19,8 +19,8 @@ function FilesPlaylistSidebar({ userInfo, isLoading }) {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <h3>Files</h3>
-          <input placeholder="Search..." />
+          <input placeholder="Search..." className="searchBar"/>
+          <hr/>
           {Object.keys(userInfo.files).map((fileKey, index) => {
             const file = userInfo.files[fileKey];
             return (
@@ -37,7 +37,7 @@ function FilesPlaylistSidebar({ userInfo, isLoading }) {
                     {...provided.dragHandleProps}
                   >
                     <div className="smallImg">
-                      <img src={file.url} alt={file.originalName} />
+                        {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url}/>}
                     </div>
                     <p>{file.originalName}</p>
                   </div>

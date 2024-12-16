@@ -20,7 +20,7 @@ function PlaylistReorder({ playlistItems, onRemove }) {
                   {...provided.dragHandleProps}
                   className="mediaItem"
                 >
-                  <div>
+                  <div className="playlistItemInformation">
                     {item.type === "image" ? (
                       <img
                         src={item.url}
@@ -30,16 +30,15 @@ function PlaylistReorder({ playlistItems, onRemove }) {
                     ) : (
                       <video
                         src={item.url}
-                        controls
                         className="mediaThumbnail"
                       />
                     )}
-                    <div className="mediaDetails">
+                  </div>
+                  <div className="mediaDetails">
                       <p>Type: {item.type}</p>
                       <p>Duration: {item.duration} ms</p>
                       <p>Times Played: {item.timesPlayed || 0}</p>
                     </div>
-                  </div>
                   <button
                     className="deleteButton"
                     onClick={() => onRemove(item.id)}

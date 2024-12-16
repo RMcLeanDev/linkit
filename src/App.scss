@@ -541,6 +541,10 @@ p{
       height: 100px;
       max-width: 177.77px;
     }
+    video{
+      height: 100px;
+      max-width: 177.77px;
+    }
   }
 
   .fileName {
@@ -650,60 +654,4 @@ p{
       }
     }
   }
-}
-
-.playlistFilesInfomation {
-  width: 100%;
-  p {
-    margin: 0; 
-    padding: 5px; 
-    font-size: 14px;
-    color: #303030;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: start;
-  }
-}
-
-.playlistFilesInfomation{
-  display: grid;
-  grid-template-columns: 88.88px 1fr;
-  gap: 5px;
-  margin-bottom: 10px;
-  align-items: center;
-  .smallImg{
-    height: 50px;
-    width: 88.88px;
-    background-color: #303030;
-  }
-  img{
-    height: 50px;
-  }
-}
-
-.mediaItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  padding: 10px;
-  transition: background-color 0.2s ease;
-
-  &.dragging {
-    opacity: 0.5; // Reduce opacity when dragging
-    background-color: #f0f0f0;
-  }
-
-  &.placeholder {
-    border: 2px dashed #0f95f9; // Visual indication of drop position
-    background-color: #e8f7ff;
-  }
-}
-
-.emptyPlaceholder {
-  height: 50px; // Adjust based on item height
-  background-color: transparent;
-  border: none;
 }

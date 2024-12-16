@@ -101,33 +101,45 @@
 .mediaList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  height: 80vh;
+  padding: 10px;
+  overflow: auto;
+  background-color: white;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 .mediaItem {
-  display: flex;
+  display: grid;
+  grid-template-columns: 110px 1fr 80px;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: white;
   transition: box-shadow 0.3s ease;
-}
+  transition: background-color 0.2s ease;
+  padding: 5px;
 
-.mediaItem:hover {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  &.dragging {
+    opacity: 0.5;
+    background-color: #f0f0f0;
+  }
+
+  &.placeholder {
+    border: 2px dashed #0f95f9; 
+    background-color: #e8f7ff;
+  }
+  .playlistItemInformation{
+    height: 56px;
+    width: 100px;
+    background-color: #303030;
+  }
 }
 
 .mediaThumbnail {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.mediaDetails p {
-  margin: 5px 0;
+  max-height: 56px;
+  max-width: 100px;
 }
 
 .deleteButton {
@@ -154,6 +166,65 @@
   border-radius: 5px;
   padding: 10px;
   background-color: white;
-  max-height: 85%;
+  height: 80vh;
   overflow: hidden;
+  input{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: calc(100% - 12px);
+    font-size: 15px;
+    height: 25px;
+    padding: 0px 5px;
+  }
+  hr{
+    opacity: 0.6;
+  }
+  
+}
+
+.playlistFilesInfomation {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  p {
+    margin: 0; 
+    padding: 5px; 
+    font-size: 14px;
+    color: #303030;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: start;
+  }
+}
+
+.playlistFilesInfomation{
+  display: grid;
+  grid-template-columns: 88.88px 1fr;
+  gap: 5px;
+  margin-bottom: 10px;
+  align-items: center;
+  .smallImg{
+    height: 50px;
+    width: 88.88px;
+    background-color: #303030;
+  }
+  img{
+    max-height: 50px;
+    max-width: 88.88px;
+  }
+  video{
+    max-height: 50px;
+    max-width: 88.88px;
+  }
+}
+
+.emptyPlaceholder {
+  height: 50px;
+  background-color: transparent;
+  border: none;
+}
+.mediaDetails{
+  justify-self: flex-start;
+  text-align: left;
 }

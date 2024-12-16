@@ -6,7 +6,6 @@ import "../../Playlist.scss";
 import PlaylistReorder from "./PlaylistReorder";
 import FilesPlaylistSidebar from "./FilesPlaylistSidebar";
 import {
-  addNewItem,
   removeItem,
   updatePlaylistName,
   createNewPlaylist,
@@ -56,9 +55,17 @@ function Playlist({ playlists, userInfo }) {
   
     if (source.droppableId === "sidebar" && destination.droppableId === "playlist") {
       const file = JSON.parse(draggableId);
-      const newItem = { ...file, id: `file-${Date.now()}` };
+      if(file.fileType.includes("image")){
+        file.fileType="image"
+      } else if(file.fileType.includes("video")){
+        file.fileType="video"
+      } else {
+        return console.log("error")
+      }
+      const newItem = {type: file.fileType, imageId: file.imageId, url: file.url, id: `file-${Date.now()}`, duration: file.duration || 5000, }
         updatedItems.splice(destination.index, 0, newItem);
-      setPlaylistItems(updatedItems);
+        console.log(newItem)
+        setPlaylistItems(updatedItems);
         updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
         .then(() => console.log("Firebase updated with new order"))
         .catch((error) => console.error("Failed to update Firebase:", error));
@@ -146,7 +153,15 @@ function Playlist({ playlists, userInfo }) {
               </div>
             </>
           ) : (
-            <h2>Select a playlist to view its details</h2>
+            <div>
+              <h2>Select a playlist to view its details</h2>
+              <div className="playlistFiles">
+
+                <div className="mediaList"/>
+                <FilesPlaylistSidebar />
+              </div>
+            </div>
+            
           )}
         </div>
       </DragDropContext>
