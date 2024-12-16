@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { FiEdit } from "react-icons/fi";
+import { DragDropContext } from "react-beautiful-dnd";
 import "../../Playlist.scss";
 import PlaylistReorder from "./PlaylistReorder";
+import FilesPlaylistSidebar from "./FilesPlaylistSidebar";
 import {
   addNewItem,
   removeItem,
@@ -10,7 +12,6 @@ import {
   createNewPlaylist,
   updatePlaylistOrder,
 } from "../../utils/firebaseActions";
-import FilesPlaylistSidebar from "./FilesPlaylistSidebar";
 
 function Playlist({ playlists, userInfo }) {
   const [editingName, setEditingName] = useState(false);
@@ -27,43 +28,11 @@ function Playlist({ playlists, userInfo }) {
     setCurrentPlaylistId(playlistId);
   };
 
-  const handleDropFile = (updatedItems) => {
-    setPlaylistItems(updatedItems);
-  };
-
   const saveNewName = () => {
     if (currentPlaylistId && newPlaylistName.trim() !== "") {
-      updatePlaylistName(currentPlaylistId, newPlaylistName.trim(), userID)
-        .then(() => console.log("Playlist name updated successfully."))
-        .catch((error) => console.error("Error updating playlist name:", error));
+      updatePlaylistName(currentPlaylistId, newPlaylistName.trim(), userID);
     }
     setEditingName(false);
-  };
-
-  const handleCreateNewPlaylist = () => {
-    if (newPlaylistFormName.trim() !== "") {
-      const newPlaylist = {
-        name: newPlaylistFormName.trim(),
-        assignedTo: userID,
-        items: {},
-      };
-      createNewPlaylist(newPlaylist)
-        .then(() => setNewPlaylistFormName(""))
-        .catch((error) => console.error("Failed to create new playlist:", error));
-    }
-  };
-
-  const handleAddNewItem = (e) => {
-    e.preventDefault();
-    const { type, url, duration } = e.target;
-
-    if (type.value && url.value && duration.value && currentPlaylistId) {
-      addNewItem(
-        currentPlaylistId,
-        { type: type.value, url: url.value, duration: parseInt(duration.value, 10) },
-        userID
-      ).then(() => e.target.reset());
-    }
   };
 
   const handleSelectPlaylist = (playlistId) => {
@@ -78,12 +47,35 @@ function Playlist({ playlists, userInfo }) {
     );
   };
 
-  const handleReorder = (reorderedItems) => {
-    setPlaylistItems(reorderedItems);
-    updatePlaylistOrder(currentPlaylistId, reorderedItems, userID).catch((error) =>
-      console.error("Error updating playlist order:", error)
-    );
+  const handleDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+  
+    if (!destination) return;
+  
+    let updatedItems = Array.from(playlistItems);
+  
+    if (source.droppableId === "sidebar" && destination.droppableId === "playlist") {
+      const file = JSON.parse(draggableId);
+      const newItem = { ...file, id: `file-${Date.now()}` };
+        updatedItems.splice(destination.index, 0, newItem);
+      setPlaylistItems(updatedItems);
+        updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
+        .then(() => console.log("Firebase updated with new order"))
+        .catch((error) => console.error("Failed to update Firebase:", error));
+    }
+  
+    if (source.droppableId === "playlist" && destination.droppableId === "playlist") {
+      const [movedItem] = updatedItems.splice(source.index, 1);
+      updatedItems.splice(destination.index, 0, movedItem);
+  
+      setPlaylistItems(updatedItems);
+  
+      updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
+        .then(() => console.log("Reordered playlist saved to Firebase"))
+        .catch((error) => console.error("Failed to update Firebase:", error));
+    }
   };
+  
 
   const handleRemoveItem = (itemId) => {
     removeItem(currentPlaylistId, itemId).then(() =>
@@ -93,7 +85,6 @@ function Playlist({ playlists, userInfo }) {
 
   return (
     <div className="playlistContainer">
-      {/* Sidebar */}
       <div className="sidebar">
         <h3>Playlists</h3>
         <ul>
@@ -107,7 +98,6 @@ function Playlist({ playlists, userInfo }) {
             </li>
           ))}
         </ul>
-
         <div className="addPlaylist">
           <h3>Create New Playlist</h3>
           <input
@@ -116,83 +106,54 @@ function Playlist({ playlists, userInfo }) {
             value={newPlaylistFormName}
             onChange={(e) => setNewPlaylistFormName(e.target.value)}
           />
-          <button onClick={handleCreateNewPlaylist}>Create</button>
+          <button onClick={() => createNewPlaylist(newPlaylistFormName)}>Create</button>
         </div>
       </div>
 
-      {/* Playlist Details */}
-      <div className="playlistDetails">
-        {currentPlaylistId ? (
-          <>
-            <div className="playlistSummary">
-              {editingName ? (
-                <div className="editNameContainer">
-                  <input
-                    type="text"
-                    value={newPlaylistName}
-                    className="editNameInput"
-                    onChange={(e) => setNewPlaylistName(e.target.value)}
-                    onBlur={saveNewName}
-                    autoFocus
-                  />
-                  <button className="saveNameButton" onClick={saveNewName}>
-                    Save
-                  </button>
-                </div>
-              ) : (
-                <div className="playlistName">
-                  <h1>{playlists[currentPlaylistId]?.name}</h1>
-                  <FiEdit
-                    size="20px"
-                    className="editNameButton"
-                    onClick={() =>
-                      startEditingName(currentPlaylistId, playlists[currentPlaylistId]?.name)
-                    }
-                  />
-                </div>
-              )}
-            </div>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className="playlistDetails">
+          {currentPlaylistId ? (
+            <>
+              <div className="playlistSummary">
+                {editingName ? (
+                  <div className="editNameContainer">
+                    <input
+                      type="text"
+                      value={newPlaylistName}
+                      onChange={(e) => setNewPlaylistName(e.target.value)}
+                      onBlur={saveNewName}
+                    />
+                  </div>
+                ) : (
+                  <h1>
+                    {playlists[currentPlaylistId]?.name}
+                    <FiEdit
+                      onClick={() =>
+                        startEditingName(currentPlaylistId, playlists[currentPlaylistId]?.name)
+                      }
+                    />
+                  </h1>
+                )}
+              </div>
+              <div className="playlistFiles">
 
-            <PlaylistReorder
-              playlistItems={playlistItems}
-              onReorder={handleReorder}
-              onRemove={handleRemoveItem}
-              onDropFile={handleDropFile}
-            />
-            <div className="addNewItemForm">
-              <h3>Add New Item</h3>
-              <form onSubmit={handleAddNewItem}>
-                <div>
-                  <label>Type:</label>
-                  <select name="type" required>
-                    <option value="image">Image</option>
-                    <option value="video">Video</option>
-                  </select>
-                </div>
-                <div>
-                  <label>URL:</label>
-                  <input type="text" name="url" required />
-                </div>
-                <div>
-                  <label>Duration (ms):</label>
-                  <input type="number" name="duration" required />
-                </div>
-                <button type="submit" className="addButton">
-                  Add Item
-                </button>
-              </form>
-            </div>
-          </>
-        ) : (
-          <h2>Select a playlist to view its details</h2>
-        )}
-      </div>
-      <FilesPlaylistSidebar/>
+                <PlaylistReorder
+                  playlistItems={playlistItems}
+                  onReorder={setPlaylistItems}
+                  onRemove={handleRemoveItem}
+                />
+                <FilesPlaylistSidebar />
+              </div>
+            </>
+          ) : (
+            <h2>Select a playlist to view its details</h2>
+          )}
+        </div>
+      </DragDropContext>
     </div>
   );
 }
 
-// Map Redux state to props
 const mapStateToProps = (state) => ({
   playlists: state.playlistState,
   userInfo: state.userInfoState,

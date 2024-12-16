@@ -1,13 +1,13 @@
 /* Playlist Container */
 .playlistContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20% 80%;
   height: 100vh;
   font-family: Arial, sans-serif;
 }
 
 /* Sidebar Styling */
 .sidebar {
-  width: 20%;
   background-color: #0f95f9;
   color: white;
   padding: 20px;
@@ -43,7 +43,6 @@
 
 /* Playlist Details Styling */
 .playlistDetails {
-  width: 80%;
   padding: 20px;
 }
 
@@ -142,4 +141,19 @@
 
 .deleteButton:hover {
   background-color: #9a3cc4;
+}
+
+.playlistFiles{
+  display: grid;
+  grid-template-columns: calc(76% - 20px) 24%;
+  gap: 20px;
+}
+
+.playlistFilesSidebar{
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+  max-height: 85%;
+  overflow: hidden;
 }
