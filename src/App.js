@@ -3,7 +3,7 @@ import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import MobileFooter from "./components/MobileFooter";
-import Playlist from "./components/Playlists/Playlist";
+import PlaylistMain from "./components/Playlists/PlaylistMain";
 import Screens from "./components/Screens/Screens";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -22,7 +22,7 @@ function App(props) {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/screens" element={<Screens />} />
-          <Route exact path="/playlists" element={<Playlist />} />
+          <Route exact path="/playlists" element={<PlaylistMain />} />
           <Route exact path="/devices" element={<DevicesMain />} />
           <Route exact path="/venues" element={<VenuesMain />} />
           <Route exact path="/venues/:id" element={<DisplayVenue />} />

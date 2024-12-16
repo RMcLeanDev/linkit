@@ -7,7 +7,6 @@ import { GrDevice } from "react-icons/gr";
 import { SiFiles } from "react-icons/si";
 import { BsFillFileSlidesFill } from "react-icons/bs";
 import { IoIosTv } from "react-icons/io";
-import { MdTv } from "react-icons/md";
 
 function MobileFooter(props) {
   const [logoutConfirmationScreen, setLogoutConfirmationScreen] = useState(false);

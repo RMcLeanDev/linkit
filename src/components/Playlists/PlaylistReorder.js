@@ -1,6 +1,7 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import "../../Playlist.scss";
+import { FaRegImage, FaRegFileVideo } from "react-icons/fa";
 
 function PlaylistReorder({ playlistItems, onRemove }) {
   return (
@@ -35,9 +36,8 @@ function PlaylistReorder({ playlistItems, onRemove }) {
                     )}
                   </div>
                   <div className="mediaDetails">
-                      <p>Type: {item.type}</p>
-                      <p>Duration: {item.duration} ms</p>
-                      <p>Times Played: {item.timesPlayed || 0}</p>
+                      <p>{item.originalName}</p>
+                      <p style={{marginTop: "5px"}} className="fileIcon">{item.type.includes("image") ? <FaRegImage color="#404040"/> : <FaRegFileVideo color="#404040"/>}</p>
                     </div>
                   <button
                     className="deleteButton"

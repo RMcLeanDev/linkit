@@ -13,7 +13,6 @@ function Files({ userInfo, isLoading }) {
       </div>
     );
   }
-  console.log(search);
 
   return (
     <div style={{marginBottom:"75px", paddingTop: "30px"}}>

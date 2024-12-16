@@ -1,17 +1,24 @@
 import firebase from "firebase/compat/app";
 import { v4 as uuidv4 } from "uuid";
 import "firebase/compat/database";
+import { userID } from "../actions";
 
-export const createNewPlaylist = (playlist) => {
-  const database = firebase.database().ref("playlists");
-  const newPlaylistRef = database.push(); 
+export const createNewPlaylist = (playlistName) => {
+  const playlistsRef = firebase.database().ref("playlists");
+
+  const newPlaylistRef = playlistsRef.push();
+  const playlistKey = newPlaylistRef.key;
+
+  const newPlaylistData = {
+    name: playlistName,
+    playlistID: playlistKey,
+    assignedTo: userID,
+  };
+
   return newPlaylistRef
-    .set({
-      ...playlist,
-      playlistID: newPlaylistRef.key,
-    })
+    .set(newPlaylistData)
     .then(() => {
-      console.log(`Playlist created with ID: ${newPlaylistRef.key}`);
+      console.log(`Playlist created with ID: ${playlistKey}`);
     })
     .catch((error) => {
       console.error("Failed to create playlist:", error);

@@ -3,7 +3,6 @@ import { FaRegImage, FaRegFileVideo } from "react-icons/fa";
 import moment from 'moment'
 
 function FileLayout({file}){
-    console.log(file)
     return(
         <div className="fileLayout">
             <div className="fileImage">

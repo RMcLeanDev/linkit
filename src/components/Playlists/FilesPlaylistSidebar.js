@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { FaRegImage, FaRegFileVideo } from "react-icons/fa";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 function FilesPlaylistSidebar({ userInfo, isLoading }) {
@@ -39,7 +40,10 @@ function FilesPlaylistSidebar({ userInfo, isLoading }) {
                     <div className="smallImg">
                         {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url}/>}
                     </div>
-                    <p>{file.originalName}</p>
+                    <div>
+                        <p>{file.originalName}</p>
+                        <p className="fileIcon">{file.fileType.includes("image") ? <FaRegImage color="#404040"/> : <FaRegFileVideo color="#404040"/>}</p>
+                    </div>
                   </div>
                 )}
               </Draggable>

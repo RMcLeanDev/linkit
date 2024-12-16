@@ -182,10 +182,28 @@
   
 }
 
-.playlistFilesInfomation {
+.playlistFilesInfomation{
   width: 100%;
+  display: grid;
+  grid-template-columns: 90px calc(100% - 88.88px);
   background-color: white;
-  border-radius: 5px;
+  margin-bottom: 10px;
+  align-items: center;
+  .smallImg{
+    height: 50px;
+    width: 88.88px;
+    background-color: #303030;
+  }
+  img{
+    height: 50px;
+    max-height: 50px;
+    max-width: 88.88px;
+  }
+  video{
+    height: 50px;
+    max-height: 50px;
+    max-width: 88.88px;
+  }
   p {
     margin: 0; 
     padding: 5px; 
@@ -195,27 +213,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: start;
-  }
-}
-
-.playlistFilesInfomation{
-  display: grid;
-  grid-template-columns: 88.88px 1fr;
-  gap: 5px;
-  margin-bottom: 10px;
-  align-items: center;
-  .smallImg{
-    height: 50px;
-    width: 88.88px;
-    background-color: #303030;
-  }
-  img{
-    max-height: 50px;
-    max-width: 88.88px;
-  }
-  video{
-    max-height: 50px;
-    max-width: 88.88px;
   }
 }
 
