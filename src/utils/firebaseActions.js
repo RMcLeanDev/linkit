@@ -12,7 +12,7 @@ export const createNewPlaylist = (playlistName) => {
   const newPlaylistData = {
     name: playlistName,
     playlistID: playlistKey,
-    assignedTo: userID,
+    userAssigned: userID,
   };
 
   return newPlaylistRef
