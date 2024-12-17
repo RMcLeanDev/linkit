@@ -2,8 +2,6 @@ import React, {useState} from 'react'
 import { createNewPlaylist } from '../../utils/firebaseActions';
 
 function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId, setPlaylistItems}){
-
-    const [newPlaylistFormName, setNewPlaylistFormName] = useState("");
     
     const handleSelectPlaylist = (playlistId) => {
         setCurrentPlaylistId(playlistId);
@@ -21,14 +19,8 @@ function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId, s
         <div className="sidebar">
         <h3>Playlists</h3>
         <div className="addPlaylist">
-          <h3>Create New Playlist</h3>
-          <input
-            type="text"
-            placeholder="New Playlist Name"
-            value={newPlaylistFormName}
-            onChange={(e) => setNewPlaylistFormName(e.target.value)}
-          />
-          <button onClick={() => createNewPlaylist(newPlaylistFormName)}>Create</button>
+            <button onClick={() => createNewPlaylist("Unnamed Playlist")}>Create New Playlist</button>
+            <hr/>
         </div>
         <ul>
           {Object.keys(playlists || {}).map((playlistId) => (

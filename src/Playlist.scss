@@ -225,3 +225,23 @@
   justify-self: flex-start;
   text-align: left;
 }
+
+.addPlaylist{
+  button{
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1254901961);
+    border: none;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: .3s linear;
+    &:hover{
+      background-color: #c54dff;
+    }
+  }
+  hr{
+    opacity: 0.5;
+  }
+}
