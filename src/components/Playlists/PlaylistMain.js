@@ -16,8 +16,7 @@ function Playlist({ playlists, userInfo }) {
   const [editingName, setEditingName] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [currentPlaylistId, setCurrentPlaylistId] = useState(null);
-  const [playlistItems, setPlaylistItems] = useState([]);
-
+  
   const userID = userInfo?.userid;
 
   const startEditingName = (playlistId, currentName) => {
@@ -38,23 +37,26 @@ function Playlist({ playlists, userInfo }) {
   
     if (!destination) return;
   
-    let updatedItems = Array.from(playlistItems);
+    let updatedItems = Array.from(playlists[currentPlaylistId]?.items || []);
   
     if (source.droppableId === "sidebar" && destination.droppableId === "playlist") {
       const file = JSON.parse(draggableId);
-      if(file.fileType.includes("image")){
-        file.fileType="image"
-      } else if(file.fileType.includes("video")){
-        file.fileType="video"
-      } else {
-        return console.log("error")
-      }
-      const newItem = {type: file.fileType, imageId: file.imageId, url: file.url, id: `file-${Date.now()}`, duration: file.duration || 5000, }
-        updatedItems.splice(destination.index, 0, newItem);
-        console.log(newItem)
-        setPlaylistItems(updatedItems);
-        updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
-        .then(() => console.log("Firebase updated with new order"))
+      const newItem = {
+        id: `file-${Date.now()}`,
+        type: file.fileType.includes("image") ? "image" : "video",
+        imageId: file.imageId || null,
+        url: file.url,
+        duration: (file.duration || 5) * 1000, 
+        originalName: file.originalName,
+      };
+  
+      updatedItems.splice(destination.index, 0, newItem);
+      updatedItems = updatedItems.filter((item) => item !== undefined && item !== null);
+    
+      updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
+        .then(() => {
+          console.log("Firebase updated with new order");
+        })
         .catch((error) => console.error("Failed to update Firebase:", error));
     }
   
@@ -62,24 +64,26 @@ function Playlist({ playlists, userInfo }) {
       const [movedItem] = updatedItems.splice(source.index, 1);
       updatedItems.splice(destination.index, 0, movedItem);
   
-      setPlaylistItems(updatedItems);
+      updatedItems = updatedItems.filter((item) => item !== undefined && item !== null);
+  
+      console.log("Reordered Items:", updatedItems);
   
       updatePlaylistOrder(currentPlaylistId, updatedItems, userID)
-        .then(() => console.log("Reordered playlist saved to Firebase"))
+        .then(() => {
+          console.log("Reordered playlist saved to Firebase");
+        })
         .catch((error) => console.error("Failed to update Firebase:", error));
     }
   };
   
 
   const handleRemoveItem = (itemId) => {
-    removeItem(currentPlaylistId, itemId).then(() =>
-      setPlaylistItems((prevItems) => prevItems.filter((item) => item.id !== itemId))
-    );
+    removeItem(currentPlaylistId, itemId)
   };
 
   return (
     <div className="playlistContainer">
-      <PlaylistsSidebar playlists={playlists} currentPlaylistId={currentPlaylistId} setCurrentPlaylistId={setCurrentPlaylistId} setPlaylistItems={setPlaylistItems}/>
+      <PlaylistsSidebar playlists={playlists} currentPlaylistId={currentPlaylistId} setCurrentPlaylistId={setCurrentPlaylistId}/>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="playlistDetails">
           {currentPlaylistId ? (
@@ -108,8 +112,7 @@ function Playlist({ playlists, userInfo }) {
               <div className="playlistFiles">
 
                 <PlaylistReorder
-                  playlistItems={playlistItems}
-                  onReorder={setPlaylistItems}
+                  playlistItems={playlists[currentPlaylistId]?.items || []}
                   onRemove={handleRemoveItem}
                 />
                 <FilesPlaylistSidebar />

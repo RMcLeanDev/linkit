@@ -17,28 +17,22 @@ function Screens({ userInfo, playlists, screens }) {
   const [playlistId, setPlaylistId] = useState("");
 
   const isLoading = !userInfo || !screens || !playlists;
-
+  
   const handleAddScreen = async () => {
     try {
-      let screenSerial = null;
-
-      Object.keys(screens).forEach((screen) => {
-        const screenCheck = screens[screen];
-        if (pairingCode.toUpperCase() === screenCheck.pairingCode) {
-          screenSerial = screenCheck.uuid;
-        }
-      });
-
-      if (screenSerial) {
-        await addScreenToFirebase(screenSerial, userInfo.userid, screenName);
+      const response = await addScreenToFirebase(pairingCode, userInfo.userid, screenName);
+  
+      if (response.success) {
         setShowAddScreenModal(false);
         setShowEditScreenModal(true);
-        setCurrentScreen({ deviceID: screenSerial });
+        setCurrentScreen({ deviceID: response.tvSerial });
       } else {
-        console.error("No screen found with the provided pairing code.");
+        console.warn("Failed to add screen:", response.message);
+        alert(`Failed to add screen: ${response.message}`);
       }
     } catch (error) {
       console.error("Error adding screen:", error);
+      alert("An error occurred while adding the screen. Please try again.");
     }
   };
 

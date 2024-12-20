@@ -133,29 +133,46 @@ export const removeItem = (playlistId, itemId) => {
     });
 };
 
-export const addScreenToFirebase = async (tvSerial, userID, screenName) => {
+export const addScreenToFirebase = async (pairingCode, userID, screenName) => {
   try {
-    const ref1 = firebase.database().ref(`screens/${tvSerial}`);
-    const ref2 = firebase.database().ref(`users/${userID}/devices/${tvSerial}`);
+    let code = pairingCode.toUpperCase();
+    const snapshot = await firebase
+      .database()
+      .ref("screens")
+      .orderByChild("pairingCode")
+      .equalTo(code)
+      .once("value");
 
-    const screenData = {
-      activationDate: Date.now(),
-      currentPlaylistAssigned: null,
-      assignedTo: userID,
-      paired: true
-    };
+    const result = snapshot.val();
+    
+    if (result) {
+      const tvSerial = Object.keys(result)[0];
+      const ref1 = firebase.database().ref(`screens/${tvSerial}`);
+      const ref2 = firebase.database().ref(`users/${userID}/devices/${tvSerial}`);
 
-    const userData = {
-      deviceName: screenName,
-      deviceID: tvSerial,
-    };
+      const screenData = {
+        activationDate: Date.now(),
+        currentPlaylistAssigned: null,
+        assignedTo: userID,
+        paired: true,
+      };
 
-    await Promise.all([
-      ref1.update(screenData),
-      ref2.update(userData),
-    ]);
+      const userData = {
+        deviceName: screenName,
+        deviceID: tvSerial,
+      };
 
-    console.log(`Screen ${tvSerial} added successfully and associated with user ${userID}.`);
+      await Promise.all([
+        ref1.update(screenData),
+        ref2.update(userData),
+      ]);
+
+      console.log(`Screen ${tvSerial} added successfully and associated with user ${userID}.`);
+      return { success: true, tvSerial }; 
+    } else {
+      console.warn("No matching screen found for the pairing code.");
+      return { success: false, message: "No matching screen found." };
+    }
   } catch (error) {
     console.error("Error adding screen to Firebase:", error);
     throw error; 

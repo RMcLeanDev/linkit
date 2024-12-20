@@ -1,18 +1,10 @@
 import React, {useState} from 'react'
 import { createNewPlaylist } from '../../utils/firebaseActions';
 
-function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId, setPlaylistItems}){
+function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId}){
     
     const handleSelectPlaylist = (playlistId) => {
         setCurrentPlaylistId(playlistId);
-        const playlist = playlists[playlistId];
-        const items = playlist?.items || {};
-        setPlaylistItems(
-          Object.keys(items).map((itemId) => ({
-            id: itemId,
-            ...items[itemId],
-          }))
-        );
       };
 
     return(
