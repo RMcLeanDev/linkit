@@ -43,7 +43,9 @@
 
 /* Playlist Details Styling */
 .playlistDetails {
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
 }
 
 .playlistSummary {
@@ -243,5 +245,19 @@
   }
   hr{
     opacity: 0.5;
+  }
+}
+
+.playlistSummary{
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 5px;
+  height: 30px;
+  h2{
+    margin: 0;
+    padding: 0;
   }
 }

@@ -99,14 +99,14 @@ function Playlist({ playlists, userInfo }) {
                     />
                   </div>
                 ) : (
-                  <h1>
+                  <h2>
                     {playlists[currentPlaylistId]?.name}
                     <FiEdit
                       onClick={() =>
                         startEditingName(currentPlaylistId, playlists[currentPlaylistId]?.name)
                       }
                     />
-                  </h1>
+                  </h2>
                 )}
               </div>
               <div className="playlistFiles">
@@ -120,7 +120,9 @@ function Playlist({ playlists, userInfo }) {
             </>
           ) : (
             <div>
-              <h2>Select a playlist to view its details</h2>
+              <div className="playlistSummary">
+                <h2>Select a playlist to view its details</h2>
+              </div>  
               <div className="playlistFiles">
 
                 <div className="mediaList"/>
