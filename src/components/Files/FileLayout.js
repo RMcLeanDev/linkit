@@ -6,7 +6,7 @@ function FileLayout({file}){
     return(
         <div className="fileLayout">
             <div className="fileImage">
-                {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url}/>}
+                {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url} alt={file.originalName}/>}
             </div>
             <p className="fileName">{file.originalName}</p>
             <p className="fileIcon">{file.fileType.includes("image") ? <FaRegImage color="#404040"/> : <FaRegFileVideo color="#404040"/>}</p>

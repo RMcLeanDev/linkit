@@ -38,7 +38,7 @@ function FilesPlaylistSidebar({ userInfo, isLoading }) {
                     {...provided.dragHandleProps}
                   >
                     <div className="smallImg">
-                        {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url}/>}
+                        {file.fileType.includes("video") ? <video src={file.url}/> : <img src={file.url} alt={file.originalName}/>}
                     </div>
                     <div>
                         <p>{file.originalName}</p>

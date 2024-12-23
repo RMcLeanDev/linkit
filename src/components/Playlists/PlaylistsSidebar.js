@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { createNewPlaylist } from '../../utils/firebaseActions';
 
 function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId}){
