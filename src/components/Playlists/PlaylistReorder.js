@@ -1,6 +1,5 @@
 import React from "react";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import "../../Playlist.scss";
 import { FaRegImage, FaRegFileVideo } from "react-icons/fa";
 
 function PlaylistReorder({ playlistItems, onRemove }) {

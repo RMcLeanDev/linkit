@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { FiEdit } from "react-icons/fi";
 import { DragDropContext } from "react-beautiful-dnd";
-import "../../Playlist.scss";
 import PlaylistReorder from "./PlaylistReorder";
 import FilesPlaylistSidebar from "./FilesPlaylistSidebar";
 import {

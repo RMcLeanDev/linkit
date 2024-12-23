@@ -1,0 +1,139 @@
+.displayFiles {
+    width: 70vw;
+    display: grid;
+    grid-template-columns: 180px 180px 180px 180px 180px;
+    gap: 20px;
+    margin-left: auto;
+    justify-items: start;
+    align-items: start;
+  }
+  
+  .fileLayout {
+    width: 177.77px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 5px;
+    height: fit-content;
+  
+    .fileImage {
+      background-color: #303030;
+      max-height: 100px;
+  
+      img {
+        height: 100px;
+        max-width: 177.77px;
+      }
+      video{
+        height: 100px;
+        max-width: 177.77px;
+      }
+    }
+  
+    .fileName {
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px;
+      color: #303030;
+      text-align: start;
+      height: 35px;
+      max-height: 35px;
+      overflow: hidden;
+    }
+  
+    .fileIcon {
+      text-align: start;
+      padding-left: 5px;
+    }
+  
+    .fileAdded {
+      color: #404040;
+      text-align: start;
+      font-weight: bold;
+      font-size: 10px;
+      padding-left: 5px;
+    }
+  }
+  
+  
+  .contain{
+    display: flex;
+    width: 100%;
+    margin: auto;
+  }
+  .filesSideContainer {
+    width: calc(325px);
+    position: sticky;
+    top: 20px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 20px 0px;
+    height: fit-content;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  
+  .displayFiles {
+    flex: 1; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(178px, 178px));
+    gap: 20px;
+    margin-left: auto;
+  }
+  
+  .filessidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  
+    .searchBar {
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      overflow: hidden;
+      width: 100%;
+      transition: border 0.2s ease-in-out;
+    
+      &:focus-within {
+        border: 1px solid #0f95f9;
+      }
+    
+      .searchInput {
+        flex: 1;
+        border: none;
+        padding: 5px;
+        font-size: 14px;
+        outline: none;
+    
+        &::placeholder {
+          color: #888;
+        }
+      }
+    
+      .clearButton,
+      .searchButton {
+        background-color: #0f95f9;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        transition: 0.5s linear;
+      }
+    
+      .clearButton {
+        color: #aaa;
+        background-color: transparent;
+        padding: 0 10px;
+        margin-top: 1px;
+    
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+  

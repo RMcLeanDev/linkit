@@ -19,10 +19,10 @@
         padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
-      }
   
-      .addScreenButton:hover {
-        background-color: #0c7bd1;
+        &:hover {
+          background-color: #0c7bd1;
+        }
       }
     }
   
@@ -48,10 +48,10 @@
         padding: 5px 10px;
         border-radius: 5px;
         cursor: pointer;
-      }
   
-      .editButton:hover {
-        background-color: #9a3cc4;
+        &:hover {
+          background-color: #9a3cc4;
+        }
       }
     }
   }
@@ -92,23 +92,23 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-      }
   
-      button:first-of-type {
-        background-color: #0f95f9;
-        color: white;
-      }
+        &:first-of-type {
+          background-color: #0f95f9;
+          color: white;
   
-      button:first-of-type:hover {
-        background-color: #0c7bd1;
-      }
+          &:hover {
+            background-color: #0c7bd1;
+          }
+        }
   
-      button:last-of-type {
-        background-color: #ccc;
-      }
+        &:last-of-type {
+          background-color: #ccc;
   
-      button:last-of-type:hover {
-        background-color: #bbb;
+          &:hover {
+            background-color: #bbb;
+          }
+        }
       }
     }
   }
