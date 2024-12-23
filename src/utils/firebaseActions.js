@@ -116,22 +116,33 @@ export const removeItem = (playlistId, itemId) => {
     .then((snapshot) => {
       const items = snapshot.val();
       if (!items) return;
+
       const keyToRemove = Object.keys(items).find((key) => items[key].id === itemId);
 
       if (keyToRemove) {
-        return databaseRef.child(keyToRemove).remove();
+        return databaseRef.child(keyToRemove).remove().then(() => {
+          const updatedItems = Object.values(items)
+            .filter((item) => item.id !== itemId && item != null)
+            .map((item, index) => ({
+              ...item,
+              order: index, 
+            }));
+
+          return databaseRef.set(updatedItems);
+        });
       } else {
         console.warn(`Item with ID ${itemId} not found in playlist ${playlistId}`);
         return Promise.resolve();
       }
     })
     .then(() => {
-      console.log(`Item ${itemId} removed successfully from playlist ${playlistId}`);
+      console.log(`Item ${itemId} removed successfully and array restructured for playlist ${playlistId}`);
     })
     .catch((error) => {
       console.error("Error removing item: ", error);
     });
 };
+
 
 export const addScreenToFirebase = async (pairingCode, userID, screenName) => {
   try {
