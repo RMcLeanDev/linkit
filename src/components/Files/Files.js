@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import FileUpload from "./FileUpload";
 import FileLayout from './FileLayout';
 import FilesSidebar from "./FilesSidebar";
+import FilesHeader from "./FilesHeader";
 
 function Files({ userInfo, isLoading }) {
   const [search, setSearch] = useState("")
@@ -15,7 +16,8 @@ function Files({ userInfo, isLoading }) {
   }
 
   return (
-    <div style={{marginBottom:"75px", paddingTop: "30px"}}>
+    <div style={{marginBottom:"75px", paddingTop: "15px"}}>
+      <FilesHeader/>
       <FileUpload userId={userInfo?.userid} /> 
       <div className="contain">
         <div className="filesSideContainer">

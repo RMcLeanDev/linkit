@@ -120,7 +120,7 @@ function Playlist({ playlists, userInfo }) {
           ) : (
             <div>
               <div className="playlistSummary">
-                <h2>Select a playlist to view its details</h2>
+                <h2>Select a playlist to view details</h2>
               </div>  
               <div className="playlistFiles">
 
