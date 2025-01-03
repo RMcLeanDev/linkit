@@ -55,6 +55,9 @@
 
   &.md {
       grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+      .fileLayout{
+        width: 250px;
+      }
       .fileImage {
         background-color: #303030;
         max-height: 150px;
