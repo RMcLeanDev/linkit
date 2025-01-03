@@ -145,4 +145,25 @@
     margin: auto;
     margin-bottom: 15px;
     padding: 10px 0px;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    .filterSection{
+      justify-self: center;
+      position: relative;
+      .filterIcon{
+        transition: .3s linear;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.7);
+        &:hover{
+          color: rgba(0, 0, 0, 1)
+        }
+      }
+      .filterOptions{
+        position: absolute;
+        background-color: white;
+        padding: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin-left: -32px;
+      }
+    }
   }
