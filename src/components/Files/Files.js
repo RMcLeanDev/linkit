@@ -8,6 +8,7 @@ import FilesHeader from "./FilesHeader";
 function Files({ userInfo, isLoading }) {
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("alasc")
+  const [imageSize, setImageSize] = useState("sm")
 
   if (isLoading) {
     return (
@@ -42,17 +43,17 @@ function Files({ userInfo, isLoading }) {
 
   return (
     <div style={{marginBottom:"75px", paddingTop: "15px"}}>
-      <FilesHeader filter={filter} setFilter={setFilter}/>
+      <FilesHeader filter={filter} setFilter={setFilter} imageSize={imageSize} setImageSize={setImageSize}/>
       <FileUpload userId={userInfo?.userid} /> 
       <div className="contain">
         <div className="filesSideContainer">
           <FilesSidebar setSearch={setSearch} search={search}/>
         </div>
-        <div className="displayFiles">
+        <div className={`displayFiles ${imageSize}`}>
           {sortedFiles.map((file) => {
             let fileName = file.originalName.toLowerCase();
             return fileName.includes(search) ? (
-              <FileLayout file={file} key={file.imageId} />
+              <FileLayout file={file} key={file.imageId} imageSize={imageSize}/>
             ) : null;
           })}
         </div>
