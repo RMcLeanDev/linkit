@@ -161,9 +161,25 @@
       .filterOptions{
         position: absolute;
         background-color: white;
-        padding: 5px;
+        right: -18px;
+        top: 29px;
         border: 1px solid rgba(0, 0, 0, 0.2);
-        margin-left: -32px;
+        width: 170px;
+        text-align: left;
+        .filterOption{
+          display: flex;
+          padding: 7px 5px;
+          cursor: pointer;
+          p{
+            padding-left: 3px;
+          }
+          &:hover{
+            background-color: rgba(0, 0, 0, 0.2);
+          }
+        }
+        .active{
+          background-color: rgba(15, 149, 249, 0.7);
+        }
       }
     }
   }

@@ -7,6 +7,8 @@ import FilesHeader from "./FilesHeader";
 
 function Files({ userInfo, isLoading }) {
   const [search, setSearch] = useState("")
+  const [filter, setFilter] = useState("alasc")
+
   if (isLoading) {
     return (
       <div>
@@ -15,21 +17,43 @@ function Files({ userInfo, isLoading }) {
     );
   }
 
+  let sortedFiles = Object.keys(userInfo.files).map((file) => userInfo.files[file]);
+
+  if (filter) {
+    sortedFiles.sort((a, b) => {
+      switch (filter) {
+        case "cdasc": 
+          return b.createdAt - a.createdAt;
+        case "cddes": 
+          return a.createdAt - b.createdAt;
+        case "laasc": 
+          return b.modifiedAt - a.modifiedAt;
+        case "lades": 
+          return a.modifiedAt - b.modifiedAt;
+        case "alasc": 
+          return a.originalName.toLowerCase().localeCompare(b.originalName.toLowerCase());
+        case "aldes": 
+          return b.originalName.toLowerCase().localeCompare(a.originalName.toLowerCase());
+        default:
+          return 0;
+      }
+    });
+  }
+
   return (
     <div style={{marginBottom:"75px", paddingTop: "15px"}}>
-      <FilesHeader/>
+      <FilesHeader filter={filter} setFilter={setFilter}/>
       <FileUpload userId={userInfo?.userid} /> 
       <div className="contain">
         <div className="filesSideContainer">
           <FilesSidebar setSearch={setSearch} search={search}/>
         </div>
         <div className="displayFiles">
-          {Object.keys(userInfo.files).map((file) => {
-              let currentFile = userInfo.files[file]
-              let fileName = currentFile.originalName.toLowerCase();
-              return fileName.includes(search) ? (
-                <FileLayout file={currentFile} key={file} />
-              ) : null
+          {sortedFiles.map((file) => {
+            let fileName = file.originalName.toLowerCase();
+            return fileName.includes(search) ? (
+              <FileLayout file={file} key={file.imageId} />
+            ) : null;
           })}
         </div>
       </div>
