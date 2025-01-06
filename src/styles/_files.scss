@@ -35,42 +35,54 @@
   }
   &.sm {
     .fileLayout{
-      width: 177.77px;
+      width: 160px;
     }
-    grid-template-columns: repeat(auto-fit, minmax(178px, 178px));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 160px));
     .fileImage {
       background-color: #303030;
-      max-height: 100px;
+      max-height: 90px;
   
       img {
-        height: 100px;
-        max-width: 177.77px;
+        height: 90px;
+        max-width: 160px;
       }
       video{
-        height: 100px;
-        max-width: 177.77px;
+        height: 90px;
+        max-width: 160px;
       }
     }
   }
 
   &.md {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+      grid-template-columns: repeat(auto-fit, minmax(192px, 192px));
       .fileLayout{
-        width: 250px;
+        width: 192px;
       }
       .fileImage {
         background-color: #303030;
-        max-height: 141px;
+        max-height: 108px;
     
         img, video{
-          height: 141px;
-          max-width: 250px;
+          height: 108px;
+          max-width: 192px;
         }
       }
   }
 
   &.lg {
-      grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 240px));
+      .fileLayout{
+        width: 240px;
+      }
+      .fileImage {
+        background-color: #303030;
+        max-height: 135px;
+    
+        img, video{
+          height: 135px;
+          max-width: 240px;
+        }
+      }
   }
 }
   
@@ -184,6 +196,7 @@
         border: 1px solid rgba(0, 0, 0, 0.2);
         width: 170px;
         text-align: left;
+        z-index: 1;
         .filterOption{
           display: flex;
           padding: 7px 5px;
