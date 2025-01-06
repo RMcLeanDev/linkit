@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import FileUpload from "./FileUpload";
 import FileLayout from './FileLayout';
@@ -9,6 +9,26 @@ function Files({ userInfo, isLoading }) {
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("alasc")
   const [imageSize, setImageSize] = useState("sm")
+  const [showDot, setShowDot] = useState(false)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowDot((prev) => !prev); 
+    }, 1000); 
+
+    return () => clearInterval(interval); 
+  }, []);
+
+  useEffect(() => {
+    const dotColorMap = {
+      sm: "🔵", 
+      md: "🔴", 
+      lg: "🟢", 
+    };
+
+    const dot = dotColorMap[imageSize] || "";
+    document.title = showDot ? `${dot} ${imageSize.toUpperCase()} View` : `${imageSize.toUpperCase()} View`;
+  }, [showDot, imageSize]);
 
   if (isLoading) {
     return (
