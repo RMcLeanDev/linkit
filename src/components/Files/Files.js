@@ -11,24 +11,24 @@ function Files({ userInfo, isLoading }) {
   const [imageSize, setImageSize] = useState("sm")
   const [showDot, setShowDot] = useState(false)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowDot((prev) => !prev); 
-    }, 1000); 
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setShowDot((prev) => !prev); 
+  //   }, 1000); 
 
-    return () => clearInterval(interval); 
-  }, []);
+  //   return () => clearInterval(interval); 
+  // }, []);
 
-  useEffect(() => {
-    const dotColorMap = {
-      sm: "🔵", 
-      md: "🔴", 
-      lg: "🟢", 
-    };
+  // useEffect(() => {
+  //   const dotColorMap = {
+  //     sm: "🔵", 
+  //     md: "🔴", 
+  //     lg: "🟢", 
+  //   };
 
-    const dot = dotColorMap[imageSize] || "";
-    document.title = showDot ? `${dot} ${imageSize.toUpperCase()} View` : `${imageSize.toUpperCase()} View`;
-  }, [showDot, imageSize]);
+  //   const dot = dotColorMap[imageSize] || "";
+  //   document.title = showDot ? `${dot} ${imageSize.toUpperCase()} View` : `${imageSize.toUpperCase()} View`;
+  // }, [showDot, imageSize]);
 
   if (isLoading) {
     return (
