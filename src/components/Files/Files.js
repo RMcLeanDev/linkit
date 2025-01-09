@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { updateFirebaseImageSize } from "../../utils/firebaseActions";
 import { connect } from "react-redux";
 import FileUpload from "./FileUpload";
 import FileLayout from './FileLayout';
@@ -8,8 +9,19 @@ import FilesHeader from "./FilesHeader";
 function Files({ userInfo, isLoading }) {
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("alasc")
-  const [imageSize, setImageSize] = useState("sm")
+  const [imageSize, setImageSizeFilter] = useState("sm");
   const [showDot, setShowDot] = useState(false)
+
+  useEffect(() => {
+    if (userInfo?.preferences?.fileSize) {
+      setImageSizeFilter(userInfo.preferences.fileSize);
+    }
+  }, [userInfo]); 
+
+  function setImageSize(size){
+    setImageSizeFilter(size)
+    updateFirebaseImageSize(size)
+  }
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -63,13 +75,13 @@ function Files({ userInfo, isLoading }) {
 
   return (
     <div style={{marginBottom:"75px", paddingTop: "15px"}}>
-      <FilesHeader filter={filter} setFilter={setFilter} imageSize={imageSize} setImageSize={setImageSize}/>
+      <FilesHeader filter={filter} setFilter={setFilter} imageSize={imageSize} setImageSize={setImageSize} files={sortedFiles}/>
       <FileUpload userId={userInfo?.userid} /> 
       <div className="contain">
         <div className="filesSideContainer">
           <FilesSidebar setSearch={setSearch} search={search}/>
         </div>
-        <div className={`displayFiles ${imageSize}`}>
+        <div className={`displayFiles ${userInfo.preferences.fileSize || "sm"}`}>
           {sortedFiles.map((file) => {
             let fileName = file.originalName.toLowerCase();
             return fileName.includes(search) ? (

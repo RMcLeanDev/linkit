@@ -107,6 +107,17 @@ export const addS3LinksToFirebase = async (filesData, userId = "global", userEma
   }
 };
 
+export const updateFirebaseImageSize = (size) => {
+  const userRef = firebase.database().ref(`users/${userID}/preferences`);
+
+  return userRef.update({ fileSize: size })
+    .then(() => {
+      console.log("File size updated successfully!");
+    })
+    .catch((error) => {
+      console.error("Error updating file size:", error);
+    });
+}
 
 export const removeItem = (playlistId, itemId) => {
   const databaseRef = firebase.database().ref(`playlists/${playlistId}/items`);
