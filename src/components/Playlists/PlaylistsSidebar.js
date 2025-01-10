@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { createNewPlaylist } from '../../utils/firebaseActions';
+import { FaSearch } from "react-icons/fa";
 
 function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId}){
+
+  const [search, setSearch] = useState('')
     
     const handleSelectPlaylist = (playlistId) => {
         setCurrentPlaylistId(playlistId);
@@ -9,13 +12,27 @@ function PlaylistsSidebar({playlists, currentPlaylistId, setCurrentPlaylistId}){
 
     return(
         <div className="sidebar">
-        <h3>Playlists</h3>
         <div className="addPlaylist">
             <button onClick={() => createNewPlaylist("Unnamed Playlist")}>Create New Playlist</button>
+            <h3>Playlists</h3>
+            <div className="searchBar">
+                <input 
+                type="text" 
+                placeholder="Search..." 
+                className="searchInput"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                />
+                <button className="clearButton" onClick={() => setSearch("")}>✖</button>
+            </div>
             <hr/>
         </div>
         <ul>
-          {Object.keys(playlists || {}).map((playlistId) => (
+        {Object.keys(playlists || {})
+          .filter((playlistId) => 
+            playlists[playlistId].name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((playlistId) => (
             <li
               key={playlistId}
               className={currentPlaylistId === playlistId ? "activePlaylist" : ""}
