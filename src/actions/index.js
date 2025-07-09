@@ -70,7 +70,7 @@ function getResponse() {
   let data = JSON.stringify({
     query: `
       query {
-        devices(query: {}, first: 200) {
+        devices(query: {}, first: 250) {
           page {
             edges {
               node {
@@ -108,7 +108,7 @@ function getResponse() {
           lastHeartBeat: Date.parse(dateLocal)
         };
       }
-      firebase.database().ref('devices').update(obj)
+      firebase.database().ref('devices').set(obj)
     })
     .catch((error) => {
       console.log(error);
